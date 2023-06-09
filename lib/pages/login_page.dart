@@ -12,7 +12,7 @@ class Login extends StatelessWidget {
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
         backgroundColor: MyColors.mint,
-        title: Center(
+        title: const Center(
           child: Text(
             "Login Page",
             textAlign: TextAlign.center,
@@ -44,33 +44,31 @@ class Login extends StatelessWidget {
               height: 20,
             ),
             Container(
-              padding:  EdgeInsets.only(left: 20,right: 20,bottom: 10),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
               decoration: BoxDecoration(
-                color: MyColors.elfGreen.withOpacity(0.6),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )
-              ),
+                  color: MyColors.elfGreen.withOpacity(0.6),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  )),
               child: TextFormField(
                 decoration: InputDecoration(
-                  
                   hintText: "eg: abcd@gmail.com",
-                  hintStyle: TextStyle(color: Colors.deepPurple.withOpacity(0.4),),
+                  hintStyle: TextStyle(
+                    color: Colors.deepPurple.withOpacity(0.4),
+                  ),
                   labelText: "Email",
                 ),
               ),
-              
             ).px16(),
             Container(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
               decoration: BoxDecoration(
-                color: MyColors.elfGreen.withOpacity(0.6),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                )
-              ),
+                  color: MyColors.elfGreen.withOpacity(0.6),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  )),
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "eg: 123456",
@@ -81,6 +79,46 @@ class Login extends StatelessWidget {
                 ),
               ),
             ).px16(),
+            const SizedBox(
+              height: 10,
+            ),
+            ButtonBar(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(MyColors.malachite),
+                    elevation: MaterialStateProperty.all(10),
+                    side: MaterialStateProperty.all(
+                        const BorderSide(color: Colors.white)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                  child:  const Text("Sign Up"),
+                ),
+                ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(MyColors.mint),
+                    elevation: MaterialStateProperty.all(10),
+                    side: MaterialStateProperty.all(
+                        const BorderSide(color: Colors.white)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                        child: const Text("Login"),
+                )
+                    .px12(),
+              ],
+            ).px16()
           ],
         ),
       ),
