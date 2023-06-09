@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/pages/username_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/login_page.dart';
@@ -23,9 +24,10 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: MyRoutes.loginRoute,
+      initialRoute: MyRoutes.usernameRoute,
       routes: {
         MyRoutes.loginRoute: (context) => const Login(),
+        MyRoutes.usernameRoute: (context) => const UserName(),
       },
     );
   }
