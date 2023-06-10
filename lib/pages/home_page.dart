@@ -17,9 +17,85 @@ class HomePage extends StatelessWidget {
         backgroundColor: MyColors.mint,
         title: const Text("Quiz Genius").centered(),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
-          children: [],
+          children: [
+            CircleAvatar(
+              child: SvgPicture.asset(
+                "assets/images/online_test.svg",
+                fit: BoxFit.contain,
+                height: 45,
+                width: 45,
+              ),
+              radius: 50,
+              backgroundColor: MyColors.darkCyan,
+            ).p16(),
+            Text("Welcome, $name")
+                .text
+                .xl3
+                .color(MyColors.malachite)
+                .bold
+                .make()
+                .p16(),
+            Divider(
+              color: MyColors.darkCyan,
+              thickness: 1,
+              // indent: 20,
+              // endIndent: 20,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.darkCyan),
+                elevation: MaterialStateProperty.all(10),
+                side: MaterialStateProperty.all(
+                    const BorderSide(color: Colors.white)),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+              child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "New Quiz",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    )
+                  ).centered()),
+            ).px12(),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.darkCyan),
+                elevation: MaterialStateProperty.all(10),
+                side: MaterialStateProperty.all(
+                    const BorderSide(color: Colors.white)),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+              child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  child: Text("Previous Scores",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      )).centered()),
+            ).px12(),
+          ],
         ),
       ),
       drawer: Drawer(
@@ -57,11 +133,10 @@ class HomePage extends StatelessWidget {
                         .xl3
                         .color(MyColors.malachite)
                         .bold
-                        .make().p16(),
+                        .make()
+                        .p16(),
                   ],
                 )).px16().py(8),
-
-
             Container(
               height: 60,
               width: MediaQuery.of(context).size.width,
@@ -74,10 +149,9 @@ class HomePage extends StatelessWidget {
                 leading: Icon(
                   CupertinoIcons.profile_circled,
                   color: MyColors.malachite,
-                  fill:0.6,
+                  fill: 0.6,
                 ),
                 title: Text(
-                  
                   "Profile",
                   textAlign: TextAlign.start,
                   style: TextStyle(
@@ -85,11 +159,9 @@ class HomePage extends StatelessWidget {
                     color: MyColors.malachite,
                   ),
                 ),
-                onTap: () {
-                },
+                onTap: () {},
               ),
             ).px16().py(5),
-
             Container(
               height: 60,
               width: MediaQuery.of(context).size.width,
@@ -115,7 +187,6 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
               ),
             ).px16().py(5),
-
             Container(
               height: 60,
               width: MediaQuery.of(context).size.width,
@@ -141,7 +212,6 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
               ),
             ).px16().py(5),
-            
           ],
         ),
       ),
