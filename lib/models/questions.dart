@@ -1,5 +1,5 @@
 class Questions {
-  late List<Question> questions = [
+  static List<Question> questions = [
     Question(
         id: 1,
         question:
