@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
