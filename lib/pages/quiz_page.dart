@@ -17,13 +17,47 @@ class _QuizPageState extends State<QuizPage> {
       appBar: AppBar(
         title: const Text("Quiz Genius"),
       ),
-      body: SingleChildScrollView(
-        child: ListView.builder(
-          itemCount: Questions.questions.length,
-          
-          itemBuilder:(context, index) => Card()
-          ,)
-      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        itemCount: Questions.questions.length,
+        
+        itemBuilder:(context, index) => Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.grey.shade300,
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(Questions.questions[index].question,
+                textWidthBasis: TextWidthBasis.parent,),
+               
+              ),
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                buttonPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("True"),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("False"),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+        ,),
     );
   }
 }
