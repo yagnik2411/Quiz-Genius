@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/questions.dart';
 
@@ -14,8 +15,10 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
-        title: const Text("Quiz Genius"),
+        backgroundColor: MyColors.mint,
+        title: const Text("Quiz Genius").centered(),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -24,13 +27,19 @@ class _QuizPageState extends State<QuizPage> {
         itemBuilder:(context, index) => Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
+            border: Border.all(color: MyColors.darkCyan,width: 3),
             borderRadius: BorderRadius.circular(15),
-            color: Colors.grey.shade300,
+            color: MyColors.malachite.withOpacity(0.8),
           ),
           child: Column(
             children: [
               ListTile(
                 title: Text(Questions.questions[index].question,
+                style: TextStyle(
+                  color: MyColors.seashall,
+                  fontSize: 15,
+                  fontWeight: FontWeight.values[5],
+                ),
                 textWidthBasis: TextWidthBasis.parent,),
                
               ),
@@ -40,16 +49,34 @@ class _QuizPageState extends State<QuizPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("True"),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                    ),
+                    child: "True".text.xl.make(),
+                    style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.mint),
+                elevation: MaterialStateProperty.all(10),
+                fixedSize: MaterialStateProperty.all(const Size(120, 40)),
+                side: MaterialStateProperty.all(
+                    const BorderSide(color: Colors.white)),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("False"),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+                    child: "False".text.xl.make(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(MyColors.mint),
+                      elevation: MaterialStateProperty.all(10),
+                      fixedSize: MaterialStateProperty.all(const Size(120, 40)),
+                      side: MaterialStateProperty.all(
+                          const BorderSide(color: Colors.white)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
                     ),
                   ),
                 ],
