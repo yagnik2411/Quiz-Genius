@@ -19,12 +19,7 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(CupertinoIcons.back),
-        ),
+        
         backgroundColor: MyColors.mint,
         title: const Text("Quiz Genius").centered(),
       ),

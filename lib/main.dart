@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: MyRoutes.quizRoute,
+      initialRoute: MyRoutes.scoreRoute,
       routes: {
         MyRoutes.loginRoute: (context) => const Login(),
         MyRoutes.usernameRoute: (context) => const UserName(),
