@@ -61,13 +61,11 @@ class HomePage extends StatelessWidget {
               child: Container(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    "New Quiz",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    )
-                  ).centered()),
+                  child: Text("New Quiz",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      )).centered()),
             ).px12(),
             const SizedBox(
               height: 10,

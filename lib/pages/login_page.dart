@@ -98,13 +98,12 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child:  const Text("Sign Up"),
+                  child: const Text("Sign Up"),
                 ),
                 ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(MyColors.mint),
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
                     elevation: MaterialStateProperty.all(10),
                     side: MaterialStateProperty.all(
                         const BorderSide(color: Colors.white)),
@@ -114,9 +113,8 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                        child: const Text("Login"),
-                )
-                    .px12(),
+                  child: const Text("Login"),
+                ).px12(),
               ],
             ).px16()
           ],

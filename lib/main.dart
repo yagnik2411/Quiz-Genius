@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_genius/pages/home_page.dart';
+import 'package:quiz_genius/pages/previous_scores_page.dart';
 import 'package:quiz_genius/pages/quiz_page.dart';
 import 'package:quiz_genius/pages/username_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -16,7 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       themeMode: ThemeMode.light,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.usernameRoute: (context) => const UserName(),
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.quizRoute: (context) => const QuizPage(),
+        MyRoutes.scoreRoute: (context) => const ScorePage(),
       },
     );
   }
