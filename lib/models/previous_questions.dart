@@ -1,6 +1,6 @@
-class Questions {
-  static List<Question> questions = [
-    Question(
+class PreviousQuestions {
+  static List<PreviousQuestion> questions = [
+    PreviousQuestion(
         id: 1,
         question:
             "Horoscopes accurately predict future events 85% of the time.",
@@ -8,10 +8,10 @@ class Questions {
   ];
 }
 
-class Question {
+class PreviousQuestion {
   final int id;
   final String question;
   final bool correct;
 
-  Question({required this.id, required this.question, required this.correct});
+  PreviousQuestion({required this.id, required this.question, required this.correct});
 }
