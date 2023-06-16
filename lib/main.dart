@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_genius/pages/home_page.dart';
 import 'package:quiz_genius/pages/previous_quiz_page.dart';
 import 'package:quiz_genius/pages/previous_scores_page.dart';
+import 'package:quiz_genius/pages/profile_page.dart';
 import 'package:quiz_genius/pages/quiz_page.dart';
 import 'package:quiz_genius/pages/username_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: MyRoutes.previousQuizRoute,
+      initialRoute: MyRoutes.profileRoute,
       routes: {
         MyRoutes.loginRoute: (context) => const Login(),
         MyRoutes.usernameRoute: (context) => const UserName(),
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.quizRoute: (context) => const QuizPage(),
         MyRoutes.scoreRoute: (context) => const ScorePage(),
         MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
+        MyRoutes.profileRoute: (context) => const ProfilePage(),
       },
     );
   }

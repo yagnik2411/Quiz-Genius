@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_genius/models/previous_questions.dart';
-import 'package:quiz_genius/models/previous_questions.dart';
-
-import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'package:quiz_genius/models/previous_questions.dart';
+import 'package:quiz_genius/utils/colors.dart';
 
 class PreviousQuiz extends StatefulWidget {
   const PreviousQuiz({Key? key}) : super(key: key);
