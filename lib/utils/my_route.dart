@@ -4,4 +4,5 @@ class MyRoutes {
   static const String homeRoute = "/home";
   static const String quizRoute = "/quiz";
   static const String scoreRoute = "/score";
+  static const String previousQuizRoute = "/previousQuiz";
 }

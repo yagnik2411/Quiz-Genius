@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_genius/pages/home_page.dart';
+import 'package:quiz_genius/pages/previous_quiz_page.dart';
 import 'package:quiz_genius/pages/previous_scores_page.dart';
 import 'package:quiz_genius/pages/quiz_page.dart';
 import 'package:quiz_genius/pages/username_page.dart';
@@ -25,13 +26,14 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: MyRoutes.scoreRoute,
+      initialRoute: MyRoutes.previousQuizRoute,
       routes: {
         MyRoutes.loginRoute: (context) => const Login(),
         MyRoutes.usernameRoute: (context) => const UserName(),
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.quizRoute: (context) => const QuizPage(),
         MyRoutes.scoreRoute: (context) => const ScorePage(),
+        MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
       },
     );
   }
