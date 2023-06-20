@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^2.0.6
   google_fonts: ^5.0.0
   email_validator: ^2.1.17
+  firebase_core: ^2.14.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
