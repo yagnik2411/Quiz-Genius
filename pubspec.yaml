@@ -38,6 +38,8 @@ dependencies:
   velocity_x: ^4.1.0
   flutter_svg: ^2.0.6
   google_fonts: ^5.0.0
+  email_validator: ^2.1.17
+  firebase_core: ^2.14.0
   intl: ^0.18.1
 
 dev_dependencies:
