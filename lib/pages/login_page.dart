@@ -1,10 +1,18 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_genius/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:quiz_genius/utils/colors.dart';
+
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+
+  final _formkey = GlobalKey<FormState>();
+
+  String _email = "";
+
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,8 @@ class Login extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+          child: Form(
+        key: _formkey,
         child: Column(
           children: [
             const SizedBox(
@@ -59,6 +69,18 @@ class Login extends StatelessWidget {
                   ),
                   labelText: "Email",
                 ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Email cannot be empty";
+                  }
+                  if (!EmailValidator.validate(value)) {
+                    return "Email is invalid";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  _email = value;
+                },
               ),
             ).px16(),
             Container(
@@ -77,6 +99,17 @@ class Login extends StatelessWidget {
                   ),
                   labelText: "Password",
                 ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password cannot be empty";
+                  } else if (value.length < 6) {
+                    return "Password length should be atleast 6";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  _password = value;
+                },
               ),
             ).px16(),
             const SizedBox(
@@ -98,13 +131,12 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child:  const Text("Sign Up"),
+                  child: const Text("Sign Up"),
                 ),
                 ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(MyColors.mint),
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
                     elevation: MaterialStateProperty.all(10),
                     side: MaterialStateProperty.all(
                         const BorderSide(color: Colors.white)),
@@ -114,14 +146,13 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                        child: const Text("Login"),
-                )
-                    .px12(),
+                  child: const Text("Login"),
+                ).px12(),
               ],
             ).px16()
           ],
         ),
-      ),
+      )),
     );
   }
 }

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MyRoutes.usernameRoute,
       routes: {
-        MyRoutes.loginRoute: (context) => const Login(),
+        MyRoutes.loginRoute: (context) =>  Login(),
         MyRoutes.usernameRoute: (context) => const UserName(),
       },
     );
