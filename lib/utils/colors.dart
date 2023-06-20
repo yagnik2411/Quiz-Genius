@@ -11,7 +11,4 @@ class MyColors {
   static const Color lightCyan = Color(0xFFDEF5E5);
   static const Color malachite = Color(0xFF439A97);
   static const Color darkCyan = Color(0xFF4D908E);
-
-  
-
 }

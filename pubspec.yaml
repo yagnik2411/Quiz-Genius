@@ -40,6 +40,8 @@ dependencies:
   google_fonts: ^5.0.0
   email_validator: ^2.1.17
   firebase_core: ^2.14.0
+  intl: ^0.18.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
