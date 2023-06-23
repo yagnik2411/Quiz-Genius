@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_genius/firebase/Authication.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/utils/colors.dart';
@@ -13,6 +15,16 @@ class Login extends StatelessWidget {
   String _email = "";
 
   String _password = "";
+
+  void signUpUser(BuildContext context) async {
+    Auth(FirebaseAuth.instance)
+        .signUp(email: _email, password: _password, context: context);
+  }
+
+  void signInUser(BuildContext context) async {
+    Auth(FirebaseAuth.instance)
+        .signIn(email: _email, password: _password, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +130,9 @@ class Login extends StatelessWidget {
             ButtonBar(
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signUpUser(context);
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(MyColors.malachite),
@@ -134,7 +148,9 @@ class Login extends StatelessWidget {
                   child: const Text("Sign Up"),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signInUser(context);
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(MyColors.mint),
                     elevation: MaterialStateProperty.all(10),
