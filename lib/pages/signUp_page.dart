@@ -9,8 +9,8 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 // ignore: must_be_immutable
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
 
   final _formkey = GlobalKey<FormState>();
 
@@ -18,9 +18,9 @@ class Login extends StatelessWidget {
 
   String _password = "";
 
-  void signInUser(BuildContext context) async {
+  void signUpUser(BuildContext context) async {
     Auth(FirebaseAuth.instance)
-        .signIn(email: _email, password: _password, context: context);
+        .signUp(email: _email, password: _password, context: context);
   }
 
   @override
@@ -31,7 +31,7 @@ class Login extends StatelessWidget {
         backgroundColor: MyColors.mint,
         title: const Center(
           child: Text(
-            "Login Page",
+            "SignUp Page",
             textAlign: TextAlign.center,
           ),
         ),
@@ -52,7 +52,7 @@ class Login extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            "Welcome to Quiz Genius"
+            "SignUp to Quiz Genius"
                 .text
                 .xl2
                 .color(MyColors.malachite)
@@ -128,7 +128,7 @@ class Login extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    signInUser(context);
+                    signUpUser(context);
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -142,12 +142,12 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text("Login"),
+                  child: const Text("Sign Up"),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, MyRoutes.signUpRoute);
+                        context, MyRoutes.loginRoute);
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(MyColors.mint),
@@ -160,7 +160,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text("Sign Up"),
+                  child: const Text("Login"),
                 ).px12(),
               ],
             ).px16()
