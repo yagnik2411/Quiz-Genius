@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/Authication.dart';
+import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -21,6 +22,17 @@ class SignUp extends StatelessWidget {
   void signUpUser(BuildContext context) async {
     Auth(FirebaseAuth.instance)
         .signUp(email: _email, password: _password, context: context);
+    
+  }
+
+  moveToUserPage(BuildContext context) {
+    if (_formkey.currentState!.validate()) {
+      _formkey.currentState!.save();
+      CurretUser.currentUser = UserName(email: _email, password: _password);
+     
+      signUpUser(context);
+      Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
+    }
   }
 
   @override
@@ -128,7 +140,7 @@ class SignUp extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    signUpUser(context);
+                    moveToUserPage(context);
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -144,24 +156,6 @@ class SignUp extends StatelessWidget {
                   ),
                   child: const Text("Sign Up"),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, MyRoutes.loginRoute);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                  ),
-                  child: const Text("Login"),
-                ).px12(),
               ],
             ).px16()
           ],
