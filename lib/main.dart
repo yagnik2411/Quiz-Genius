@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         MyRoutes.loginRoute: (context) => Login(),
         MyRoutes.usernameRoute: (context) =>  UserName(),
-        MyRoutes.homeRoute: (context) => const HomePage(),
+        MyRoutes.homeRoute: (context) =>  HomePage(),
         MyRoutes.quizRoute: (context) => const QuizPage(),
         MyRoutes.scoreRoute: (context) => const ScorePage(),
         MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),

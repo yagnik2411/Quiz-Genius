@@ -25,7 +25,7 @@ class Auth {
       required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+     
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }

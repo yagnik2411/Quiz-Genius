@@ -2,7 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quiz_genius/firebase/Authication.dart';
+import 'package:quiz_genius/firebase/auth.dart';
+import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -21,6 +22,13 @@ class Login extends StatelessWidget {
   void signInUser(BuildContext context) async {
     Auth(FirebaseAuth.instance)
         .signIn(email: _email, password: _password, context: context);
+  }
+
+  moveToHome(BuildContext context) {
+    CurretUser.currentUser = UserName(email: _email, password: _password);
+   
+    signInUser(context);
+    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
   @override
@@ -128,7 +136,9 @@ class Login extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    signInUser(context);
+                    if (_formkey.currentState!.validate()) {
+                      moveToHome(context);
+                    }
                   },
                   style: ButtonStyle(
                     backgroundColor:

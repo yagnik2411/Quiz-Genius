@@ -3,30 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:quiz_genius/firebase/CRUD.dart';
 
 class CurretUser {
-   static late  UserName currentUser ;
+  static late UserName currentUser;
 }
-
-
 
 class UserName {
   final String email;
   final String password;
-   String userName;
+  String userName;
 
   UserName({required this.email, required this.password, this.userName = ""});
 
   String setUserName(String userName) => this.userName = userName;
 
-  String getUserName() => userName;
+  
 
-  void add ({ required BuildContext context}) async {
-    Map<String,String> data = {
+  void add({required BuildContext context}) async {
+    Map<String, String> data = {
       "email": email,
       "password": password,
       "userName": userName,
     };
-    DocumentReference firestore= FirebaseFirestore.instance.collection("users").doc("${data["email"]}");
-    await
-    CRUD(firestore).add(data: data, context: context);
+    DocumentReference firestore =
+        FirebaseFirestore.instance.collection("users").doc("${data["email"]}");
+    await CRUD(firestore).add(data: data, context: context);
   }
 }
