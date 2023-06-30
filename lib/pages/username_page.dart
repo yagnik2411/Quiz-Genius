@@ -4,6 +4,7 @@ import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class UserName extends StatelessWidget {
   UserName({super.key});
 

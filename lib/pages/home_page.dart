@@ -16,10 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String name;
 
-  final Stream<DocumentSnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(CurretUser.currentUser.email)
-      .snapshots();
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -234,8 +231,8 @@ class _HomePageState extends State<HomePage> {
           );
         } else {
           return Container(
-            decoration: BoxDecoration(color: MyColors.lightCyan,  ),
-            child: Center(
+            decoration: const BoxDecoration(color: MyColors.lightCyan,  ),
+            child: const Center(
               child: CircularProgressIndicator(
                 color: MyColors.malachite,
                 backgroundColor:  MyColors.lightCyan,
