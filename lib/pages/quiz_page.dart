@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,91 +12,116 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+    late Future<List<Question>> quizFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    quizFuture = Questions().getQuestions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
-        
         backgroundColor: MyColors.mint,
         title: const Text("Quiz Genius").centered(),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        itemCount: Questions.questions.length,
-        itemBuilder: (context, index) => Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            border: Border.all(color: MyColors.darkCyan, width: 3),
-            borderRadius: BorderRadius.circular(15),
-            color: MyColors.malachite.withOpacity(0.8),
-          ),
-          child: Column(
-            children: [
-              ListTile(
-                title: Text(
-                  Questions.questions[index].question,
-                  style: TextStyle(
-                    color: MyColors.seashall,
-                    fontSize: 15,
-                    fontWeight: FontWeight.values[5],
-                  ),
-                  textWidthBasis: TextWidthBasis.parent,
+      body: FutureBuilder<List<Question>>(
+        future: quizFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            final quiz = snapshot.data!;
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              itemCount: quiz.length,
+              itemBuilder: (context, index) => Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: MyColors.darkCyan, width: 3),
+                  borderRadius: BorderRadius.circular(15),
+                  color: MyColors.malachite.withOpacity(0.8),
                 ),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                buttonPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: "True".text.xl.make(),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                      elevation: MaterialStateProperty.all(10),
-                      fixedSize: MaterialStateProperty.all(const Size(120, 40)),
-                      side: MaterialStateProperty.all(
-                          const BorderSide(color: Colors.white)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        quiz[index].question,
+                        style: TextStyle(
+                          color: MyColors.seashall,
+                          fontSize: 15,
+                          fontWeight: FontWeight.values[5],
                         ),
+                        textWidthBasis: TextWidthBasis.parent,
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: "False".text.xl.make(),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                      elevation: MaterialStateProperty.all(10),
-                      fixedSize: MaterialStateProperty.all(const Size(120, 40)),
-                      side: MaterialStateProperty.all(
-                          const BorderSide(color: Colors.white)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.spaceBetween,
+                      buttonPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: "True".text.xl.make(),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(MyColors.mint),
+                            elevation: MaterialStateProperty.all(10),
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(120, 40)),
+                            side: MaterialStateProperty.all(
+                                const BorderSide(color: Colors.white)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: "False".text.xl.make(),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(MyColors.mint),
+                            elevation: MaterialStateProperty.all(10),
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(120, 40)),
+                            side: MaterialStateProperty.all(
+                                const BorderSide(color: Colors.white)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                  ],
+                ),
+              ).py(5),
+            );
+          }
+        },
       ),
       bottomNavigationBar: Container(
         height: 80,
-       
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-
               MyColors.malachite,
               MyColors.mint,
-               MyColors.lightCyan,
+              MyColors.lightCyan,
             ],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
@@ -107,22 +130,22 @@ class _QuizPageState extends State<QuizPage> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: ElevatedButton(
-                      onPressed: () {},
-                      child: "submit".text.xl2.make(),
-                      style: ButtonStyle(
-                        
-                        backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                        elevation: MaterialStateProperty.all(10),
-                        
-                        side: MaterialStateProperty.all(
-                            const BorderSide(color: MyColors.seashall, width: 2)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15,),
-                          ),
-                        ),
-                      ),
-                    ).p12(),
+            onPressed: () {},
+            child: "submit".text.xl2.make(),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(MyColors.mint),
+              elevation: MaterialStateProperty.all(10),
+              side: MaterialStateProperty.all(
+                  const BorderSide(color: MyColors.seashall, width: 2)),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    15,
+                  ),
+                ),
+              ),
+            ),
+          ).p12(),
         ),
       ),
     );

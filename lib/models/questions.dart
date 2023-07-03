@@ -1,17 +1,37 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 class Questions {
-  static List<Question> questions = [
-    Question(
-        id: 1,
-        question:
-            "Horoscopes accurately predict future events 85% of the time.",
-        answer: false),
-  ];
+  List<Question> questions = [];
+
+  
+  Future<List<Question>> getQuestions() async {
+    List<Question> questions = [];
+    final String url = "https://opentdb.com/api.php?amount=50&type=boolean";
+    final response = await http.get(Uri.parse(url));
+    final String data = response.body;
+    final decodeData = jsonDecode(data);
+    var question = decodeData["results"];
+    for (int i = 0; i < question.length; i++) {
+      questions.add(
+        Question(
+          i,
+          question[i]["question"],
+          question[i]["correct_answer"] == "True" ? true : false,
+        ),
+      );
+    }
+    return questions;
+  }
 }
 
 class Question {
-  final int id;
-  final String question;
-  final bool answer;
+  int id;
+  String question;
+  bool answer;
 
-  Question({required this.id, required this.question, required this.answer});
+  Question(this.id, this.question, this.answer);
+
+ 
 }

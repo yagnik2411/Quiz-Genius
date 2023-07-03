@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: MyRoutes.loginRoute,
+      initialRoute: MyRoutes.quizRoute,
       routes: {
         MyRoutes.loginRoute: (context) => Login(),
         MyRoutes.usernameRoute: (context) =>  UserName(),
