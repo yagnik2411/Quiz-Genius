@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/models/previous_questions.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/models/questions.dart';
@@ -12,8 +15,10 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-    late Future<List<Question>> quizFuture;
-
+  late Future<List<Question>> quizFuture;
+  List<bool> isAdd = List.generate(50, (i) => false);
+  List<int> isCorrect = List.generate(50, (i) => -1);
+  List<PreviousQuestions> previousQuestions = [];
   @override
   void initState() {
     super.initState();
@@ -41,11 +46,12 @@ class _QuizPageState extends State<QuizPage> {
             );
           } else {
             final quiz = snapshot.data!;
+
             return ListView.builder(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               itemCount: quiz.length,
               itemBuilder: (context, index) => Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   border: Border.all(color: MyColors.darkCyan, width: 3),
                   borderRadius: BorderRadius.circular(15),
@@ -66,15 +72,31 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.spaceBetween,
-                      buttonPadding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      buttonPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
-                          child: "True".text.xl.make(),
+                          onPressed: () {
+                            if (isAdd[index] == false) {
+                              setState(() {
+                                isAdd[index] = true;
+                                // ignore: unrelated_type_equality_checks
+                                if (quiz[index].answer == true) {
+                                  isCorrect[index] = 0;
+                                } else {
+                                  isCorrect[index] = 1;
+                                }
+                              });
+                            }
+                            print(quiz[index].answer);
+                            print(isCorrect[index]);
+                          },
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(MyColors.mint),
+                            backgroundColor: (isAdd[index] == false)
+                                ? MaterialStateProperty.all(MyColors.mint)
+                                : ((isCorrect[index] == 0 ) 
+                                    ? MaterialStateProperty.all(Colors.green)
+                                    : MaterialStateProperty.all(Colors.red)),
                             elevation: MaterialStateProperty.all(10),
                             fixedSize:
                                 MaterialStateProperty.all(const Size(120, 40)),
@@ -86,13 +108,27 @@ class _QuizPageState extends State<QuizPage> {
                               ),
                             ),
                           ),
+                          child: "True".text.xl.make(),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
-                          child: "False".text.xl.make(),
+                          onPressed: () {
+                            if (isAdd[index] == false) {
+                              setState(() {
+                                isAdd[index] = true;
+                                if (quiz[index].answer == false) {
+                                  isCorrect[index] = 1;
+                                } else {
+                                  isCorrect[index] = 0;
+                                }
+                              });
+                            }
+                          },
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(MyColors.mint),
+                            backgroundColor: (isAdd[index] == false)
+                                ? MaterialStateProperty.all(MyColors.mint)
+                                : ((isCorrect[index] == 1 )
+                                    ? MaterialStateProperty.all(Colors.green)
+                                    : MaterialStateProperty.all(Colors.red)),
                             elevation: MaterialStateProperty.all(10),
                             fixedSize:
                                 MaterialStateProperty.all(const Size(120, 40)),
@@ -104,6 +140,7 @@ class _QuizPageState extends State<QuizPage> {
                               ),
                             ),
                           ),
+                          child: "False".text.xl.make(),
                         ),
                       ],
                     ),
@@ -116,7 +153,7 @@ class _QuizPageState extends State<QuizPage> {
       ),
       bottomNavigationBar: Container(
         height: 80,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               MyColors.malachite,
@@ -130,8 +167,9 @@ class _QuizPageState extends State<QuizPage> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: ElevatedButton(
-            onPressed: () {},
-            child: "submit".text.xl2.make(),
+            onPressed: () {
+              
+            },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(MyColors.mint),
               elevation: MaterialStateProperty.all(10),
@@ -145,6 +183,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
             ),
+            child: "submit".text.xl2.make(),
           ).p12(),
         ),
       ),
