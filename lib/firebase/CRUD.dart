@@ -7,8 +7,8 @@ class CRUD {
   CRUD(this._firestore);
 
   Future<void> add({
-    required Map data,
-    required BuildContext context,
+    required  data,
+    required BuildContext context, required DocumentReference<Object?> firestore,
   }) async {
     _firestore
         .set(data)

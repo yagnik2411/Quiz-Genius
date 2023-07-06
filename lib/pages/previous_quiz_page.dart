@@ -77,12 +77,12 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                   ),
                   textWidthBasis: TextWidthBasis.parent,
                 )
-                ),
+              ),
               
             
             ],
           ),
-        ),
+        ).py(5),
       ),
     );
   }

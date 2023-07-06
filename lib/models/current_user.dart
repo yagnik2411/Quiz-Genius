@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_genius/firebase/CRUD.dart';
 
 class CurretUser {
   static late UserName currentUser;
@@ -12,7 +11,11 @@ class UserName {
   String userName;
   int Quizid;
 
-  UserName({required this.email, required this.password, this.userName = "", this.Quizid = 1});
+  UserName(
+      {required this.email,
+      required this.password,
+      this.userName = "",
+      this.Quizid = 1});
 
   String setUserName(String userName) => this.userName = userName;
 
@@ -29,6 +32,10 @@ class UserName {
     };
     DocumentReference firestore =
         FirebaseFirestore.instance.collection("users").doc("${data["email"]}");
-    await CRUD(firestore).add(data: data, context: context);
+    // await CRUD(firestore).add(data: data, context: context,firestore: firestore);
+    await firestore
+        .set(data)
+        .whenComplete(() => print("data added"))
+        .onError((error, stackTrace) => print(error));
   }
 }
