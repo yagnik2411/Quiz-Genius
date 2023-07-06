@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:quiz_genius/utils/my_route.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -14,9 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late String name;
-
- 
+  String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +43,13 @@ class _HomePageState extends State<HomePage> {
                       width: 45,
                     ),
                   ).p16(),
-                   Text("Welcome, $name")
-                            .text
-                            .xl3
-                            .color(MyColors.malachite)
-                            .bold
-                            .make()
-                            .p16(),
+                  Text("Welcome, $name")
+                      .text
+                      .xl3
+                      .color(MyColors.malachite)
+                      .bold
+                      .make()
+                      .p16(),
                   const Divider(
                     color: MyColors.darkCyan,
                     thickness: 1,
@@ -60,7 +60,9 @@ class _HomePageState extends State<HomePage> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, MyRoutes.quizRoute);
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(MyColors.darkCyan),
@@ -86,7 +88,9 @@ class _HomePageState extends State<HomePage> {
                     height: 10,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, MyRoutes.scoreRoute);
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(MyColors.darkCyan),
@@ -172,7 +176,9 @@ class _HomePageState extends State<HomePage> {
                           color: MyColors.malachite,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, MyRoutes.profileRoute);
+                      },
                     ),
                   ).px16().py(5),
                   Container(
@@ -197,7 +203,9 @@ class _HomePageState extends State<HomePage> {
                           color: MyColors.malachite,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, MyRoutes.quizRoute);
+                      },
                     ),
                   ).px16().py(5),
                   Container(
@@ -222,7 +230,10 @@ class _HomePageState extends State<HomePage> {
                           color: MyColors.malachite,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, MyRoutes.previousQuizRoute);
+                      },
                     ),
                   ).px16().py(5),
                 ],
@@ -231,13 +242,14 @@ class _HomePageState extends State<HomePage> {
           );
         } else {
           return Container(
-            decoration: const BoxDecoration(color: MyColors.lightCyan,  ),
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: MyColors.malachite,
-                backgroundColor:  MyColors.lightCyan,
-              )
+            decoration: const BoxDecoration(
+              color: MyColors.lightCyan,
             ),
+            child: const Center(
+                child: CircularProgressIndicator(
+              color: MyColors.malachite,
+              backgroundColor: MyColors.lightCyan,
+            )),
           );
         }
       },
@@ -251,9 +263,6 @@ class _HomePageState extends State<HomePage> {
         .get()
         .then((ds) {
       name = ds['userName'];
-     
-    }).catchError((e) {
-      
-    });
+    }).catchError((e) {});
   }
 }
