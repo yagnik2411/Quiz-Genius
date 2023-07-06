@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "705505923762",
+    "project_id": "quiz-genius-588d5",
+    "storage_bucket": "quiz-genius-588d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705505923762:android:61998cdf04dcf5b9696fab",
+        "android_client_info": {
+          "package_name": "com.example.quiz_genius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705505923762-g2bq9f5jigt0e21c4l2mvc8tp5mcv0r2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-bpEvP4bq_aGC6WTWcANwUs5Vq21Ms88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705505923762-g2bq9f5jigt0e21c4l2mvc8tp5mcv0r2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
