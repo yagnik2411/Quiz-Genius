@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/scores.dart';
@@ -12,6 +13,12 @@ class ScorePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(CupertinoIcons.back),
+        ),
         backgroundColor: MyColors.mint,
         title: const Text("Quiz Genius").centered(),
       ),

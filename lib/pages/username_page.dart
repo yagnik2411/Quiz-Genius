@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
+import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class UserName extends StatelessWidget {
-  const UserName({super.key});
+  UserName({super.key});
+
+  late String _username;
+
+  moveToHome(BuildContext context) {
+    CurretUser.currentUser.setUserName(_username); 
+     CurretUser.currentUser.add(context: context);
+    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +42,9 @@ class UserName extends StatelessWidget {
           ),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextFormField(
+              onChanged: (value) {
+                _username = value;
+              },
               decoration: InputDecoration(
                 hintText: "eg: abc123",
                 hintStyle: TextStyle(
@@ -40,7 +54,9 @@ class UserName extends StatelessWidget {
               ),
             ).px16(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                moveToHome(context);
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(MyColors.mint),
                 elevation: MaterialStateProperty.all(10),
