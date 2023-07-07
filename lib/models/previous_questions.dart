@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 class PreviousQuestions {
   static List<PreviousQuestion> questions = [];
 
-  Future<void> addToCollection(
+  static void addToCollection(
       {required BuildContext context,
       required List<PreviousQuestion> question,
       required String email}) async {
@@ -13,6 +13,9 @@ class PreviousQuestions {
     for (int i = 0; i < question.length; i++) {
       data.add(question[i].toMap(question[i]));
     }
+    Map<String, dynamic> actualData = {
+      "Questions":data,
+    };
 
     DocumentReference firestore = FirebaseFirestore.instance
         .collection("users")
@@ -21,7 +24,7 @@ class PreviousQuestions {
         .doc("Questions");
 
     await firestore
-        .set(data)
+        .set(actualData)
         .whenComplete(() => print("data added"))
         .onError((error, stackTrace) => print(error));
   }
