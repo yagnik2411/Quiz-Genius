@@ -13,7 +13,7 @@ class PreviousQuestions {
     for (int i = 0; i < question.length; i++) {
       data.add(question[i].toMap(question[i]));
     }
-    Map<String, dynamic> actualData = {
+    Map<String, List<Map<String, dynamic>>> actualData = {
       "Questions":data,
     };
 
