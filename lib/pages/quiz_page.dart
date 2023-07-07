@@ -52,11 +52,6 @@ class _QuizPageState extends State<QuizPage> {
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  // index =(
-                  //       (index + (CurretUser.currentUser.Quizid%5) * 10))
-
-                  print(index);
-
                   return Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -87,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
                                 if (isAdd[index] == false) {
                                   setState(() {
                                     isAdd[index] = true;
-                                    // ignore: unrelated_type_equality_checks
+
                                     if (quiz[index].answer == true) {
                                       isCorrect[index] = 0;
                                     } else {
@@ -143,10 +138,6 @@ class _QuizPageState extends State<QuizPage> {
                                             correct: isCorrect[index] == 1
                                                 ? true
                                                 : false));
-                                    print(PreviousQuestions.questions[0].id ==
-                                            index
-                                        ? true
-                                        : false);
                                   });
                                 }
                               },
@@ -197,13 +188,13 @@ class _QuizPageState extends State<QuizPage> {
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: ElevatedButton(
             onPressed: () {
-              print(PreviousQuestions.questions[0].correct);
-              print(PreviousQuestions.questions[1].correct);
-              print(PreviousQuestions.questions[2].correct);
-              print(PreviousQuestions.questions[3].correct);
-              print(PreviousQuestions.questions[4].correct);
+              CurretUser.currentUser.Quizid++;
+              PreviousQuestions.addToCollection(
+                  context: context,
+                  question: PreviousQuestions.questions,
+                  email: CurretUser.currentUser.email);
               Navigator.pushReplacementNamed(
-                  context, MyRoutes.previousQuizRoute);
+                  context, MyRoutes.homeRoute);
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(MyColors.mint),
