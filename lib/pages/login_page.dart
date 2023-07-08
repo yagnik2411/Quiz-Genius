@@ -19,16 +19,12 @@ class Login extends StatelessWidget {
 
   String _password = "";
 
-  void signInUser(BuildContext context) async {
-    Auth(FirebaseAuth.instance)
-        .signIn(email: _email, password: _password, context: context);
-  }
-
   moveToHome(BuildContext context) {
     CurretUser.currentUser = UserName(email: _email, password: _password);
-   
-    signInUser(context);
-    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+    Auth(FirebaseAuth.instance).signIn(
+        email: CurretUser.currentUser.email,
+        password: CurretUser.currentUser.password,
+        context: context);
   }
 
   @override
