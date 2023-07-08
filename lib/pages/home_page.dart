@@ -263,6 +263,7 @@ class _HomePageState extends State<HomePage> {
         .get()
         .then((ds) {
       name = ds['userName'];
+      CurretUser.currentUser.performance = ds['performance'];
     }).catchError((e) {});
   }
 }
