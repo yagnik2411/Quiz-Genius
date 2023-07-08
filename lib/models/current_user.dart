@@ -9,30 +9,38 @@ class UserName {
   final String email;
   final String password;
   String userName;
-  int Quizid;
+  int performance;
 
   UserName(
       {required this.email,
       required this.password,
       this.userName = "",
-      this.Quizid = 1});
+      this.performance = 100});
 
   String setUserName(String userName) => this.userName = userName;
 
-  void setQuizId(int Quizid) => this.Quizid = Quizid;
-
-  int getQuizId() => this.Quizid;
+  performanceUpadate(
+      {required BuildContext context,
+      required String currentEmail,
+      required int currentPerformance}) async {
+    DocumentReference firestore =
+        FirebaseFirestore.instance.collection("users").doc(currentEmail);
+    await firestore.update({
+      'performance': currentPerformance,
+    });
+    performance = currentPerformance;
+  }
 
   void add({required BuildContext context}) async {
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       "email": email,
       "password": password,
       "userName": userName,
-      "Quizid": Quizid.toString(),
+      "performance": performance,
     };
     DocumentReference firestore =
         FirebaseFirestore.instance.collection("users").doc("${data["email"]}");
-    // await CRUD(firestore).add(data: data, context: context,firestore: firestore);
+
     await firestore
         .set(data)
         .whenComplete(() => print("data added"))

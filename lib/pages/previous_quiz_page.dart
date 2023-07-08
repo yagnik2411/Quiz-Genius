@@ -116,10 +116,12 @@ class _PreviousQuizState extends State<PreviousQuiz> {
         .doc("Questions")
         .get()
         .then((data) {
-      print(data['Questions']);
-      print(data['Questions'].runtimeType);
-     question= data['Questions'];
-    //  print(question);
+      
+      for (int i = 0; i < 10; i++) {
+        PreviousQuestions.questions
+            .add(PreviousQuestion.fromMap(data['Questions'][i]));
+      }
+      
     }).catchError((e) {});
   }
 }
