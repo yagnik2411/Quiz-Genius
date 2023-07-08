@@ -10,8 +10,8 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 // ignore: must_be_immutable
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
 
   final _formkey = GlobalKey<FormState>();
 
@@ -19,16 +19,20 @@ class Login extends StatelessWidget {
 
   String _password = "";
 
-  void signInUser(BuildContext context) async {
+  void signUpUser(BuildContext context) async {
     Auth(FirebaseAuth.instance)
-        .signIn(email: _email, password: _password, context: context);
+        .signUp(email: _email, password: _password, context: context);
+    
   }
 
-  moveToHome(BuildContext context) {
-    CurretUser.currentUser = UserName(email: _email, password: _password);
-   
-    signInUser(context);
-    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+  moveToUserPage(BuildContext context) {
+    if (_formkey.currentState!.validate()) {
+      _formkey.currentState!.save();
+      CurretUser.currentUser = UserName(email: _email, password: _password);
+     
+      signUpUser(context);
+      Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
+    }
   }
 
   @override
@@ -39,7 +43,7 @@ class Login extends StatelessWidget {
         backgroundColor: MyColors.mint,
         title: const Center(
           child: Text(
-            "Login Page",
+            "SignUp Page",
             textAlign: TextAlign.center,
           ),
         ),
@@ -60,7 +64,7 @@ class Login extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            "Welcome to Quiz Genius"
+            "SignUp to Quiz Genius"
                 .text
                 .xl2
                 .color(MyColors.malachite)
@@ -136,9 +140,7 @@ class Login extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      moveToHome(context);
-                    }
+                    moveToUserPage(context);
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -152,26 +154,8 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text("Login"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, MyRoutes.signUpRoute);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                  ),
                   child: const Text("Sign Up"),
-                ).px12(),
+                ),
               ],
             ).px16()
           ],
