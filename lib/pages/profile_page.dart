@@ -1,147 +1,147 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
 
-
+class _ProfilePageState extends State<ProfilePage> {
+  String _user = "";
+  int _performance = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.lightCyan,
-      appBar: AppBar(
-        backgroundColor: MyColors.mint,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(CupertinoIcons.back),
-        ),
-        title: const Text("Quiz Genius").centered(),
-      ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: MyColors.malachite, width: 2),
-                  borderRadius: BorderRadius.circular(40),
+    return FutureBuilder(
+        future: userDataFetch(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              backgroundColor: MyColors.lightCyan,
+              appBar: AppBar(
+                backgroundColor: MyColors.mint,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(CupertinoIcons.back),
                 ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey.withOpacity(0.2),
-                  radius: 65,
-                  child: SvgPicture.asset(
-                    "assets/images/online_test.svg",
-                    fit: BoxFit.contain,
-                    height: 45,
-                    width: 45,
-                  ),
-                ).p(10),
-              ).pOnly(right: 5),
-              Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: MyColors.malachite, width: 2),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "User:Yagnik",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: MyColors.darkCyan,
-                      ),
-                    ).pOnly(left: 10, top: 10),
-                    Container(
-                        height: 50,
+                title: const Text("Quiz Genius").centered(),
+              ),
+              body: Column(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        height: 200,
+                        width: 200,
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          border:
+                              Border.all(color: MyColors.malachite, width: 2),
+                          borderRadius: BorderRadius.circular(40),
                         ),
-                        child: Text(
-                          "Performace:87%",
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.grey.withOpacity(0.2),
+                              radius: 65,
+                              child: SvgPicture.asset(
+                                "assets/images/online_test.svg",
+                                fit: BoxFit.contain,
+                                height: 45,
+                                width: 45,
+                              ),
+                            ).p(10),
+                            Text(
+                              "$_user",
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: MyColors.darkCyan,
+                              ),
+                            )
+                          ],
+                        ),
+                      ).pOnly(right: 5),
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: MyColors.malachite, width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Performance",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 40,
                             color: MyColors.darkCyan,
                           ),
-                        ).centered()),
-                  ],
-                ).p12(),
-              ).pOnly(left: 5).expand(),
-            ],
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: MyColors.malachite, width: 2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        CircularPercentIndicator(
+                          radius: 150,
+                          percent: _performance/100,
+                          lineWidth: 20,
+                          animateFromLastPercent: true,
+                          progressColor: MyColors.mint,
+                          backgroundColor: MyColors.mint.withOpacity(0.4),
+                          animation: true,
+                          animationDuration: 2000,
+                          rotateLinearGradient: true,
+                          circularStrokeCap: CircularStrokeCap.round,
+                          curve: Curves.easeInOutCirc,
+                          center: Text(
+                            "$_performance%",
+                            style: TextStyle(
+                              fontSize: 60,
+                              color: MyColors.darkCyan,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    fixedSize: MaterialStateProperty.all(
-                        Size(context.screenWidth * 0.9, 45)),
-                  ),
-                  child: Text(
-                    "Edit Profile Picture",
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ).pOnly(top: 10, right: 12, left: 12, bottom: 5),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    fixedSize: MaterialStateProperty.all(
-                        Size(context.screenWidth * 0.9, 45)),
-                  ),
-                  child: Text(
-                    "Verify Email",
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ).pOnly(top: 5, right: 12, left: 12, bottom: 5),
-              ],
-            ),
-          ).pOnly(top: 10).expand()
-        ],
-      ).pOnly(top: 20, right: 10, left: 10, bottom: 20),
-    );
+                  ).pOnly(top: 10).expand()
+                ],
+              ).pOnly(top: 20, right: 10, left: 10, bottom: 20),
+            );
+          } else {
+            return Container(
+              decoration: const BoxDecoration(
+                color: MyColors.lightCyan,
+              ),
+              child: const Center(
+                  child: CircularProgressIndicator(
+                color: MyColors.malachite,
+                backgroundColor: MyColors.lightCyan,
+              )),
+            );
+          }
+        });
+  }
+
+  userDataFetch() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(CurretUser.currentUser.email)
+        .get()
+        .then((data) {
+      _user = data['userName'];
+      _performance = data['performance'];
+    });
   }
 }

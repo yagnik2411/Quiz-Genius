@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/utils/my_route.dart';
 
 class Auth {
   final FirebaseAuth _auth;
@@ -24,9 +25,11 @@ class Auth {
       required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-     
+       Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+      
     } on FirebaseAuthException catch (e) {
       print(e.message);
+      
     }
   }
 }
