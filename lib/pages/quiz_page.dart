@@ -43,7 +43,14 @@ class _QuizPageState extends State<QuizPage> {
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
         backgroundColor: MyColors.mint,
-        title: const Text("Quiz Genius").centered(),
+        title: const Center(
+          child: Text(
+            "Quiz Genius",
+            textAlign: TextAlign.center,
+            
+          ),
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<Question>>(
         future: quizFuture,
@@ -201,8 +208,7 @@ class _QuizPageState extends State<QuizPage> {
           child: ElevatedButton(
             onPressed: () {
               int currentPerformance =
-                  (((correct * 10) + CurretUser.currentUser.performance) / 2)
-                      .toInt();
+                  ((correct * 10) + CurretUser.currentUser.performance) ~/ 2;
               CurretUser.currentUser.performanceUpadate(
                   context: context,
                   currentEmail: CurretUser.currentUser.email,
@@ -251,8 +257,7 @@ class _QuizPageState extends State<QuizPage> {
         .doc("scores")
         .get()
         .then((data) {
-      print(data['scores'][1]);
-      print(data['scores'].runtimeType);
+
 
       for (int i = 0; i < 10; i++) {
         Scores.scores.add(Score(
@@ -260,7 +265,7 @@ class _QuizPageState extends State<QuizPage> {
             scoreInPercent: data['scores'][i]['scoreInPercent'],
             date: data['scores'][i]['date']));
       }
-      print(Scores.scores);
+      
     }).catchError((e) {});
   }
 }

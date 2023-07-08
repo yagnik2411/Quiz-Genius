@@ -110,8 +110,7 @@ class ScorePage extends StatelessWidget {
         .doc("scores")
         .get()
         .then((data) {
-      print(data['scores'][1]);
-      print(data['scores'].runtimeType);
+     
 
       for (int i = 0; i < 10; i++) {
         Scores.scores.add(Score(
