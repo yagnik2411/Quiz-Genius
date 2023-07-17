@@ -27,6 +27,20 @@ class Scores {
         .onError((error, stackTrace) => print(error));   
   }
   
+  static updateScores({required BuildContext context,
+      required List<Score> score,
+      required String email}) async {
+       
+         DocumentReference firestore = FirebaseFirestore.instance
+        .collection("users")
+        .doc(email)
+        .collection("previousScores")
+        .doc("scores");
+      await firestore
+        .update({"scores": FieldValue.arrayUnion(score.map((e) => e.toMap(score: e)).toList())})
+        .whenComplete(() => print("data added"))
+        .onError((error, stackTrace) => print(error));  
+      }
 }
 
 
@@ -42,13 +56,13 @@ class Score {
   });
 
   Map<String, dynamic> toMap({required Score score}) {
-    Map<String, dynamic> _score = {
+    Map<String, dynamic> MapScore = {
       "correct": score.correct,
       "scoreInPercent": score.scoreInPercent,
       "date": score.date
     };
 
-    return _score;
+    return MapScore;
   }
 
   Score.fromMap(Map<String, dynamic> map)

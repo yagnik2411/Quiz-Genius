@@ -46,7 +46,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
               body: ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                itemCount: PreviousQuestions.questions.length,
+                itemCount: 10,
                 itemBuilder: (context, index) => Container(
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -116,12 +116,15 @@ class _PreviousQuizState extends State<PreviousQuiz> {
         .doc("Questions")
         .get()
         .then((data) {
-      
       for (int i = 0; i < 10; i++) {
         PreviousQuestions.questions
             .add(PreviousQuestion.fromMap(data['Questions'][i]));
       }
-      
-    }).catchError((e) {});
+    }).catchError((e) {
+      if (e is RangeError) {
+        // Handle the RangeError exception
+        print('RangeError occurred: ${e.message}');
+      }
+    });
   }
 }

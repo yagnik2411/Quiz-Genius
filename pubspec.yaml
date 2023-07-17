@@ -46,10 +46,26 @@ dependencies:
   http: ^1.1.0
   percent_indicator: ^4.2.3
   fluttertoast: ^8.2.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#000000"
+  image: "assets/images/icon.png"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
+  # adaptive_icon_foreground: "assets/images/icon2.png"
+  # adaptive_icon_background: "#000000"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

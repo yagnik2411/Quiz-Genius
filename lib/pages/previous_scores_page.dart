@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ScorePage extends StatelessWidget {
-  const ScorePage({Key? key}) : super(key: key);
-
+   ScorePage({Key? key}) : super(key: key);
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -31,7 +30,7 @@ class ScorePage extends StatelessWidget {
               body: ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                itemCount: Scores.scores.length,
+                itemCount: count>10?10:count,
                 itemBuilder: (context, index) => Container(
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -84,7 +83,7 @@ class ScorePage extends StatelessWidget {
                       )
                     ],
                   ),
-                ),
+                ).py(5),
               ),
             );
           } else {
@@ -110,15 +109,19 @@ class ScorePage extends StatelessWidget {
         .doc("scores")
         .get()
         .then((data) {
-     
-
-      for (int i = 0; i < 10; i++) {
+      List temp = data['scores'];
+      for (int i = 0; i < temp.length; i++) {
         Scores.scores.add(Score(
             correct: data['scores'][i]['correct'],
             scoreInPercent: data['scores'][i]['scoreInPercent'],
             date: data['scores'][i]['date']));
       }
-      print(Scores.scores);
-    }).catchError((e) {});
+      count = temp.length;
+    }).catchError((e) {
+      if (e is RangeError) {
+        // Handle the RangeError exception
+        print('RangeError occurred: ${e.message}');
+      }
+    });
   }
 }

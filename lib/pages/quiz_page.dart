@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
+import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/models/previous_questions.dart';
@@ -29,14 +30,6 @@ class _QuizPageState extends State<QuizPage> {
     quizFuture = Questions().getQuestions();
   }
 
-  // int countCorrect() {
-  //   int correct = 0;
-  //   for (int i = 0; i < 10; i++) {
-  //     if (isCorrect[i] == true) correct++;
-  //   }
-  //   return correct;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +40,6 @@ class _QuizPageState extends State<QuizPage> {
           child: Text(
             "Quiz Genius",
             textAlign: TextAlign.center,
-            
           ),
         ),
         automaticallyImplyLeading: false,
@@ -65,7 +57,7 @@ class _QuizPageState extends State<QuizPage> {
             );
           } else {
             final quiz = snapshot.data!;
-            scoreFetch();
+
             return ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -104,9 +96,11 @@ class _QuizPageState extends State<QuizPage> {
 
                                     if (quiz[index].answer == true) {
                                       isCorrect[index] = 0;
+                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
                                       isCorrect[index] = 1;
+                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -146,9 +140,11 @@ class _QuizPageState extends State<QuizPage> {
                                     isAdd[index] = true;
                                     if (quiz[index].answer == false) {
                                       isCorrect[index] = 1;
+                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
                                       isCorrect[index] = 0;
+                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -207,6 +203,9 @@ class _QuizPageState extends State<QuizPage> {
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: ElevatedButton(
             onPressed: () {
+              Scores.scores.clear();
+              scoreFetch();
+                print(Scores.scores.length);
               int currentPerformance =
                   ((correct * 10) + CurretUser.currentUser.performance) ~/ 2;
               CurretUser.currentUser.performanceUpadate(
@@ -219,10 +218,11 @@ class _QuizPageState extends State<QuizPage> {
                   date: DateFormat(' dd / MM / yyyy ')
                       .format(DateTime.now())
                       .toString()));
-              Scores.addScores(
+              Scores.updateScores(
                   context: context,
                   score: Scores.scores,
                   email: CurretUser.currentUser.email);
+                  print(Scores.scores.length);
               PreviousQuestions.addToCollection(
                   context: context,
                   question: PreviousQuestions.questions,
@@ -249,6 +249,18 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
+  void scoreListUd(BuildContext context) {
+    Scores.scores.add(Score(
+        correct: correct,
+        scoreInPercent: correct * 10,
+        date:
+            DateFormat(' dd / MM / yyyy ').format(DateTime.now()).toString()));
+    Scores.addScores(
+        context: context,
+        score: Scores.scores,
+        email: CurretUser.currentUser.email);
+  }
+
   scoreFetch() async {
     await FirebaseFirestore.instance
         .collection("users")
@@ -257,15 +269,21 @@ class _QuizPageState extends State<QuizPage> {
         .doc("scores")
         .get()
         .then((data) {
-
-
-      for (int i = 0; i < 10; i++) {
+      List temp = data['scores'];
+      print(temp.length);
+      for (int i = 0; i < temp.length; i++) {
         Scores.scores.add(Score(
             correct: data['scores'][i]['correct'],
             scoreInPercent: data['scores'][i]['scoreInPercent'],
             date: data['scores'][i]['date']));
       }
-      
+      print(Scores.scores.length);
     }).catchError((e) {});
+  }
+
+  ScoreUpadate() {
+    Scores.scores.clear();
+    scoreFetch();
+    scoreListUd(context);
   }
 }
