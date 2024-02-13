@@ -18,10 +18,13 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
+
+double height = 0.0;
+double width = 0.0;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    if(height==0 || width==0)updateHeightAndWidth(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
@@ -48,4 +52,13 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+void updateHeightAndWidth(BuildContext context) {
+  height = MediaQuery.of(context).size.height;
+  width = MediaQuery.of(context).size.width;
+}
+
+double correctSize(double size) {
+  return (width * size) / 392.72;
 }

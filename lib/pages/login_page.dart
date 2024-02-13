@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
+import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -13,7 +14,7 @@ import 'package:quiz_genius/utils/colors.dart';
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
 
-  final _formkey = GlobalKey<FormState>();
+ static final _formkey = GlobalKey<FormState>();
 
   String _email = "";
 
@@ -21,6 +22,7 @@ class Login extends StatelessWidget {
 
   moveToHome(BuildContext context) {
     CurretUser.currentUser = UserName(email: _email, password: _password);
+    print("email ${_email} ");
     Auth(FirebaseAuth.instance).signIn(
         email: CurretUser.currentUser.email,
         password: CurretUser.currentUser.password,
@@ -45,16 +47,16 @@ class Login extends StatelessWidget {
         key: _formkey,
         child: Column(
           children: [
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: correctSize(20),
             ),
             SvgPicture.asset(
               "assets/images/login.svg",
               fit: BoxFit.contain,
-              width: MediaQuery.of(context).size.width / 1.2,
-            ).centered().py24(),
-            const SizedBox(
-              height: 20,
+              width: width / 1.2,
+            ).centered().py(correctSize(24)),
+             SizedBox(
+              height: correctSize(20),
             ),
             "Welcome to Quiz Genius"
                 .text
@@ -63,16 +65,16 @@ class Login extends StatelessWidget {
                 .bold
                 .center
                 .makeCentered(),
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: correctSize(20),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding:  EdgeInsets.only(left: correctSize(20), right: correctSize(20), bottom: correctSize(10)),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+                  borderRadius:  BorderRadius.only(
+                    topLeft: Radius.circular(correctSize(20)),
+                    topRight: Radius.circular(correctSize(20)),
                   )),
               child: TextFormField(
                 decoration: InputDecoration(
@@ -95,14 +97,14 @@ class Login extends StatelessWidget {
                   _email = value;
                 },
               ),
-            ).px16(),
+            ).px(correctSize(16)),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding:  EdgeInsets.only(left: correctSize(20), right: correctSize(20), bottom: correctSize(10)),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+                  borderRadius:  BorderRadius.only(
+                    bottomLeft: Radius.circular(correctSize(20)),
+                    bottomRight: Radius.circular(correctSize(20)),
                   )),
               child: TextFormField(
                 decoration: InputDecoration(
@@ -116,17 +118,17 @@ class Login extends StatelessWidget {
                   if (value!.isEmpty) {
                     return "Password cannot be empty";
                   } else if (value.length < 6) {
-                    return "Password length should be atleast 6";
+                    return "Password length should be at least 6 characters";
                   }
                   return null;
                 },
                 onChanged: (value) {
                   _password = value;
                 },
-              ).pOnly(bottom: 10),
-            ).px16(),
-            const SizedBox(
-              height: 10,
+              ).pOnly(bottom: correctSize(10)),
+            ).px(correctSize(16)),
+             SizedBox(
+              height: correctSize(10),
             ),
             ButtonBar(
               children: [
@@ -144,7 +146,7 @@ class Login extends StatelessWidget {
                         const BorderSide(color: Colors.white)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(correctSize(15)),
                       ),
                     ),
                   ),
@@ -162,14 +164,14 @@ class Login extends StatelessWidget {
                         const BorderSide(color: Colors.white)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(correctSize(15)),
                       ),
                     ),
                   ),
                   child: const Text("Sign Up"),
-                ).px12(),
+                ).px(correctSize(12)),
               ],
-            ).px16()
+            ).px(correctSize(16))
           ],
         ),
       )),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_genius/main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/models/current_user.dart';
@@ -34,30 +35,29 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: correctSize(50),
                     backgroundColor: MyColors.darkCyan,
                     child: SvgPicture.asset(
                       "assets/images/online_test.svg",
                       fit: BoxFit.contain,
-                      height: 45,
-                      width: 45,
+                      height: correctSize(45),
+                      width: correctSize(45),
                     ),
-                  ).p16(),
+                  ).p(correctSize(16)),
                   Text("Welcome, $name")
                       .text
                       .xl3
                       .color(MyColors.malachite)
                       .bold
                       .make()
-                      .p16(),
-                  const Divider(
+                      .p(correctSize(16)),
+                   Divider(
                     color: MyColors.darkCyan,
                     thickness: 1,
-                    // indent: 20,
-                    // endIndent: 20,
+                    
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: correctSize(20),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -71,21 +71,21 @@ class _HomePageState extends State<HomePage> {
                           const BorderSide(color: Colors.white)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(correctSize(15)),
                         ),
                       ),
                     ),
                     child: Container(
-                        height: 50,
+                        height: correctSize(50),
                         width: MediaQuery.of(context).size.width,
-                        child: const Text("New Quiz",
+                        child: Text("New Quiz",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: correctSize(20),
                               color: Colors.white,
                             )).centered()),
-                  ).px12(),
-                  const SizedBox(
-                    height: 10,
+                  ).px(correctSize(12)),
+                  SizedBox(
+                    height: correctSize(10),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -99,19 +99,24 @@ class _HomePageState extends State<HomePage> {
                           const BorderSide(color: Colors.white)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(correctSize(15)),
                         ),
                       ),
                     ),
                     child: Container(
-                        height: 50,
+                        height: correctSize(50),
                         width: MediaQuery.of(context).size.width,
-                        child: const Text("Previous Scores",
+                        child: Text("Previous Scores",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: correctSize(20),
                               color: Colors.white,
                             )).centered()),
-                  ).px12(),
+                  ).px(correctSize(12)),
+                  Text("For new users: Actual scores will be calculated from the second quiz onwards; the first quiz was a demo.")
+                      .text
+                      .color(MyColors.malachite)
+                      .bold
+                      .make().p(correctSize(12))
                 ],
               ),
             ),
@@ -121,45 +126,45 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 50,
+                  SizedBox(
+                    height: correctSize(50),
                   ),
                   Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
+                      height: correctSize(200),
+                      width: width,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(correctSize(20)),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            radius: 50,
+                            radius: correctSize(50),
                             backgroundColor: MyColors.lightLime,
                             child: SvgPicture.asset(
                               "assets/images/online_test.svg",
                               fit: BoxFit.contain,
-                              height: 45,
-                              width: 45,
+                              height: correctSize(45),
+                              width: correctSize(45),
                             ),
-                          ).p16(),
+                          ).p(correctSize(8)),
                           Text("Hello, $name")
                               .text
                               .xl3
                               .color(MyColors.malachite)
                               .bold
                               .make()
-                              .p16(),
+                              .p(correctSize(16)),
                         ],
-                      )).px16().py(8),
+                      )).px(correctSize(16)).py(correctSize(8)),
                   Container(
-                    height: 60,
+                    height: correctSize(60),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(correctSize(20)),
                     ),
                     alignment: Alignment.center,
                     child: ListTile(
@@ -168,11 +173,11 @@ class _HomePageState extends State<HomePage> {
                         color: MyColors.malachite,
                         fill: 0.6,
                       ),
-                      title: const Text(
+                      title: Text(
                         "Profile",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: correctSize(20),
                           color: MyColors.malachite,
                         ),
                       ),
@@ -180,13 +185,13 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushNamed(context, MyRoutes.profileRoute);
                       },
                     ),
-                  ).px16().py(5),
+                  ).px(correctSize(16)).py(correctSize(5)),
                   Container(
-                    height: 60,
+                    height: correctSize(60),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(correctSize(20)),
                     ),
                     alignment: Alignment.center,
                     child: ListTile(
@@ -195,11 +200,11 @@ class _HomePageState extends State<HomePage> {
                         color: MyColors.malachite,
                         fill: 0.6,
                       ),
-                      title: const Text(
+                      title: Text(
                         "New Quiz",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: correctSize(20),
                           color: MyColors.malachite,
                         ),
                       ),
@@ -207,13 +212,13 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushNamed(context, MyRoutes.quizRoute);
                       },
                     ),
-                  ).px16().py(5),
+                  ).px(correctSize(16)).py(correctSize(5)),
                   Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
+                    height: correctSize(60),
+                    width: width,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(correctSize(20)),
                     ),
                     alignment: Alignment.center,
                     child: ListTile(
@@ -222,11 +227,11 @@ class _HomePageState extends State<HomePage> {
                         color: MyColors.malachite,
                         fill: 0.6,
                       ),
-                      title: const Text(
+                      title: Text(
                         "Last Quiz",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: correctSize(20),
                           color: MyColors.malachite,
                         ),
                       ),
@@ -236,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ).px16().py(5),
+                  
                 ],
               ),
             ),
@@ -263,6 +269,7 @@ class _HomePageState extends State<HomePage> {
         .get()
         .then((ds) {
       name = ds['userName'];
+      print(name);
       CurretUser.currentUser.performance = ds['performance'];
     }).catchError((e) {});
   }

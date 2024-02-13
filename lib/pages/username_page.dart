@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -22,8 +23,8 @@ class UserName extends StatelessWidget {
       backgroundColor: Colors.white.withOpacity(0.5),
       body: Center(
         child: Container(
-          height: MediaQuery.of(context).size.height / 5,
-          width: MediaQuery.of(context).size.width / 1.3,
+          height:height / 5,
+          width: width / 1.3,
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
@@ -38,7 +39,7 @@ class UserName extends StatelessWidget {
               width: 2,
             ),
             color: MyColors.seaGreen,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(correctSize(20)),
           ),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextFormField(
@@ -52,7 +53,7 @@ class UserName extends StatelessWidget {
                 ),
                 labelText: "Username",
               ),
-            ).px16(),
+            ).px(correctSize(16)),
             ElevatedButton(
               onPressed: () {
                 moveToHome(context);
@@ -64,12 +65,12 @@ class UserName extends StatelessWidget {
                     const BorderSide(color: Colors.white)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(correctSize(15)),
                   ),
                 ),
               ),
               child: const Text("Sign in"),
-            ).px12(),
+            ).px(correctSize(12)),
           ]),
         ),
       ),

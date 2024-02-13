@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -40,36 +41,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     children: [
                       Container(
-                        height: 200,
-                        width: 200,
+                        height: correctSize(200),
+                        width: correctSize(200),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
                               Border.all(color: MyColors.malachite, width: 2),
-                          borderRadius: BorderRadius.circular(40),
+                          borderRadius: BorderRadius.circular(correctSize(40)),
                         ),
                         child: Column(
                           children: [
                             CircleAvatar(
                               backgroundColor: Colors.grey.withOpacity(0.2),
-                              radius: 65,
+                              radius: correctSize(65),
                               child: SvgPicture.asset(
                                 "assets/images/online_test.svg",
                                 fit: BoxFit.contain,
-                                height: 45,
-                                width: 45,
+                                height: correctSize(45),
+                                width: correctSize(45),
                               ),
-                            ).p(10),
+                            ).p(correctSize(10)),
                             Text(
                               "$_user",
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: correctSize(25),
                                 color: MyColors.darkCyan,
                               ),
                             )
                           ],
                         ),
-                      ).pOnly(right: 5),
+                      ).pOnly(right: correctSize(5)),
                     ],
                   ),
                   Container(
@@ -77,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: MyColors.malachite, width: 2),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(correctSize(20)),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,17 +87,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           "Performance",
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: correctSize(40),
                             color: MyColors.darkCyan,
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: correctSize(30),
                         ),
                         CircularPercentIndicator(
-                          radius: 150,
+                          radius: correctSize(150),
                           percent: _performance/100,
-                          lineWidth: 20,
+                          lineWidth: correctSize(20),
                           animateFromLastPercent: true,
                           progressColor: MyColors.mint,
                           backgroundColor: MyColors.mint.withOpacity(0.4),
@@ -108,16 +109,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           center: Text(
                             "$_performance%",
                             style: TextStyle(
-                              fontSize: 60,
+                              fontSize: correctSize(60),
                               color: MyColors.darkCyan,
                             ),
                           ),
                         )
                       ],
                     ),
-                  ).pOnly(top: 10).expand()
+                  ).pOnly(top: correctSize(10)).expand()
                 ],
-              ).pOnly(top: 20, right: 10, left: 10, bottom: 20),
+              ).pOnly(top: correctSize(20), right: correctSize(10), left: correctSize(10), bottom: correctSize(20)),
             );
           } else {
             return Container(

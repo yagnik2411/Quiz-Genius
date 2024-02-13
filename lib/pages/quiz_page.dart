@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -59,15 +60,15 @@ class _QuizPageState extends State<QuizPage> {
             final quiz = snapshot.data!;
 
             return ListView.builder(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding: EdgeInsets.symmetric(
+                    vertical: correctSize(8), horizontal: correctSize(16)),
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: EdgeInsets.all(correctSize(8)),
                     decoration: BoxDecoration(
                       border: Border.all(color: MyColors.darkCyan, width: 3),
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(correctSize(15)),
                       color: MyColors.malachite.withOpacity(0.8),
                     ),
                     child: Column(
@@ -77,7 +78,7 @@ class _QuizPageState extends State<QuizPage> {
                             quiz[index + 10].question,
                             style: TextStyle(
                               color: MyColors.seashall,
-                              fontSize: 15,
+                              fontSize: correctSize(15),
                               fontWeight: FontWeight.values[5],
                             ),
                             textWidthBasis: TextWidthBasis.parent,
@@ -85,8 +86,9 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         ButtonBar(
                           alignment: MainAxisAlignment.spaceBetween,
-                          buttonPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                          buttonPadding: EdgeInsets.symmetric(
+                              horizontal: correctSize(20),
+                              vertical: correctSize(10)),
                           children: [
                             ElevatedButton(
                               onPressed: () {
@@ -122,12 +124,13 @@ class _QuizPageState extends State<QuizPage> {
                                             Colors.red)),
                                 elevation: MaterialStateProperty.all(10),
                                 fixedSize: MaterialStateProperty.all(
-                                    const Size(120, 40)),
+                                    Size(correctSize(120), correctSize(40))),
                                 side: MaterialStateProperty.all(
                                     const BorderSide(color: Colors.white)),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius:
+                                        BorderRadius.circular(correctSize(15)),
                                   ),
                                 ),
                               ),
@@ -166,12 +169,13 @@ class _QuizPageState extends State<QuizPage> {
                                             Colors.red)),
                                 elevation: MaterialStateProperty.all(10),
                                 fixedSize: MaterialStateProperty.all(
-                                    const Size(120, 40)),
+                                    Size(correctSize(120), correctSize(40))),
                                 side: MaterialStateProperty.all(
                                     const BorderSide(color: Colors.white)),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius:
+                                        BorderRadius.circular(correctSize(15)),
                                   ),
                                 ),
                               ),
@@ -181,13 +185,13 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ],
                     ),
-                  ).py(5);
+                  ).py(correctSize(5));
                 });
           }
         },
       ),
       bottomNavigationBar: Container(
-        height: 80,
+        height: correctSize(80),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -200,12 +204,13 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          margin: EdgeInsets.symmetric(
+              horizontal: correctSize(15), vertical: correctSize(5)),
           child: ElevatedButton(
             onPressed: () {
               Scores.scores.clear();
               scoreFetch();
-                print(Scores.scores.length);
+              print(Scores.scores.length);
               int currentPerformance =
                   ((correct * 10) + CurretUser.currentUser.performance) ~/ 2;
               CurretUser.currentUser.performanceUpadate(
@@ -222,7 +227,7 @@ class _QuizPageState extends State<QuizPage> {
                   context: context,
                   score: Scores.scores,
                   email: CurretUser.currentUser.email);
-                  print(Scores.scores.length);
+              print(Scores.scores.length);
               PreviousQuestions.addToCollection(
                   context: context,
                   question: PreviousQuestions.questions,
@@ -231,25 +236,25 @@ class _QuizPageState extends State<QuizPage> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(MyColors.mint),
-              elevation: MaterialStateProperty.all(10),
+              elevation: MaterialStateProperty.all(correctSize(10)),
               side: MaterialStateProperty.all(
                   const BorderSide(color: MyColors.seashall, width: 2)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                    15,
+                    correctSize(15),
                   ),
                 ),
               ),
             ),
             child: "submit".text.xl2.make(),
-          ).p12(),
+          ).p(correctSize(12)),
         ),
       ),
     );
   }
 
-  void scoreListUd(BuildContext context) {
+  void scoreListAdd(BuildContext context) {
     Scores.scores.add(Score(
         correct: correct,
         scoreInPercent: correct * 10,
@@ -262,28 +267,43 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   scoreFetch() async {
-    await FirebaseFirestore.instance
+    print("score:${CurretUser.currentUser.email}");
+    DocumentReference userDocRef = FirebaseFirestore.instance
         .collection("users")
         .doc(CurretUser.currentUser.email)
         .collection("previousScores")
-        .doc("scores")
-        .get()
-        .then((data) {
-      List temp = data['scores'];
-      print(temp.length);
-      for (int i = 0; i < temp.length; i++) {
-        Scores.scores.add(Score(
+        .doc("scores");
+
+    try {
+      DocumentSnapshot data = await userDocRef.get();
+
+      if (data.exists) {
+        // Document with scores exists, fetch scores
+        List temp = data['scores'];
+        print(temp.length);
+
+        for (int i = 0; i < temp.length; i++) {
+          Scores.scores.add(Score(
             correct: data['scores'][i]['correct'],
             scoreInPercent: data['scores'][i]['scoreInPercent'],
-            date: data['scores'][i]['date']));
+            date: data['scores'][i]['date'],
+          ));
+        }
+
+        print(Scores.scores.length);
+      } else {
+        // Document does not exist, create a new one with an empty list
+        await userDocRef.set({'scores': []});
+        
       }
-      print(Scores.scores.length);
-    }).catchError((e) {});
+    } catch (e) {
+      
+    }
   }
 
   ScoreUpadate() {
     Scores.scores.clear();
     scoreFetch();
-    scoreListUd(context);
+    scoreListAdd(context);
   }
 }
