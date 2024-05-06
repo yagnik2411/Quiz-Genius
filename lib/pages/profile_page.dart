@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -41,36 +41,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     children: [
                       Container(
-                        height: correctSize(200),
-                        width: correctSize(200),
+                        height: 200.w,
+                        width:200.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
                               Border.all(color: MyColors.malachite, width: 2),
-                          borderRadius: BorderRadius.circular(correctSize(40)),
+                          borderRadius: BorderRadius.circular(40.sp),
                         ),
                         child: Column(
                           children: [
                             CircleAvatar(
                               backgroundColor: Colors.grey.withOpacity(0.2),
-                              radius: correctSize(65),
+                              radius: 65.w,
                               child: SvgPicture.asset(
                                 "assets/images/online_test.svg",
                                 fit: BoxFit.contain,
-                                height: correctSize(45),
-                                width: correctSize(45),
+                                height: 45.w,
+                                width: 45.w,
                               ),
-                            ).p(correctSize(10)),
+                            ).p(10.sp),
                             Text(
                               "$_user",
                               style: TextStyle(
-                                fontSize: correctSize(25),
+                                fontSize: 25.sp,
                                 color: MyColors.darkCyan,
                               ),
                             )
                           ],
                         ),
-                      ).pOnly(right: correctSize(5)),
+                      ).pOnly(right: 5.sp),
                     ],
                   ),
                   Container(
@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: MyColors.malachite, width: 2),
-                      borderRadius: BorderRadius.circular(correctSize(20)),
+                      borderRadius: BorderRadius.circular(20.sp),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -87,17 +87,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           "Performance",
                           style: TextStyle(
-                            fontSize: correctSize(40),
+                            fontSize: 40.sp,
                             color: MyColors.darkCyan,
                           ),
                         ),
                         SizedBox(
-                          height: correctSize(30),
+                          height: 30.h,
                         ),
                         CircularPercentIndicator(
-                          radius: correctSize(150),
+                          radius: 150.w,
                           percent: _performance/100,
-                          lineWidth: correctSize(20),
+                          lineWidth: 20.w,
                           animateFromLastPercent: true,
                           progressColor: MyColors.mint,
                           backgroundColor: MyColors.mint.withOpacity(0.4),
@@ -109,16 +109,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           center: Text(
                             "$_performance%",
                             style: TextStyle(
-                              fontSize: correctSize(60),
+                              fontSize: 60.sp,
                               color: MyColors.darkCyan,
                             ),
                           ),
                         )
                       ],
                     ),
-                  ).pOnly(top: correctSize(10)).expand()
+                  ).pOnly(top: 10.sp).expand()
                 ],
-              ).pOnly(top: correctSize(20), right: correctSize(10), left: correctSize(10), bottom: correctSize(20)),
+              ).pOnly(top: 20.sp, right: 10.sp, left: 10.sp, bottom: 20.sp),
             );
           } else {
             return Container(
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
   userDataFetch() async {
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(CurretUser.currentUser.email)
+        .doc(CurrentUser.currentUser.email)
         .get()
         .then((data) {
       _user = data['userName'];

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_genius/firebase_options.dart';
 import 'package:quiz_genius/pages/home_page.dart';
@@ -23,8 +24,7 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-double height = 0.0;
-double width = 0.0;
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -32,33 +32,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if(height==0 || width==0)updateHeightAndWidth(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-        fontFamily: GoogleFonts.montserrat().fontFamily,
-      ),
-      initialRoute: MyRoutes.loginRoute,
-      routes: {
-        MyRoutes.loginRoute: (context) => Login(),
-        MyRoutes.usernameRoute: (context) => UserName(),
-        MyRoutes.homeRoute: (context) => HomePage(),
-        MyRoutes.quizRoute: (context) => QuizPage(),
-        MyRoutes.scoreRoute: (context) => ScorePage(),
-        MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
-        MyRoutes.profileRoute: (context) => const ProfilePage(),
-        MyRoutes.signUpRoute: (context) => SignUp(),
+    
+    return ScreenUtilInit(
+      designSize: const Size(393, 873),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      // Use builder only if you need to use library outside ScreenUtilInit context
+      builder: (_ , child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.light,
+          theme: ThemeData(
+            fontFamily: GoogleFonts.montserrat().fontFamily,
+          ),
+          initialRoute: MyRoutes.loginRoute,
+          routes: {
+            MyRoutes.loginRoute: (context) => Login(),
+            MyRoutes.usernameRoute: (context) => UserName(),
+            MyRoutes.homeRoute: (context) => HomePage(),
+            MyRoutes.quizRoute: (context) => QuizPage(),
+            MyRoutes.scoreRoute: (context) => ScorePage(),
+            MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
+            MyRoutes.profileRoute: (context) => const ProfilePage(),
+            MyRoutes.signUpRoute: (context) => SignUp(),
+          },
+        );
       },
+      
     );
   }
 }
 
-void updateHeightAndWidth(BuildContext context) {
-  height = MediaQuery.of(context).size.height;
-  width = MediaQuery.of(context).size.width;
-}
 
-double correctSize(double size) {
-  return (width * size) / 392.72;
-}
+

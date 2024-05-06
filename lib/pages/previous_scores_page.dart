@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_genius/main.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/colors.dart';
@@ -29,7 +29,7 @@ class ScorePage extends StatelessWidget {
                 title: const Text("Quiz Genius").centered(),
               ),
               body: Container(
-                height: correctSize(height * 0.9),
+                height: (MediaQuery.of(context).size.height * 0.9).h,
                 child: count == 0
                     ? Center(
                         child: Text("Give Your First Quiz")
@@ -38,23 +38,23 @@ class ScorePage extends StatelessWidget {
                             .color(MyColors.malachite)
                             .bold
                             .make()
-                            .p(correctSize(16)),
+                            .p(16.sp),
                       )
                     : ListView.builder(
                         padding: EdgeInsets.symmetric(
-                            vertical: correctSize(8),
-                            horizontal: correctSize(16)),
+                            vertical: 8.sp,
+                            horizontal: 16.sp),
                         itemCount: count > 10 ? 10 : count,
                         itemBuilder: (context, index) {
                           print(count);
                           return Container(
-                            padding: EdgeInsets.all(correctSize(8)),
+                            padding: EdgeInsets.all(8.sp),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: MyColors.darkCyan,
-                                  width: correctSize(3)),
+                                  width: 3.w),
                               borderRadius:
-                                  BorderRadius.circular(correctSize(15)),
+                                  BorderRadius.circular(15.sp),
                               color: MyColors.malachite.withOpacity(0.8),
                             ),
                             child: Column(
@@ -64,11 +64,11 @@ class ScorePage extends StatelessWidget {
                                   "Quiz Date:${Scores.scores[index].date}",
                                   style: TextStyle(
                                     color: MyColors.seashall,
-                                    fontSize: correctSize(20),
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.normal,
                                   ),
                                   textWidthBasis: TextWidthBasis.parent,
-                                ).px(correctSize(12)).py(correctSize(4)),
+                                ).px(12.sp).py(4.sp),
                                 Divider(
                                   color: MyColors.darkCyan,
                                   thickness: 2,
@@ -78,33 +78,33 @@ class ScorePage extends StatelessWidget {
                                     Icon(
                                       Icons.check,
                                       color: MyColors.seashall,
-                                    ).pOnly(left: correctSize(12)),
+                                    ).pOnly(left: 12.sp),
                                     Text(
                                       "Correct: ${Scores.scores[index].correct} ",
                                       style: TextStyle(
                                         color: MyColors.seashall,
-                                        fontSize: correctSize(20),
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.normal,
                                       ),
                                       textWidthBasis: TextWidthBasis.parent,
                                     )
-                                        .py(correctSize(4))
-                                        .pOnly(right: correctSize(12)),
+                                        .py(4.sp)
+                                        .pOnly(right: 12.sp),
                                     const Spacer(),
                                     Text(
                                       "Prcent: ${Scores.scores[index].scoreInPercent}% ",
                                       style: TextStyle(
                                         color: MyColors.seashall,
-                                        fontSize: correctSize(20),
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.normal,
                                       ),
                                       textWidthBasis: TextWidthBasis.parent,
-                                    ).px(correctSize(12)).py(correctSize(4)),
+                                    ).px(12.sp).py(4.sp),
                                   ],
                                 )
                               ],
                             ),
-                          ).py(correctSize(5));
+                          ).py(5.sp);
                         }),
               ),
             );
@@ -126,7 +126,7 @@ class ScorePage extends StatelessWidget {
   scoreFetch() async {
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(CurretUser.currentUser.email)
+        .doc(CurrentUser.currentUser.email)
         .collection("previousScores")
         .doc("scores")
         .get()

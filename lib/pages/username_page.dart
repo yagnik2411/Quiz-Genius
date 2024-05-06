@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_genius/main.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -12,8 +12,8 @@ class UserName extends StatelessWidget {
   late String _username;
 
   moveToHome(BuildContext context) {
-    CurretUser.currentUser.setUserName(_username); 
-     CurretUser.currentUser.add(context: context);
+    CurrentUser.currentUser.setUserName(_username); 
+     CurrentUser.currentUser.add(context: context);
     Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
@@ -23,8 +23,8 @@ class UserName extends StatelessWidget {
       backgroundColor: Colors.white.withOpacity(0.5),
       body: Center(
         child: Container(
-          height:height / 5,
-          width: width / 1.3,
+          height:(873 / 5).h,
+          width: (393 / 1.3).w,
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
@@ -39,7 +39,7 @@ class UserName extends StatelessWidget {
               width: 2,
             ),
             color: MyColors.seaGreen,
-            borderRadius: BorderRadius.circular(correctSize(20)),
+            borderRadius: BorderRadius.circular(20.sp),
           ),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextFormField(
@@ -53,7 +53,7 @@ class UserName extends StatelessWidget {
                 ),
                 labelText: "Username",
               ),
-            ).px(correctSize(16)),
+            ).px(16.sp),
             ElevatedButton(
               onPressed: () {
                 moveToHome(context);
@@ -65,12 +65,12 @@ class UserName extends StatelessWidget {
                     const BorderSide(color: Colors.white)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(correctSize(15)),
+                    borderRadius: BorderRadius.circular(15.sp),
                   ),
                 ),
               ),
               child: const Text("Sign in"),
-            ).px(correctSize(12)),
+            ).px(12.sp),
           ]),
         ),
       ),

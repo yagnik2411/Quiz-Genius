@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -16,21 +16,23 @@ class SignUp extends StatelessWidget {
 
   static final _formkey = GlobalKey<FormState>();
 
-  String _email = "";
+  String email = "";
 
-  String _password = "";
+  String password = "";
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void signUpUser(BuildContext context) async {
     Auth(FirebaseAuth.instance)
-        .signUp(email: _email, password: _password, context: context);
+        .signUp(email: this.email, password: this.password, context: context);
     
   }
 
   moveToUserPage(BuildContext context) {
     if (_formkey.currentState!.validate()) {
       _formkey.currentState!.save();
-      CurretUser.currentUser = UserName(email: _email, password: _password);
-     print('sing up:name ${_email} pass ${_password}');
+      CurrentUser.currentUser = UserName(email: this.email, password: this.password);
+     print('sing up:name ${this.email} pass ${this.password}');
       signUpUser(context);
       Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
@@ -55,15 +57,15 @@ class SignUp extends StatelessWidget {
         child: Column(
           children: [
              SizedBox(
-              height: correctSize(20),
+              height: 20.h,
             ),
             SvgPicture.asset(
               "assets/images/login.svg",
               fit: BoxFit.contain,
-              width: width / 1.2,
-            ).centered().py(correctSize(24)),
+              width: (393 / 1.2).w,
+            ).centered().py(24.sp),
              SizedBox(
-              height: correctSize(20),
+              height: 20.h,
             ),
             "SignUp to Quiz Genius"
                 .text
@@ -73,17 +75,18 @@ class SignUp extends StatelessWidget {
                 .center
                 .makeCentered(),
             SizedBox(
-              height: correctSize(20),
+              height: 20.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: correctSize(20), right: correctSize(20), bottom: correctSize(10)),
+              padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(correctSize(20)),
-                    topRight: Radius.circular(correctSize(20)),
+                    topLeft: Radius.circular(20.sp),
+                    topRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: "eg: abcd@gmail.com",
                   hintStyle: TextStyle(
@@ -101,19 +104,20 @@ class SignUp extends StatelessWidget {
                   return null;
                 },
                 onChanged: (value) {
-                  _email = value;
+                  this.email =  emailController.text;
                 },
               ),
-            ).px(correctSize(16)),
+            ).px(16.sp),
             Container(
-              padding: EdgeInsets.only(left: correctSize(20), right: correctSize(20), bottom: correctSize(10)),
+              padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom:10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
                   borderRadius:  BorderRadius.only(
-                    bottomLeft: Radius.circular(correctSize(20)),
-                    bottomRight: Radius.circular(correctSize(20)),
+                    bottomLeft: Radius.circular(20.sp),
+                    bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   hintText: "eg: 123456",
                   hintStyle: TextStyle(
@@ -130,12 +134,12 @@ class SignUp extends StatelessWidget {
                   return null;
                 },
                 onChanged: (value) {
-                  _password = value;
+                  this.password =   passwordController.text;
                 },
-              ).pOnly(bottom: correctSize(10)),
-            ).px(correctSize(16)),
+              ).pOnly(bottom: 10.sp),
+            ).px(16.sp),
             SizedBox(
-              height: correctSize(10),
+              height: 10.h,
             ),
             ButtonBar(
               children: [
@@ -151,14 +155,14 @@ class SignUp extends StatelessWidget {
                         const BorderSide(color: Colors.white)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(correctSize(15)),
+                        borderRadius: BorderRadius.circular(15.sp),
                       ),
                     ),
                   ),
                   child: const Text("Sign Up"),
                 ),
               ],
-            ).px(correctSize(16))
+            ).px(16.sp)
           ],
         ),
       )),

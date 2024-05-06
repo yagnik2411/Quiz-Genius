@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class CurretUser {
+class CurrentUser {
   static late UserName currentUser;
 }
 
@@ -19,7 +19,7 @@ class UserName {
 
   String setUserName(String userName) => this.userName = userName;
 
-  performanceUpadate(
+  performanceUpdate(
       {required BuildContext context,
       required String currentEmail,
       required int currentPerformance}) async {

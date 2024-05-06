@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -44,23 +45,23 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                   title: const Text("Quiz Genius").centered(),
                 ),
                 body: Container(
-                  height: correctSize(height * 0.9),
+                  height: (MediaQuery.of(context).size.height * 0.9).h,
                   child: (!PreviousQuestions.questions.isEmpty)
                       ? ListView.builder(
                           padding: EdgeInsets.symmetric(
-                              vertical: correctSize(8),
-                              horizontal: correctSize(16)),
+                              vertical: 8.sp,
+                              horizontal: 16.sp),
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             
                             return Container(
-                              padding: EdgeInsets.all(correctSize(8)),
+                              padding: EdgeInsets.all(8.sp),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: MyColors.darkCyan,
-                                    width: correctSize(3)),
+                                    width: 3.w),
                                 borderRadius:
-                                    BorderRadius.circular(correctSize(15)),
+                                    BorderRadius.circular(15.sp),
                                 color: MyColors.malachite.withOpacity(0.8),
                               ),
                               child: Column(
@@ -71,38 +72,38 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                                           .questions[index].question,
                                       style: TextStyle(
                                         color: MyColors.seashall,
-                                        fontSize: correctSize(17),
+                                        fontSize: 17.sp,
                                         fontWeight: FontWeight.values[5],
                                       ),
                                       textWidthBasis: TextWidthBasis.parent,
                                     ),
                                   ),
                                   SizedBox(
-                                    height: correctSize(10),
+                                    height: 10.h,
                                   ),
                                   Container(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: correctSize(20),
-                                          vertical: correctSize(10)),
+                                          horizontal: 20.sp,
+                                          vertical: 10.sp),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: Colors.white, width: 1),
                                         borderRadius: BorderRadius.circular(
-                                            correctSize(15)),
+                                            15.sp),
                                         color: MyColors.mint,
                                       ),
                                       child: Text(
                                         "${checkAnswer(PreviousQuestions.questions[index].correct)}",
                                         style: TextStyle(
                                           color: MyColors.seashall,
-                                          fontSize: correctSize(15),
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.normal,
                                         ),
                                         textWidthBasis: TextWidthBasis.parent,
                                       )),
                                 ],
                               ),
-                            ).py(correctSize(5));
+                            ).py(5.sp);
                           })
                       : Center(
                           child: Text("Give Your First Quiz")
@@ -111,7 +112,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                               .color(MyColors.malachite)
                               .bold
                               .make()
-                              .p(correctSize(16)),
+                              .p(16.sp),
                         ),
                 ));
           } else {
@@ -132,7 +133,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
   questionFetch() async {
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(CurretUser.currentUser.email)
+        .doc(CurrentUser.currentUser.email)
         .collection("previousQuestions")
         .doc("Questions")
         .get()
