@@ -11,28 +11,34 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 // ignore: must_be_immutable
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
   static final _formkey = GlobalKey<FormState>();
 
-  String email = "";
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
 
-  String password = "";
+class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
 
   void signUpUser(BuildContext context) async {
+    String email = emailController.text;
+    String password = passwordController.text;
     Auth(FirebaseAuth.instance)
-        .signUp(email: this.email, password: this.password, context: context);
-    
+        .signUp(email: email, password: password, context: context);
   }
 
   moveToUserPage(BuildContext context) {
-    if (_formkey.currentState!.validate()) {
-      _formkey.currentState!.save();
-      CurrentUser.currentUser = UserName(email: this.email, password: this.password);
-     print('sing up:name ${this.email} pass ${this.password}');
+    if (SignUp._formkey.currentState!.validate()) {
+      String email = emailController.text;
+      String password = passwordController.text;
+      SignUp._formkey.currentState!.save();
+      CurrentUser.currentUser = UserName(email: email, password: password);
+      print('sing up:name ${email} pass ${password}');
       signUpUser(context);
       Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
@@ -53,10 +59,10 @@ class SignUp extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: Form(
-        key: _formkey,
+        key: SignUp._formkey,
         child: Column(
           children: [
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             SvgPicture.asset(
@@ -64,7 +70,7 @@ class SignUp extends StatelessWidget {
               fit: BoxFit.contain,
               width: (393 / 1.2).w,
             ).centered().py(24.sp),
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             "SignUp to Quiz Genius"
@@ -78,7 +84,8 @@ class SignUp extends StatelessWidget {
               height: 20.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
+              padding:
+                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
                   borderRadius: BorderRadius.only(
@@ -101,18 +108,22 @@ class SignUp extends StatelessWidget {
                   if (!EmailValidator.validate(value)) {
                     return "Email is invalid";
                   }
+                  
                   return null;
                 },
-                onChanged: (value) {
-                  this.email =  emailController.text;
-                },
+                // onChanged: (value) {
+                //   print("email" + value);
+                //   email = value;
+                //   print("email" + email);
+                // },
               ),
             ).px(16.sp),
             Container(
-              padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom:10.sp),
+              padding:
+                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius:  BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.sp),
                     bottomRight: Radius.circular(20.sp),
                   )),
@@ -133,9 +144,9 @@ class SignUp extends StatelessWidget {
                   }
                   return null;
                 },
-                onChanged: (value) {
-                  this.password =   passwordController.text;
-                },
+                // onChanged: (value) {
+                //   password = value;
+                // },
               ).pOnly(bottom: 10.sp),
             ).px(16.sp),
             SizedBox(

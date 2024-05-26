@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_genius/firebase/auth.dart';
 import 'package:quiz_genius/main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -113,11 +115,11 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                             )).centered()),
                   ).px(12.sp),
-                  Text("For new users: Actual scores will be calculated from the second quiz onwards; the first quiz was a demo.")
-                      .text
-                      .color(MyColors.malachite)
-                      .bold
-                      .make().p(12.sp)
+                  // Text("For new users: Actual scores will be calculated from the second quiz onwards; the first quiz was a demo.")
+                  //     .text
+                  //     .color(MyColors.malachite)
+                  //     .bold
+                  //     .make().p(12.sp)
                 ],
               ),
             ),
@@ -239,6 +241,33 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.pushNamed(
                             context, MyRoutes.previousQuizRoute);
+                      },
+                    ),
+                  ).px16().py(5),
+                  Container(
+                    height: 60.h,
+                    width: 393.w,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.sp),
+                    ),
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      leading: const Icon(
+                        CupertinoIcons.arrow_left_square_fill,
+                        color: MyColors.malachite,
+                        fill: 0.6,
+                      ),
+                      title: Text(
+                        "Sign Out",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          color: MyColors.malachite,
+                        ),
+                      ),
+                      onTap: () {
+                       Auth(FirebaseAuth.instance).signOut(context: context);
                       },
                     ),
                   ).px16().py(5),

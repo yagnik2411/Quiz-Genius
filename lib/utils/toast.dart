@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
@@ -7,7 +8,7 @@ toMassage({required String msg}) {
     fontSize: 10,
     gravity: ToastGravity.BOTTOM,
     textColor: MyColors.seaGreen,
-    backgroundColor: MyColors.elfGreen,
+    backgroundColor: Colors.black,
   );
   
 }

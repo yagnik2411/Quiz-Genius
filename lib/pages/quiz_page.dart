@@ -203,16 +203,8 @@ class _QuizPageState extends State<QuizPage> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
-            onPressed: () {
-              // Scores.scores.clear();
-              // scoreFetch();
-              // Scores.scores.add(Score(
-              //     correct: correct,
-              //     scoreInPercent: correct * 10,
-              //     date: DateFormat(' dd / MM / yyyy ')
-              //         .format(DateTime.now())
-              //         .toString()));
-              ScoreUpdate();
+            onPressed: () async {
+              await scoreUpdate(context);
               print(Scores.scores.length);
               int currentPerformance =
                   ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
@@ -233,11 +225,11 @@ class _QuizPageState extends State<QuizPage> {
               Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(MyColors.mint),
-              elevation: MaterialStateProperty.all(10),
-              side: MaterialStateProperty.all(
+              backgroundColor: WidgetStateProperty.all(MyColors.mint),
+              elevation: WidgetStateProperty.all(10),
+              side: WidgetStateProperty.all(
                   const BorderSide(color: MyColors.seashall, width: 2)),
-              shape: MaterialStateProperty.all(
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     15.sp,
@@ -253,19 +245,28 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void scoreListAdd(BuildContext context) {
+    // Add the new score to the list
     Scores.scores.add(Score(
-        correct: correct,
-        scoreInPercent: correct * 10,
-        date:
-            DateFormat(' dd / MM / yyyy ').format(DateTime.now()).toString()));
+      correct: correct,
+      scoreInPercent: correct * 10,
+      date: DateFormat('dd / MM / yyyy').format(DateTime.now()).toString(),
+    ));
+
+    // Ensure we only keep the last 10 scores
+    if (Scores.scores.length > 10) {
+      Scores.scores = Scores.scores.sublist(Scores.scores.length - 10);
+    }
+
+    // Update the scores in Firestore
     Scores.addScores(
-        context: context,
-        score: Scores.scores,
-        email: CurrentUser.currentUser.email);
+      context: context,
+      score: Scores.scores,
+      email: CurrentUser.currentUser.email,
+    );
   }
 
-  scoreFetch() async {
-    print("score:${CurrentUser.currentUser.email}");
+  Future<void> scoreFetch() async {
+    print("score: ${CurrentUser.currentUser.email}");
     DocumentReference userDocRef = FirebaseFirestore.instance
         .collection("users")
         .doc(CurrentUser.currentUser.email)
@@ -293,12 +294,19 @@ class _QuizPageState extends State<QuizPage> {
         // Document does not exist, create a new one with an empty list
         await userDocRef.set({'scores': []});
       }
-    } catch (e) {}
+    } catch (e) {
+      print("Error fetching scores: $e");
+    }
   }
 
-  ScoreUpdate() {
+  Future<void> scoreUpdate(BuildContext context) async {
+    // Clear the current scores
     Scores.scores.clear();
-    scoreFetch();
+
+    // Fetch existing scores
+    await scoreFetch();
+
+    // Add the new score and ensure the list has only the last 10 scores
     scoreListAdd(context);
   }
 }

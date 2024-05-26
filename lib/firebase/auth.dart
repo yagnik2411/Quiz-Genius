@@ -16,6 +16,7 @@ class Auth {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
           print('auth:name ${email} pass ${password}');
+          toMassage(msg: "Sighup Complete");
     } on FirebaseAuthException catch (e) {
       toMassage(msg: "Sighup Fail");
     }
@@ -32,6 +33,16 @@ class Auth {
     } on FirebaseAuthException catch (e) {
       print(e);
       toMassage(msg: "SignIn Fail");
+    }
+  }
+
+  Future<void> signOut({required BuildContext context}) async {
+    try {
+      await _auth.signOut();
+      Navigator.pushReplacementNamed(context, MyRoutes.loginRoute);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      toMassage(msg: "SignOut Fail");
     }
   }
 }
