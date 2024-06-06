@@ -25,21 +25,22 @@ class _SignUpState extends State<SignUp> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  void signUpUser(BuildContext context) async {
+  Future<String> signUpUser(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
-    Auth(FirebaseAuth.instance)
+   return await Auth(FirebaseAuth.instance)
         .signUp(email: email, password: password, context: context);
   }
 
-  moveToUserPage(BuildContext context) {
+  moveToUserPage(BuildContext context)async {
     if (SignUp._formkey.currentState!.validate()) {
       String email = emailController.text;
       String password = passwordController.text;
       SignUp._formkey.currentState!.save();
       CurrentUser.currentUser = UserName(email: email, password: password);
       print('sing up:name ${email} pass ${password}');
-      signUpUser(context);
+     String ans=await signUpUser(context);
+     if(ans == "Sighup Complete")
       Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
   }

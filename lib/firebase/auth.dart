@@ -8,21 +8,23 @@ class Auth {
 
   Auth(this._auth);
 
-  Future<void> signUp(
+  Future<String> signUp(
       {required String email,
       required String password,
       required BuildContext context}) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-          print('auth:name ${email} pass ${password}');
-          toMassage(msg: "Sighup Complete");
+      print('auth:name ${email} pass ${password}');
+      toMassage(msg: "Sighup Complete");
+      return "Sighup Complete";
     } on FirebaseAuthException catch (e) {
       toMassage(msg: "Sighup Fail");
+      return "Sighup Fail";
     }
   }
 
-  Future<void> signIn(
+  Future<String> signIn(
       {required String email,
       required String password,
       required BuildContext context}) async {
@@ -30,9 +32,12 @@ class Auth {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+      toMassage(msg: "SignIn Complete");
+      return "SignIn Complete";
     } on FirebaseAuthException catch (e) {
       print(e);
       toMassage(msg: "SignIn Fail");
+      return "SignIn Fail";
     }
   }
 

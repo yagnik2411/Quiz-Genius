@@ -10,6 +10,7 @@ import 'package:quiz_genius/pages/previous_scores_page.dart';
 import 'package:quiz_genius/pages/profile_page.dart';
 import 'package:quiz_genius/pages/quiz_page.dart';
 import 'package:quiz_genius/pages/signUp_page.dart';
+import 'package:quiz_genius/pages/splash_screen.dart';
 import 'package:quiz_genius/pages/username_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'pages/login_page.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: GoogleFonts.montserrat().fontFamily,
           ),
-          initialRoute: MyRoutes.loginRoute,
+          initialRoute: MyRoutes.splashScreenRoute,
           routes: {
             MyRoutes.loginRoute: (context) => Login(),
             MyRoutes.usernameRoute: (context) => UserName(),
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
             MyRoutes.profileRoute: (context) => const ProfilePage(),
             MyRoutes.signUpRoute: (context) => SignUp(),
+            MyRoutes.splashScreenRoute:(context)=>SplashScreen(),
           },
         );
       },

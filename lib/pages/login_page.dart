@@ -12,22 +12,31 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 // ignore: must_be_immutable
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
- static final _formkey = GlobalKey<FormState>();
+  static final _formkey = GlobalKey<FormState>();
 
-  String _email = "";
+  @override
+  State<Login> createState() => _LoginState();
+}
 
-  String _password = "";
+class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
 
-  moveToHome(BuildContext context) {
-    CurrentUser.currentUser = UserName(email: _email, password: _password);
-    print("email ${_email} ");
-    Auth(FirebaseAuth.instance).signIn(
+  final TextEditingController passwordController = TextEditingController();
+
+  moveToHome(BuildContext context) async {
+    CurrentUser.currentUser = UserName(
+        email: emailController.text, password: passwordController.text);
+    print("email ${emailController.text} ");
+    String ans = await Auth(FirebaseAuth.instance).signIn(
         email: CurrentUser.currentUser.email,
         password: CurrentUser.currentUser.password,
         context: context);
+    if (ans == "SignIn Complete") {
+      Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+    }
   }
 
   @override
@@ -45,10 +54,10 @@ class Login extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: Form(
-        key: _formkey,
+        key: Login._formkey,
         child: Column(
           children: [
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             SvgPicture.asset(
@@ -56,7 +65,7 @@ class Login extends StatelessWidget {
               fit: BoxFit.contain,
               width: 393.w / 1.2,
             ).centered().py(24.sp),
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             "Welcome to Quiz Genius"
@@ -66,14 +75,15 @@ class Login extends StatelessWidget {
                 .bold
                 .center
                 .makeCentered(),
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             Container(
-              padding:  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
+              padding:
+                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius:  BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.sp),
                     topRight: Radius.circular(20.sp),
                   )),
@@ -94,16 +104,15 @@ class Login extends StatelessWidget {
                   }
                   return null;
                 },
-                onChanged: (value) {
-                  _email = value;
-                },
+                controller: emailController,
               ),
             ).px(16.sp),
             Container(
-              padding:  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
+              padding:
+                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
                   color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius:  BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.sp),
                     bottomRight: Radius.circular(20.sp),
                   )),
@@ -123,29 +132,27 @@ class Login extends StatelessWidget {
                   }
                   return null;
                 },
-                onChanged: (value) {
-                  _password = value;
-                },
+                controller: passwordController,
               ).pOnly(bottom: 10.sp),
             ).px(16.sp),
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
             ButtonBar(
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
+                    if (Login._formkey.currentState!.validate()) {
                       moveToHome(context);
                     }
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(MyColors.malachite),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
+                        WidgetStateProperty.all(MyColors.malachite),
+                    elevation: WidgetStateProperty.all(10),
+                    side: WidgetStateProperty.all(
                         const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.sp),
                       ),
@@ -159,11 +166,11 @@ class Login extends StatelessWidget {
                         context, MyRoutes.signUpRoute);
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.mint),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(MyColors.mint),
+                    elevation: WidgetStateProperty.all(10),
+                    side: WidgetStateProperty.all(
                         const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.sp),
                       ),

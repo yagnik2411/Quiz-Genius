@@ -7,4 +7,5 @@ class MyRoutes {
   static const String previousQuizRoute = "/previousQuiz";
   static const String profileRoute = "/profile";
   static const String signUpRoute = "/signUp";
+  static const String splashScreenRoute = "/splashScreen";
 }
