@@ -47,19 +47,18 @@ class _HomePageState extends State<HomePage> {
                       width: 45.w,
                     ),
                   ).p(16.sp),
-                  Text("Welcome, $name")
+                  Text("Welcome, ${CurrentUser.currentUser.userName}")
                       .text
                       .xl3
                       .color(MyColors.malachite)
                       .bold
                       .make()
                       .p(16.sp),
-                   Divider(
+                  Divider(
                     color: MyColors.darkCyan,
                     thickness: 1,
-                    
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
                   ElevatedButton(
@@ -79,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     child: Container(
-                        height:50.h,
+                        height: 50.h,
                         width: MediaQuery.of(context).size.width,
                         child: Text("New Quiz",
                             style: TextStyle(
@@ -133,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                     height: 50.h,
                   ),
                   Container(
-                      height:200.h,
+                      height: 200.h,
                       width: 393.w,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -267,11 +266,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                       Auth(FirebaseAuth.instance).signOut(context: context);
+                        Auth(FirebaseAuth.instance).signOut(context: context);
                       },
                     ),
                   ).px16().py(5),
-                  
                 ],
               ),
             ),
@@ -298,7 +296,7 @@ class _HomePageState extends State<HomePage> {
         .doc(CurrentUser.currentUser.email)
         .get()
         .then((ds) {
-      name = ds['userName'];
+      CurrentUser.currentUser.userName = ds['userName'];
       print(name);
       CurrentUser.currentUser.performance = ds['performance'];
     }).catchError((e) {});

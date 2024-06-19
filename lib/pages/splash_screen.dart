@@ -57,10 +57,15 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: FadeTransition(
-          opacity: _animation,
-          child: Image.asset('assets/images/icon.png', width: 200, height: 200),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.black,
+        child: Center(
+          child: FadeTransition(
+            opacity: _animation,
+            child: Image.asset('assets/images/icon.png', width: 200, height: 200),
+          ),
         ),
       ),
     );
