@@ -2,6 +2,18 @@
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
+## UI Preview
+<div align="center">
+  <div align="center">
+    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_1.png" alt="Screenshot 1" width="300"/>
+    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_2.png" alt="Screenshot 2" width="300"/>
+  </div>
+  <div align="center">
+    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_3.png" alt="Screenshot 3" width="300"/>
+    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_4.png" alt="Screenshot 4" width="300"/>
+  </div>  
+</div>
+
 ## Features
 
 - **User Profile:** Each user has a profile that saves their name and quiz performance for easy tracking.
