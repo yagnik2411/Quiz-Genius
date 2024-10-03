@@ -8,7 +8,8 @@ import 'package:quiz_genius/pages/home_page.dart';
 import 'package:quiz_genius/pages/previous_quiz_page.dart';
 import 'package:quiz_genius/pages/previous_scores_page.dart';
 import 'package:quiz_genius/pages/profile_page.dart';
-import 'package:quiz_genius/pages/quiz_page.dart';
+import 'package:quiz_genius/pages/quiz_mcq_page.dart';
+import 'package:quiz_genius/pages/quiz_true_or_fase_page.dart';
 import 'package:quiz_genius/pages/signUp_page.dart';
 import 'package:quiz_genius/pages/splash_screen.dart';
 import 'package:quiz_genius/pages/username_page.dart';
@@ -25,22 +26,18 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     return ScreenUtilInit(
       designSize: const Size(393, 873),
       minTextAdapt: true,
       splitScreenMode: true,
       // Use builder only if you need to use library outside ScreenUtilInit context
-      builder: (_ , child) {
+      builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.light,
@@ -57,14 +54,11 @@ class MyApp extends StatelessWidget {
             MyRoutes.previousQuizRoute: (context) => const PreviousQuiz(),
             MyRoutes.profileRoute: (context) => const ProfilePage(),
             MyRoutes.signUpRoute: (context) => SignUp(),
-            MyRoutes.splashScreenRoute:(context)=>SplashScreen(),
+            MyRoutes.splashScreenRoute: (context) => SplashScreen(),
+            MyRoutes.quizMCQRoute: (context) => QuizMCQPage(),
           },
         );
       },
-      
     );
   }
 }
-
-
-
