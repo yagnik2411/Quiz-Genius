@@ -27,7 +27,7 @@ class Questions {
   Future<List<Question_MCQ>> getMCQQuestions() async {
     List<Question_MCQ> questions = [];
     final String url =
-        "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple";
+        "https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple";
     final response = await http.get(Uri.parse(url));
     final String data = response.body;
     final decodeData = jsonDecode(data);
