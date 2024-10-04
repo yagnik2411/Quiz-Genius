@@ -28,7 +28,9 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
+    // Fetch quiz questions and clear any old quiz data
     quizFuture = Questions().getQuestions();
+    PreviousQuestions.questions.clear();  // Clear previous questions when new quiz starts
   }
 
   @override
@@ -75,7 +77,7 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index + 10].question,
+                            quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
@@ -103,6 +105,8 @@ class _QuizPageState extends State<QuizPage> {
                                       isCorrect[index] = 1;
                                       toMassage(msg: "incorrect");
                                     }
+
+                                    // Add the question to PreviousQuestions
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
                                             id: index,
@@ -147,6 +151,8 @@ class _QuizPageState extends State<QuizPage> {
                                       isCorrect[index] = 0;
                                       toMassage(msg: "incorrect");
                                     }
+
+                                    // Add the question to PreviousQuestions
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
                                             id: index,
@@ -205,7 +211,6 @@ class _QuizPageState extends State<QuizPage> {
           child: ElevatedButton(
             onPressed: () async {
               await scoreUpdate(context);
-              print(Scores.scores.length);
               int currentPerformance =
                   ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
               CurrentUser.currentUser.performanceUpdate(
@@ -217,19 +222,21 @@ class _QuizPageState extends State<QuizPage> {
                   context: context,
                   score: Scores.scores,
                   email: CurrentUser.currentUser.email);
-              print(Scores.scores.length);
+              
+              // Update Firestore with the new list of previous questions
               PreviousQuestions.addToCollection(
                   context: context,
                   question: PreviousQuestions.questions,
                   email: CurrentUser.currentUser.email);
+              
               Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
             },
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(MyColors.mint),
-              elevation: WidgetStateProperty.all(10),
-              side: WidgetStateProperty.all(
+              backgroundColor: MaterialStateProperty.all(MyColors.mint),
+              elevation: MaterialStateProperty.all(10),
+              side: MaterialStateProperty.all(
                   const BorderSide(color: MyColors.seashall, width: 2)),
-              shape: WidgetStateProperty.all(
+              shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     15.sp,
@@ -237,7 +244,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
             ),
-            child: "submit".text.xl2.make(),
+            child: "Submit".text.xl2.make(),
           ).p(12.sp),
         ),
       ),
