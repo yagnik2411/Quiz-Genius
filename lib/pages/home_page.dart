@@ -308,12 +308,12 @@ void showQuizMenu(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: MyColors.malachite,
+        backgroundColor: MyColors.lightCyan,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sp)),
         title: Text(
           "Select Quiz Type",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -322,7 +322,7 @@ void showQuizMenu(BuildContext context) {
               title: Text(
                 "True/False Quiz",
                 style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.normal),
+                    color: Colors.black87, fontWeight: FontWeight.normal),
               ),
               onTap: () {
                 // Navigate to True/False Quiz Page
@@ -334,7 +334,7 @@ void showQuizMenu(BuildContext context) {
               title: Text(
                 "MCQ Quiz",
                 style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.normal),
+                    color: Colors.black87, fontWeight: FontWeight.normal),
               ),
               onTap: () {
                 // Navigate to MCQ Quiz Page
