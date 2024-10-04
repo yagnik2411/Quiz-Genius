@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
-import 'package:quiz_genius/main.dart';
-import 'package:velocity_x/velocity_x.dart';
-
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -21,6 +19,67 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String name = "";
+
+  confirmSignOut() {
+    showDialog(
+        context: context,
+        builder: (constext) => AlertDialog(
+              elevation: 10,
+              shadowColor: Colors.grey.shade700,
+              backgroundColor: MyColors.seashall,
+              title: Text(
+                'Sign Out',
+                style: TextStyle(
+                    color: MyColors.malachite, fontWeight: FontWeight.w700),
+              ),
+              content: Text(
+                'Do you really want to sign out from the app?',
+                style: TextStyle(fontSize: 16, color: MyColors.darkCyan),
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: TextButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(Colors.white)),
+                            onPressed: () async {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'No',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: MyColors.malachite,
+                                  fontWeight: FontWeight.w600),
+                            ))),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                        child: TextButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(Colors.white)),
+                            onPressed: () async {
+                              Navigator.pop(context);
+                              Auth(FirebaseAuth.instance)
+                                  .signOut(context: context);
+                            },
+                            child: Text(
+                              'Yes',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: MyColors.malachite,
+                                  fontWeight: FontWeight.w600),
+                            )))
+                  ],
+                )
+              ],
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +325,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        Auth(FirebaseAuth.instance).signOut(context: context);
+                        confirmSignOut();
+                        // Auth(FirebaseAuth.instance).signOut(context: context);
                       },
                     ),
                   ).px16().py(5),
