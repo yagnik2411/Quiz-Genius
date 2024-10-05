@@ -51,6 +51,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.1
   flutter_screenutil: ^5.9.0
+  firebase_storage: ^11.6.5
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
