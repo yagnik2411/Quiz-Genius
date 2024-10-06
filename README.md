@@ -102,6 +102,20 @@ flutter doctor
 ```bash
 flutter run
 ```
+---
+
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+  <a href="https://github.com/yagnik2411/Quiz-Genius">
+    <img src="https://contrib.rocks/image?repo=yagnik2411/Quiz-Genius&&max=100" />
+  </a>
+</div>
+
+---
 
 ## Contact
 
