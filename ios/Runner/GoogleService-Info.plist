@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.quizGenius</string>
+	<string>com.yagnik.quizGenius</string>
 	<key>PROJECT_ID</key>
 	<string>quiz-genius-588d5</string>
 	<key>STORAGE_BUCKET</key>
