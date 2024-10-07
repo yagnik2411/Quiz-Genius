@@ -78,6 +78,7 @@ conduct enforcement ladder](https://github.com/mozilla/diversity).
 [homepage]: https://www.contributor-covenant.org
 
 For answers to common questions about this code of conduct, see the
+
 FAQ at https://www.contributor-covenant.org/faq. Translations are
 available at https://www.contributor-covenant.org/translations.
 
@@ -85,3 +86,5 @@ available at https://www.contributor-covenant.org/translations.
 ## Contact Information
 
 For any questions or further clarification, please contact admin.
+- [LinkedIn](https://www.linkedin.com/in/yagnikpanchal)
+- [Email](mailto:panchalyagnik2411@gmail.com)
