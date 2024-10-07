@@ -85,10 +85,6 @@ class _QuizPageState extends State<QuizMCQPage> {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          // overflowSpacing: 12,
-                          // overflowAlignment: OverflowBarAlignment.start,
-                          // buttonPadding: EdgeInsets.symmetric(
-                          //     horizontal: 20.sp, vertical: 10.sp),
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
