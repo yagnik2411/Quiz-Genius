@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  child: const Text("Login"),
+                  child: const Text("Login",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  child: const Text("Sign Up"),
+                  child: const Text("Sign Up",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                 ).px(12.sp),
               ],
             ).px(16.sp)

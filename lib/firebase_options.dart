@@ -67,8 +67,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '705505923762',
     projectId: 'quiz-genius-588d5',
     storageBucket: 'quiz-genius-588d5.appspot.com',
-    iosClientId: '705505923762-9tumdgj884f0750e9n4b028i95hh5ath.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quizGenius',
+    iosClientId:
+        '705505923762-9tumdgj884f0750e9n4b028i95hh5ath.apps.googleusercontent.com',
+    iosBundleId: 'com.yagnik.quizGenius',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '705505923762',
     projectId: 'quiz-genius-588d5',
     storageBucket: 'quiz-genius-588d5.appspot.com',
-    iosClientId: '705505923762-41erm37g6nn54hnqc9359fhuvpg64tp5.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quizGenius.RunnerTests',
+    iosClientId:
+        '705505923762-41erm37g6nn54hnqc9359fhuvpg64tp5.apps.googleusercontent.com',
+    iosBundleId: 'com.yagnik.quizGenius.RunnerTests',
   );
 }

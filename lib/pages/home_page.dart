@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                               width: 45.w,
                             ),
                           ).p(8.sp),
-                          Text("Hello, $name")
+                          Text("Hello, ${CurrentUser.currentUser.userName}")
                               .text
                               .xl3
                               .color(MyColors.malachite)
