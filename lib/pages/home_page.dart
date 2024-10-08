@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
-import 'package:quiz_genius/main.dart';
-import 'package:velocity_x/velocity_x.dart';
-
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -21,6 +19,111 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String name = "";
+
+  confirmSignOut() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              elevation: 10,
+              shadowColor: Colors.grey.shade700,
+              content: Container(
+                  padding: const EdgeInsets.all(15.0),
+                  decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: new LinearGradient(
+                          colors: [
+                            MyColors.lightCyan,
+                            Colors.white,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Sign Out")
+                          .text
+                          .xl3
+                          .color(MyColors.darkCyan)
+                          .bold
+                          .make(),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Text(
+                        'Do you really want to sign out from the app?',
+                        style:
+                            TextStyle(fontSize: 16, color: MyColors.darkCyan),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      WidgetStatePropertyAll(MyColors.darkCyan),
+                                  elevation: WidgetStatePropertyAll(10),
+                                  side: WidgetStatePropertyAll(
+                                      const BorderSide(color: Colors.white)),
+                                  shape: WidgetStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.sp))),
+                                ),
+                                child: Container(
+                                  height: 50.h,
+                                  child: Text(
+                                    "No",
+                                    style: TextStyle(
+                                        fontSize: 20.sp, color: Colors.white),
+                                  ).centered(),
+                                )),
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  Auth(FirebaseAuth.instance)
+                                      .signOut(context: context);
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      WidgetStatePropertyAll(MyColors.darkCyan),
+                                  shape: WidgetStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.sp))),
+                                  side: WidgetStatePropertyAll(
+                                      const BorderSide(color: Colors.white)),
+                                  elevation: WidgetStatePropertyAll(10),
+                                ),
+                                child: Container(
+                                  height: 50.sp,
+                                  child: Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                        fontSize: 20.sp, color: Colors.white),
+                                  ).centered(),
+                                )),
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+              contentPadding: EdgeInsets.all(0.0),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +369,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        Auth(FirebaseAuth.instance).signOut(context: context);
+                        confirmSignOut();
+                        // Auth(FirebaseAuth.instance).signOut(context: context);
                       },
                     ),
                   ).px16().py(5),
