@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) => AlertDialog(
               elevation: 10,
+               height: 200.h,
+                width: 393.w,
               shadowColor: Colors.grey.shade700,
               content: Container(
                   padding: const EdgeInsets.all(15.0),
