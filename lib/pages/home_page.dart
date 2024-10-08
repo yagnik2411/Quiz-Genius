@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String name = "";
+  String? profileImageUrl;
 
   confirmSignOut() {
     showDialog(
@@ -135,28 +137,47 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: MyColors.lightCyan,
             appBar: AppBar(
               backgroundColor: MyColors.mint,
-              title: const Text("Quiz Genius").centered(),
+              title: Text(
+                "Quiz Genius",
+                style: Theme.of(context).textTheme.titleMedium,
+              ).centered(),
             ),
             body: Center(
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 50.w,
-                    backgroundColor: MyColors.darkCyan,
-                    child: SvgPicture.asset(
-                      "assets/images/online_test.svg",
-                      fit: BoxFit.contain,
-                      height: 45.h,
-                      width: 45.w,
-                    ),
-                  ).p(16.sp),
-                  Text("Welcome, ${CurrentUser.currentUser.userName}")
-                      .text
-                      .xl3
-                      .color(MyColors.malachite)
-                      .bold
-                      .make()
-                      .p(16.sp),
+                  SizedBox(height: 7.h,),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                                "Welcome,\n${CurrentUser.currentUser.userName}")
+                            .text
+                            .xl3
+                            .color(MyColors.malachite)
+                            .bold
+                            .make()
+                            .p(16.sp),
+                      ),
+                      Expanded(
+                        child: CircleAvatar(
+                          radius: 50.w,
+                          backgroundColor: MyColors.darkCyan,
+                          backgroundImage: NetworkImage(
+                              CurrentUser.currentUser.profileImage),
+                          // Use this line to set the image
+                          child: CurrentUser.currentUser.profileImage.isEmpty
+                              ? SvgPicture.asset(
+                                  "assets/images/online_test.svg",
+                                  fit: BoxFit.contain,
+                                  height: 45.h,
+                                  width: 45.w,
+                                )
+                              : null,
+                        ).p(16.sp),
+                      ),
+                    ],
+                  ),
                   Divider(
                     color: MyColors.darkCyan,
                     thickness: 1,
@@ -170,11 +191,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(MyColors.darkCyan),
-                      elevation: MaterialStateProperty.all(10),
-                      side: MaterialStateProperty.all(
+                          WidgetStateProperty.all(MyColors.darkCyan),
+                      elevation: WidgetStateProperty.all(10),
+                      side: WidgetStateProperty.all(
                           const BorderSide(color: Colors.white)),
-                      shape: MaterialStateProperty.all(
+                      shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.sp),
                         ),
@@ -198,11 +219,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(MyColors.darkCyan),
-                      elevation: MaterialStateProperty.all(10),
-                      side: MaterialStateProperty.all(
+                          WidgetStateProperty.all(MyColors.darkCyan),
+                      elevation: WidgetStateProperty.all(10),
+                      side: WidgetStateProperty.all(
                           const BorderSide(color: Colors.white)),
-                      shape: MaterialStateProperty.all(
+                      shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.sp),
                         ),
@@ -395,6 +416,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _fetch() async {
+    //Fetch user data from Firestore
     await FirebaseFirestore.instance
         .collection('users')
         .doc(CurrentUser.currentUser.email)
@@ -403,6 +425,8 @@ class _HomePageState extends State<HomePage> {
       CurrentUser.currentUser.userName = ds['userName'];
       print(name);
       CurrentUser.currentUser.performance = ds['performance'];
+      CurrentUser.currentUser.profileImage = ds['profileImage'];
+      profileImageUrl = CurrentUser.currentUser.profileImage;
     }).catchError((e) {});
   }
 }
