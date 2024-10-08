@@ -1,4 +1,4 @@
-package com.example.quiz_genius
+package com.yagnik.quiz_genius
 
 import io.flutter.embedding.android.FlutterActivity
 
