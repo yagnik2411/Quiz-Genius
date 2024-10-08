@@ -40,7 +40,7 @@ class _SignUpState extends State<SignUp> {
       CurrentUser.currentUser = UserName(email: email, password: password);
       print('sing up:name ${email} pass ${password}');
      String ans=await signUpUser(context);
-     if(ans == "Sighup Complete")
+     if(ans == "Signup Complete")
       Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
   }

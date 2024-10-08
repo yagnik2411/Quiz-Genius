@@ -18,6 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String _user = "";
   int _performance = 0;
+  String? _profileImageUrl;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -52,14 +53,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.grey.withOpacity(0.2),
-                              radius: 65.w,
-                              child: SvgPicture.asset(
+                              radius: 50.w,
+                              backgroundColor: MyColors.darkCyan,
+                              backgroundImage: NetworkImage(
+                                  CurrentUser.currentUser.profileImage),
+                              // Use this line to set the image
+                              child: CurrentUser.currentUser.profileImage.isEmpty
+                                  ? SvgPicture.asset(
                                 "assets/images/online_test.svg",
                                 fit: BoxFit.contain,
-                                height: 45.w,
+                                height: 45.h,
                                 width: 45.w,
-                              ),
+                              )
+                                  : null,
                             ).p(10.sp),
                             Text(
                               "$_user",
@@ -143,6 +149,8 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((data) {
       _user = data['userName'];
       _performance = data['performance'];
+      _profileImageUrl =data['profileImage'];
+
     });
   }
 }
