@@ -28,20 +28,20 @@ class _SignUpState extends State<SignUp> {
   Future<String> signUpUser(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
-   return await Auth(FirebaseAuth.instance)
+    return await Auth(FirebaseAuth.instance)
         .signUp(email: email, password: password, context: context);
   }
 
-  moveToUserPage(BuildContext context)async {
+  moveToUserPage(BuildContext context) async {
     if (SignUp._formkey.currentState!.validate()) {
       String email = emailController.text;
       String password = passwordController.text;
       SignUp._formkey.currentState!.save();
       CurrentUser.currentUser = UserName(email: email, password: password);
       print('sing up:name ${email} pass ${password}');
-     String ans=await signUpUser(context);
-     if(ans == "Signup Complete")
-      Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
+      String ans = await signUpUser(context);
+      if (ans == "Signup Complete")
+        Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
   }
 
@@ -61,7 +61,6 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
           child: Form(
         key: SignUp._formkey,
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -111,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                   if (!EmailValidator.validate(value)) {
                     return "Email is invalid";
                   }
-                  
+
                   return null;
                 },
                 // onChanged: (value) {
@@ -156,9 +155,8 @@ class _SignUpState extends State<SignUp> {
               height: 10.h,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 120,right: 120),
+              padding: const EdgeInsets.only(left: 120, right: 120),
               child: OverflowBar(
-
                 children: [
                   ElevatedButton(
                     onPressed: () {
@@ -176,7 +174,12 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    child: Center(child: const Text("Sign Up" ,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                    child: Center(
+                        child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ],
               ),

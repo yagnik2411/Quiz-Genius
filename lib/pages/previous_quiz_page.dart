@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -49,19 +48,15 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                   child: (!PreviousQuestions.questions.isEmpty)
                       ? ListView.builder(
                           padding: EdgeInsets.symmetric(
-                              vertical: 8.sp,
-                              horizontal: 16.sp),
+                              vertical: 8.sp, horizontal: 16.sp),
                           itemCount: 10,
                           itemBuilder: (context, index) {
-                            
                             return Container(
                               padding: EdgeInsets.all(8.sp),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: MyColors.darkCyan,
-                                    width: 3.w),
-                                borderRadius:
-                                    BorderRadius.circular(15.sp),
+                                    color: MyColors.darkCyan, width: 3.w),
+                                borderRadius: BorderRadius.circular(15.sp),
                                 color: MyColors.malachite.withOpacity(0.8),
                               ),
                               child: Column(
@@ -83,13 +78,12 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                                   ),
                                   Container(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 20.sp,
-                                          vertical: 10.sp),
+                                          horizontal: 20.sp, vertical: 10.sp),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: Colors.white, width: 1),
-                                        borderRadius: BorderRadius.circular(
-                                            15.sp),
+                                        borderRadius:
+                                            BorderRadius.circular(15.sp),
                                         color: MyColors.mint,
                                       ),
                                       child: Text(

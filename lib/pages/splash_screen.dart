@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 
@@ -34,11 +33,8 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // Start the fade-out animation
-       
-          _animationController.reverse();
 
-          
-        
+        _animationController.reverse();
       } else if (status == AnimationStatus.dismissed) {
         // Navigate to login screen after fade-out animation completes
         Navigator.pushReplacementNamed(context, MyRoutes.loginRoute);
@@ -64,7 +60,8 @@ class _SplashScreenState extends State<SplashScreen>
         child: Center(
           child: FadeTransition(
             opacity: _animation,
-            child: Image.asset('assets/images/icon.png', width: 200, height: 200),
+            child:
+                Image.asset('assets/images/icon.png', width: 200, height: 200),
           ),
         ),
       ),

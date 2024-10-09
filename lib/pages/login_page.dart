@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -138,7 +137,7 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 10.h,
             ),
-            ButtonBar(
+            OverflowBar(
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -158,7 +157,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  child: const Text("Login",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -176,7 +179,9 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  child: const Text("Sign Up",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                  child: const Text("Sign Up",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
                 ).px(12.sp),
               ],
             ).px(16.sp)
