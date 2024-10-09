@@ -20,7 +20,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  late Future<List<Question>> quizFuture;
+  late Future<List<Question_T_F>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
@@ -28,7 +28,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getQuestions();
+    quizFuture = Questions().getTFQuestions();
   }
 
   @override
@@ -39,13 +39,13 @@ class _QuizPageState extends State<QuizPage> {
         backgroundColor: MyColors.mint,
         title: const Center(
           child: Text(
-            "Quiz Genius",
+            "True or False Quiz",
             textAlign: TextAlign.center,
           ),
         ),
         automaticallyImplyLeading: false,
       ),
-      body: FutureBuilder<List<Question>>(
+      body: FutureBuilder<List<Question_T_F>>(
         future: quizFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
