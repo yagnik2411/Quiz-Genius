@@ -24,109 +24,109 @@ class _HomePageState extends State<HomePage> {
 
   confirmSignOut() {
     showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              elevation: 10,
-               height: 200.h,
-                width: 393.w,
-              shadowColor: Colors.grey.shade700,
-              content: Container(
-                  padding: const EdgeInsets.all(15.0),
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(15),
-                      gradient: new LinearGradient(
-                          colors: [
-                            MyColors.lightCyan,
-                            Colors.white,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            elevation: 10,
+            shadowColor: Colors.grey.shade700,
+            content: Container(
+              width: 393.w,
+              // Setting width using Container
+              height: 200.h,
+              // Setting height using Container
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
+                  colors: [
+                    MyColors.lightCyan,
+                    Colors.white,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Sign Out")
+                      .text
+                      .xl3
+                      .color(MyColors.darkCyan)
+                      .bold
+                      .make(),
+                  SizedBox(height: 15.h),
+                  Text(
+                    'Do you really want to sign out from the app?',
+                    style: TextStyle(fontSize: 16, color: MyColors.darkCyan),
+                  ),
+                  SizedBox(height: 20.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Sign Out")
-                          .text
-                          .xl3
-                          .color(MyColors.darkCyan)
-                          .bold
-                          .make(),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Text(
-                        'Do you really want to sign out from the app?',
-                        style:
-                            TextStyle(fontSize: 16, color: MyColors.darkCyan),
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      WidgetStatePropertyAll(MyColors.darkCyan),
-                                  elevation: WidgetStatePropertyAll(10),
-                                  side: WidgetStatePropertyAll(
-                                      const BorderSide(color: Colors.white)),
-                                  shape: WidgetStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.sp))),
-                                ),
-                                child: Container(
-                                  height: 50.h,
-                                  child: Text(
-                                    "No",
-                                    style: TextStyle(
-                                        fontSize: 20.sp, color: Colors.white),
-                                  ).centered(),
-                                )),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(MyColors.darkCyan),
+                            elevation: MaterialStateProperty.all(10),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.sp),
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 20.w,
+                          child: Container(
+                            height: 50.h,
+                            child: Text(
+                              "No",
+                              style: TextStyle(
+                                  fontSize: 20.sp, color: Colors.white),
+                            ).centered(),
                           ),
-                          Expanded(
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  Auth(FirebaseAuth.instance)
-                                      .signOut(context: context);
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      WidgetStatePropertyAll(MyColors.darkCyan),
-                                  shape: WidgetStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.sp))),
-                                  side: WidgetStatePropertyAll(
-                                      const BorderSide(color: Colors.white)),
-                                  elevation: WidgetStatePropertyAll(10),
-                                ),
-                                child: Container(
-                                  height: 50.sp,
-                                  child: Text(
-                                    "Yes",
-                                    style: TextStyle(
-                                        fontSize: 20.sp, color: Colors.white),
-                                  ).centered(),
-                                )),
-                          )
-                        ],
-                      )
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Auth(FirebaseAuth.instance).signOut(
+                                context: context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(MyColors.darkCyan),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.sp),
+                              ),
+                            ),
+                            elevation: MaterialStateProperty.all(10),
+                          ),
+                          child: Container(
+                            height: 50.sp,
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(
+                                  fontSize: 20.sp, color: Colors.white),
+                            ).centered(),
+                          ),
+                        ),
+                      ),
                     ],
-                  )),
-              contentPadding: EdgeInsets.all(0.0),
-            ));
+                  ),
+                ],
+              ),
+            ),
+            contentPadding: EdgeInsets.all(0.0),
+          ),
+    );
   }
 
   @override
@@ -136,12 +136,15 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            backgroundColor: MyColors.lightCyan,
+            backgroundColor: Colors.blueGrey[700], // Changed background color
             appBar: AppBar(
-              backgroundColor: MyColors.mint,
+              backgroundColor: Colors.deepOrange,
               title: Text(
                 "Quiz Genius",
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium,
               ).centered(),
             ),
             body: Center(
@@ -153,10 +156,10 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                                "Welcome,\n${CurrentUser.currentUser.userName}")
+                            "Welcome,\n${CurrentUser.currentUser.userName}")
                             .text
                             .xl3
-                            .color(MyColors.malachite)
+                            .color(MyColors.seashall)
                             .bold
                             .make()
                             .p(16.sp),
@@ -164,17 +167,17 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: CircleAvatar(
                           radius: 50.w,
-                          backgroundColor: MyColors.darkCyan,
+                          backgroundColor: Colors.white,
                           backgroundImage: NetworkImage(
                               CurrentUser.currentUser.profileImage),
                           // Use this line to set the image
                           child: CurrentUser.currentUser.profileImage.isEmpty
                               ? SvgPicture.asset(
-                                  "assets/images/online_test.svg",
-                                  fit: BoxFit.contain,
-                                  height: 45.h,
-                                  width: 45.w,
-                                )
+                            "assets/images/online_test.svg",
+                            fit: BoxFit.contain,
+                            height: 45.h,
+                            width: 45.w,
+                          )
                               : null,
                         ).p(16.sp),
                       ),
@@ -193,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStateProperty.all(MyColors.darkCyan),
+                      WidgetStateProperty.all(MyColors.darkCyan),
                       elevation: WidgetStateProperty.all(10),
                       side: WidgetStateProperty.all(
                           const BorderSide(color: Colors.white)),
@@ -205,7 +208,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                         height: 50.h,
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
                         child: Text("New Quiz",
                             style: TextStyle(
                               fontSize: 20.sp,
@@ -221,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStateProperty.all(MyColors.darkCyan),
+                      WidgetStateProperty.all(MyColors.darkCyan),
                       elevation: WidgetStateProperty.all(10),
                       side: WidgetStateProperty.all(
                           const BorderSide(color: Colors.white)),
@@ -233,7 +239,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                         height: 50.h,
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
                         child: Text("Previous Scores",
                             style: TextStyle(
                               fontSize: 20.sp,
@@ -316,7 +325,10 @@ class _HomePageState extends State<HomePage> {
                   ).px(16.sp).py(5.sp),
                   Container(
                     height: 60.h,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.sp),
@@ -408,9 +420,9 @@ class _HomePageState extends State<HomePage> {
             ),
             child: const Center(
                 child: CircularProgressIndicator(
-              color: MyColors.malachite,
-              backgroundColor: MyColors.lightCyan,
-            )),
+                  color: MyColors.malachite,
+                  backgroundColor: MyColors.lightCyan,
+                )),
           );
         }
       },
@@ -418,17 +430,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   _fetch() async {
-    //Fetch user data from Firestore
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(CurrentUser.currentUser.email)
-        .get()
-        .then((ds) {
-      CurrentUser.currentUser.userName = ds['userName'];
-      print(name);
-      CurrentUser.currentUser.performance = ds['performance'];
-      CurrentUser.currentUser.profileImage = ds['profileImage'];
-      profileImageUrl = CurrentUser.currentUser.profileImage;
-    }).catchError((e) {});
+    try {
+      DocumentSnapshot ds = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(CurrentUser.currentUser?.email)
+          .get();
+
+      if (ds.exists) {
+        setState(() {
+          CurrentUser.currentUser?.userName = ds['userName'];
+          CurrentUser.currentUser?.performance = ds['performance'];
+          CurrentUser.currentUser?.profileImage = ds['profileImage'];
+          profileImageUrl = CurrentUser.currentUser?.profileImage;
+        });
+      } else {
+        print("Document does not exist!");
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
   }
 }

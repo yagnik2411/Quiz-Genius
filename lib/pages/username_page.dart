@@ -51,7 +51,7 @@ class _UserNameState extends State<UserName> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.5),
+      backgroundColor: Colors.blueGrey[700], // Changed background color
       body: Center(
         child: Container(
           height: (1500 / 5).h,
@@ -59,17 +59,17 @@ class _UserNameState extends State<UserName> {
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
-                color: MyColors.elfGreen,
+                color: Colors.deepOrange,
                 blurRadius: 25,
                 offset: Offset(0, 0),
                 blurStyle: BlurStyle.outer,
               ),
             ],
             border: Border.all(
-              color: MyColors.darkCyan,
+              color: Colors.deepOrange,
               width: 2,
             ),
-            color: MyColors.seaGreen,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20.sp),
           ),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -78,7 +78,7 @@ class _UserNameState extends State<UserName> {
               children: [
                 CircleAvatar(
                   radius: 52,
-                  backgroundColor: MyColors.darkCyan,
+                  backgroundColor: Colors.deepOrange,
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage: _profileImageUrl.trim().isNotEmpty // Check for trimmed empty string
@@ -126,17 +126,19 @@ class _UserNameState extends State<UserName> {
               decoration: InputDecoration(
                 hintText: "eg: abc123",
                 hintStyle: TextStyle(
+                  fontSize: 18,
                   color: Colors.deepPurple.withOpacity(0.4),
                 ),
                 labelText: "Username",
               ),
             ).px(16.sp),
+            SizedBox(height: 10,),
             ElevatedButton(
               onPressed: () {
                 moveToHome(context);
               },
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(MyColors.mint),
+                backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
                 elevation: WidgetStateProperty.all(10),
                 side: WidgetStateProperty.all(
                     const BorderSide(color: Colors.white)),
@@ -146,7 +148,7 @@ class _UserNameState extends State<UserName> {
                   ),
                 ),
               ),
-              child: const Text("Sign in"),
+              child: const Text("Sign in",style: TextStyle(color: Colors.white),),
             ).px(12.sp),
           ]),
         ),
