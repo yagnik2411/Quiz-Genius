@@ -1,0 +1,28 @@
+name: Auto-Label Issues and PRs
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - name: Auto-Label for Issues
+      if: github.event_name == 'issues' && github.event.issue.created_at < '2024-11-01T00:00:00Z'
+      uses: actions-ecosystem/action-assign@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        labels: "gssoc-ext, hacktoberfest"
+
+    - name: Auto-Label for PRs
+      if: github.event_name == 'pull_request_target' && github.event.pull_request.created_at < '2024-11-01T00:00:00Z'
+      uses: actions-ecosystem/action-assign@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        labels: "gssoc-ext, hacktoberfest"
