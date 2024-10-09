@@ -50,24 +50,26 @@ The questions are pulled from an external API with the following structure:
 ```
 ## Contributing to Quiz Genius
 
-Thank you for considering contributing to OpSo! We welcome contributions from the community to help improve the app and add new features. Below are some guidelines for contributing:
+Thank you for your interest in contributing to **Quiz Genius**! We greatly appreciate community involvement to help enhance the app and introduce new features. Whether you're reporting bugs or submitting code contributions, your input is valuable. For more detailed information on how to contribute, please refer to the [CONTRIBUTING.md](./CONTRIBUTING.md) file. Here are some guidelines to help you get started:
 
-### Bug Reports and Feature Requests
+### Reporting Bugs and Requesting Features
 
-If you encounter any bugs or have ideas for new features, please [open an issue](https://github.com/yourusername/OpSo/issues) on GitHub. Make sure to provide detailed information about the issue or feature request, including steps to reproduce the bug if applicable.
+If you encounter a bug or have a suggestion for a new feature, please [open an issue](https://github.com/yagnik2411/Quiz-Genius/issues/new). Provide as much detail as possible, including clear reproduction steps if it's a bug. This helps us better understand and address the problem or request.
 
 ### Code Contributions
 
-We appreciate any code contributions that enhance the functionality or improve the user experience of Quiz Genius. To contribute code, follow these steps:
+Contributions that improve functionality or user experience are always welcome. Follow these steps to contribute:
 
-1. Fork the repository to your GitHub account.
-2. Clone your forked repository to your local machine.
-3. Create a new branch for your feature or bug fix: `git checkout -b feature-name`.
-4. Make your changes and ensure that the code follows the [Flutter style guide](https://flutter.dev/docs/development/tools/formatting).
-5. Test your changes locally to ensure they work as expected.
-6. Commit your changes with descriptive commit messages: `git commit -m "Add feature XYZ"`.
-7. Push your changes to your forked repository: `git push origin feature-name`.
-8. Create a pull request against the `main` branch of the original repository.
+1. **Fork** this repository to your GitHub account.
+2. **Clone** your forked repository locally.
+3. **Create a new branch** for your changes: `git checkout -b your-branch-name`.
+4. Implement your changes, ensuring they adhere to the [Flutter style guide](https://docs.flutter.dev/guides/language/effective-dart).
+5. **Test** your changes thoroughly to verify everything works correctly.
+6. Commit your work with a detailed message: `git commit -m "Description of changes"`.
+7. **Push** your branch to your GitHub fork: `git push origin your-branch-name`.
+8. Submit a **pull request** to the main repository's `main` branch, describing the purpose and scope of your changes.
+
+We look forward to your contributions!
 
 ## Getting Started
 
@@ -102,6 +104,20 @@ flutter doctor
 ```bash
 flutter run
 ```
+---
+
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+  <a href="https://github.com/yagnik2411/Quiz-Genius">
+    <img src="https://contrib.rocks/image?repo=yagnik2411/Quiz-Genius&&max=400" />
+  </a>
+</div>
+
+---
 
 ## Contact
 

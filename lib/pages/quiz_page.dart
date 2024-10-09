@@ -204,25 +204,34 @@ class _QuizPageState extends State<QuizPage> {
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
             onPressed: () async {
-              await scoreUpdate(context);
-              print(Scores.scores.length);
-              int currentPerformance =
-                  ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
-              CurrentUser.currentUser.performanceUpdate(
-                  context: context,
-                  currentEmail: CurrentUser.currentUser.email,
-                  currentPerformance: currentPerformance);
+              bool confirm = await showSubmissionConfirmationDialog(context);
 
-              Scores.updateScores(
-                  context: context,
-                  score: Scores.scores,
-                  email: CurrentUser.currentUser.email);
-              print(Scores.scores.length);
-              PreviousQuestions.addToCollection(
-                  context: context,
-                  question: PreviousQuestions.questions,
-                  email: CurrentUser.currentUser.email);
-              Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+              // If confirmed, proceed with submission
+              if (confirm) {
+                await scoreUpdate(context);
+                print(Scores.scores.length);
+
+                int currentPerformance =
+                    ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
+                CurrentUser.currentUser.performanceUpdate(
+                    context: context,
+                    currentEmail: CurrentUser.currentUser.email,
+                    currentPerformance: currentPerformance);
+
+                Scores.updateScores(
+                    context: context,
+                    score: Scores.scores,
+                    email: CurrentUser.currentUser.email);
+
+                print(Scores.scores.length);
+
+                PreviousQuestions.addToCollection(
+                    context: context,
+                    question: PreviousQuestions.questions,
+                    email: CurrentUser.currentUser.email);
+
+                Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+              }
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(MyColors.mint),
@@ -308,5 +317,69 @@ class _QuizPageState extends State<QuizPage> {
 
     // Add the new score and ensure the list has only the last 10 scores
     scoreListAdd(context);
+  }
+
+  Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
+    return await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: MyColors.malachite
+                  .withOpacity(0.9), // Set background color to match the theme
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                    15.sp), // Rounded corners for consistency
+              ),
+              title: Text(
+                "Confirm Submission",
+                style: TextStyle(
+                  color: MyColors.seashall, // Text color matching theme
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: Text(
+                "Are you sure you want to submit your quiz?",
+                style: TextStyle(
+                  color: MyColors.seashall,
+                  fontSize: 16.sp,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false); // Cancel submission
+                  },
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      color: MyColors.mint, // Button color from the theme
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true); // Confirm submission
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        MyColors.mint, // Button color matching theme
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.sp),
+                    ),
+                  ),
+                  child: Text(
+                    "Submit",
+                    style: TextStyle(
+                      color: MyColors.seashall, // Button text color
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false; // Return false if the dialog is dismissed
   }
 }

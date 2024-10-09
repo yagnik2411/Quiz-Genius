@@ -43,6 +43,13 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: ThemeData(
             fontFamily: GoogleFonts.montserrat().fontFamily,
+            textTheme: TextTheme(
+              titleMedium:TextStyle(
+                fontSize: 20.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.w800,
+              )
+            )
           ),
           initialRoute: MyRoutes.splashScreenRoute,
           routes: {

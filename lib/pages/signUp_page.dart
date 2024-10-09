@@ -40,7 +40,7 @@ class _SignUpState extends State<SignUp> {
       CurrentUser.currentUser = UserName(email: email, password: password);
       print('sing up:name ${email} pass ${password}');
      String ans=await signUpUser(context);
-     if(ans == "Sighup Complete")
+     if(ans == "Signup Complete")
       Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
   }
@@ -61,7 +61,9 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
           child: Form(
         key: SignUp._formkey,
+
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 20.h,
@@ -153,28 +155,32 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 10.h,
             ),
-            ButtonBar(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    moveToUserPage(context);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(MyColors.malachite),
-                    elevation: MaterialStateProperty.all(10),
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.white)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.sp),
+            Padding(
+              padding: const EdgeInsets.only(left: 120,right: 120),
+              child: OverflowBar(
+
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      moveToUserPage(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(MyColors.malachite),
+                      elevation: WidgetStateProperty.all(10),
+                      side: WidgetStateProperty.all(
+                          const BorderSide(color: Colors.white)),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.sp),
+                        ),
                       ),
                     ),
+                    child: Center(child: const Text("Sign Up" ,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
                   ),
-                  child: const Text("Sign Up"),
-                ),
-              ],
-            ).px(16.sp)
+                ],
+              ),
+            )
           ],
         ),
       )),
