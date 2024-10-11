@@ -23,6 +23,8 @@ class _QuizPageState extends State<QuizPage> {
   late Future<List<Question>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
+  List<bool> _userAnswer = List.generate(10, (i) => false);
+  List<bool> _correctAnswer = List.generate(10, (i) => false);
   int correct = 0;
   // List<PreviousQuestions> previousQuestions = [];
   @override
@@ -91,11 +93,13 @@ class _QuizPageState extends State<QuizPage> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
+                                _userAnswer[index] = true;
                                 if (isAdd[index] == false) {
                                   setState(() {
                                     isAdd[index] = true;
 
                                     if (quiz[index].answer == true) {
+                                      _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
                                       toMassage(msg: "correct");
                                       correct++;
@@ -144,6 +148,7 @@ class _QuizPageState extends State<QuizPage> {
                                       toMassage(msg: "correct");
                                       correct++;
                                     } else {
+                                      _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
                                       toMassage(msg: "incorrect");
                                     }
@@ -179,6 +184,38 @@ class _QuizPageState extends State<QuizPage> {
                               child: "False".text.xl.make(),
                             ),
                           ],
+                        ),
+                        isAdd[index] == false
+                            ? SizedBox.shrink()
+                            : _correctAnswer[index] ==
+                                    _userAnswer[index] //answered correctly
+                                ? Container(
+                          alignment: Alignment.centerLeft, // Align left
+                          padding: EdgeInsets.all(8.sp), // Add padding
+                          child: Text(
+                            'Correct Answer!\nYou Selected ' +
+                                (_userAnswer[index] == true ? 'True' : 'False'),
+                            style: TextStyle(
+                              color: Colors.green[800], // Change to a brighter green
+                              fontSize: 18.sp, // Increase font size
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.left, // Ensure text is aligned left
+                          ),
+                        )
+                            : Container(
+                          alignment: Alignment.centerLeft, // Align left
+                          padding: EdgeInsets.all(8.sp), // Add padding
+                          child: Text(
+                            'Incorrect Answer\nYou Selected ' +
+                                (_userAnswer[index] == true ? 'True' : 'False'),
+                            style: TextStyle(
+                              color: Colors.red[400], // Change to a deeper red
+                              fontSize: 18.sp, // Increase font size
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.left, // Ensure text is aligned left
+                          ),
                         ),
                       ],
                     ),
