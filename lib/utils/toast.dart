@@ -10,5 +10,4 @@ toMassage({required String msg}) {
     textColor: MyColors.seaGreen,
     backgroundColor: Colors.black,
   );
-  
 }

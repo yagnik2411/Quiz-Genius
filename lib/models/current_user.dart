@@ -10,12 +10,15 @@ class UserName {
   final String password;
   String userName;
   int performance;
+  String profileImage;
 
-  UserName(
-      {required this.email,
-      required this.password,
-      this.userName = "",
-      this.performance = 100});
+  UserName({
+    required this.email,
+    required this.password,
+    this.userName = "",
+    this.performance = 100,
+    this.profileImage = "",
+  });
 
   String setUserName(String userName) => this.userName = userName;
 
@@ -31,12 +34,26 @@ class UserName {
     performance = currentPerformance;
   }
 
+  //Update the profile image URl in Firestore
+  Future<void> updateProfileImage({
+    required String currentEmail,
+    required String profileImageUrl,
+  }) async {
+    DocumentReference firestore =
+        FirebaseFirestore.instance.collection("users").doc(currentEmail);
+    await firestore.update({
+      'profileImage': profileImageUrl,
+    });
+    profileImageUrl = profileImageUrl;
+  }
+
   void add({required BuildContext context}) async {
     Map<String, dynamic> data = {
       "email": email,
       "password": password,
       "userName": userName,
       "performance": performance,
+      "profileImage": profileImage,
     };
     DocumentReference firestore =
         FirebaseFirestore.instance.collection("users").doc("${data["email"]}");

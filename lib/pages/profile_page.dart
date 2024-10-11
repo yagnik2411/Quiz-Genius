@@ -18,6 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String _user = "";
   int _performance = 0;
+  String? _profileImageUrl;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -42,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Container(
                         height: 200.w,
-                        width:200.w,
+                        width: 200.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
@@ -52,14 +53,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.grey.withOpacity(0.2),
-                              radius: 65.w,
-                              child: SvgPicture.asset(
-                                "assets/images/online_test.svg",
-                                fit: BoxFit.contain,
-                                height: 45.w,
-                                width: 45.w,
-                              ),
+                              radius: 50.w,
+                              backgroundColor: MyColors.darkCyan,
+                              backgroundImage: NetworkImage(
+                                  CurrentUser.currentUser.profileImage),
+                              // Use this line to set the image
+                              child:
+                                  CurrentUser.currentUser.profileImage.isEmpty
+                                      ? SvgPicture.asset(
+                                          "assets/images/online_test.svg",
+                                          fit: BoxFit.contain,
+                                          height: 45.h,
+                                          width: 45.w,
+                                        )
+                                      : null,
                             ).p(10.sp),
                             Text(
                               "$_user",
@@ -96,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CircularPercentIndicator(
                           radius: 150.w,
-                          percent: _performance/100,
+                          percent: _performance / 100,
                           lineWidth: 20.w,
                           animateFromLastPercent: true,
                           progressColor: MyColors.mint,
@@ -143,6 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((data) {
       _user = data['userName'];
       _performance = data['performance'];
+      _profileImageUrl = data['profileImage'];
     });
+    CurrentUser.currentUser.profileImage = _profileImageUrl ?? "";
   }
 }
