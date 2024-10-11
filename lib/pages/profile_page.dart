@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Container(
                         height: 200.w,
-                        width:200.w,
+                        width: 200.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
@@ -58,14 +58,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               backgroundImage: NetworkImage(
                                   CurrentUser.currentUser.profileImage),
                               // Use this line to set the image
-                              child: CurrentUser.currentUser.profileImage.isEmpty
-                                  ? SvgPicture.asset(
-                                "assets/images/online_test.svg",
-                                fit: BoxFit.contain,
-                                height: 45.h,
-                                width: 45.w,
-                              )
-                                  : null,
+                              child:
+                                  CurrentUser.currentUser.profileImage.isEmpty
+                                      ? SvgPicture.asset(
+                                          "assets/images/online_test.svg",
+                                          fit: BoxFit.contain,
+                                          height: 45.h,
+                                          width: 45.w,
+                                        )
+                                      : null,
                             ).p(10.sp),
                             Text(
                               "$_user",
@@ -102,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CircularPercentIndicator(
                           radius: 150.w,
-                          percent: _performance/100,
+                          percent: _performance / 100,
                           lineWidth: 20.w,
                           animateFromLastPercent: true,
                           progressColor: MyColors.mint,
@@ -149,8 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((data) {
       _user = data['userName'];
       _performance = data['performance'];
-      _profileImageUrl =data['profileImage'];
-
+      _profileImageUrl = data['profileImage'];
     });
+    CurrentUser.currentUser.profileImage = _profileImageUrl ?? "";
   }
 }
