@@ -42,15 +42,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.light,
           theme: ThemeData(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            textTheme: TextTheme(
-              titleMedium:TextStyle(
+              fontFamily: GoogleFonts.montserrat().fontFamily,
+              textTheme: TextTheme(
+                  titleMedium: TextStyle(
                 fontSize: 20.sp,
                 color: Colors.black,
                 fontWeight: FontWeight.w800,
-              )
-            )
-          ),
+              ))),
           initialRoute: MyRoutes.splashScreenRoute,
           routes: {
             MyRoutes.loginRoute: (context) => Login(),
@@ -63,6 +61,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.signUpRoute: (context) => SignUp(),
             MyRoutes.splashScreenRoute: (context) => SplashScreen(),
             MyRoutes.quizMCQRoute: (context) => QuizMCQPage(),
+
           },
         );
       },

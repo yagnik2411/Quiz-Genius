@@ -5,8 +5,11 @@ import 'package:http/http.dart' as http;
 class Questions {
   List<Question_T_F> questions = [];
 
+
   Future<List<Question_T_F>> getTFQuestions() async {
     List<Question_T_F> questions = [];
+  Future<List<Question>> getQuestions() async {
+    List<Question> questions = [];
     final String url = "https://opentdb.com/api.php?amount=50&type=boolean";
     final response = await http.get(Uri.parse(url));
     final String data = response.body;
@@ -72,10 +75,13 @@ class Question_MCQ {
   );
 }
 
+
 class Question_T_F {
   int id;
   String question;
   bool answer;
 
   Question_T_F(this.id, this.question, this.answer);
+
+
 }

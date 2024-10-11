@@ -9,7 +9,6 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -22,15 +21,15 @@ class _HomePageState extends State<HomePage> {
   String name = "";
   String? profileImageUrl;
 
-  confirmSignOut() {
+  confirmSignOut(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
               elevation: 10,
-               height: 200.h,
-                width: 393.w,
               shadowColor: Colors.grey.shade700,
               content: Container(
+                  height: 210.h,
+                  width: 393.w,
                   padding: const EdgeInsets.all(15.0),
                   decoration: new BoxDecoration(
                       shape: BoxShape.rectangle,
@@ -147,7 +146,9 @@ class _HomePageState extends State<HomePage> {
             body: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 7.h,),
+                  SizedBox(
+                    height: 7.h,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -392,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        confirmSignOut();
+                        confirmSignOut(context);
                         // Auth(FirebaseAuth.instance).signOut(context: context);
                       },
                     ),
