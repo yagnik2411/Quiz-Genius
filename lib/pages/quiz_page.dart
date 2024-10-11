@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
@@ -75,7 +76,9 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index + 10].question,
+                            parse(quiz[index + 10].question).body?.text ?? quiz[index + 10].question
+                            ,
+
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
