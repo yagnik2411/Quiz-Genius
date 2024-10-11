@@ -10,12 +10,15 @@ class UserName {
   final String password;
   String userName;
   int performance;
+  String profileImage;
 
   UserName(
       {required this.email,
       required this.password,
       this.userName = "",
-      this.performance = 100});
+      this.performance = 100,
+      this.profileImage ="",
+      });
 
   String setUserName(String userName) => this.userName = userName;
 
@@ -37,6 +40,7 @@ class UserName {
       "password": password,
       "userName": userName,
       "performance": performance,
+      "profileImage":profileImage,
     };
     DocumentReference firestore =
         FirebaseFirestore.instance.collection("users").doc("${data["email"]}");
