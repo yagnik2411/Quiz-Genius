@@ -25,6 +25,7 @@ class _QuizPageState extends State<QuizPage> {
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
+
   // List<PreviousQuestions> previousQuestions = [];
   @override
   void initState() {
@@ -76,9 +77,8 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            parse(quiz[index + 10].question).body?.text ?? quiz[index + 10].question
-                            ,
-
+                            parse(quiz[index + 10].question).body?.text ??
+                                quiz[index + 10].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
@@ -327,8 +327,8 @@ class _QuizPageState extends State<QuizPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: MyColors.malachite
-                  .withOpacity(0.9), // Set background color to match the theme
+              backgroundColor: MyColors.malachite.withOpacity(0.9),
+              // Set background color to match the theme
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                     15.sp), // Rounded corners for consistency
