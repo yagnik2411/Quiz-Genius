@@ -200,33 +200,45 @@ class _QuizPageState extends State<QuizPage> {
                             : _correctAnswer[index] ==
                                     _userAnswer[index] //answered correctly
                                 ? Container(
-                          alignment: Alignment.centerLeft, // Align left
-                          padding: EdgeInsets.all(8.sp), // Add padding
-                          child: Text(
-                            'Correct Answer!\nYou Selected ' +
-                                (_userAnswer[index] == true ? 'True' : 'False'),
-                            style: TextStyle(
-                              color: Colors.green[800], // Change to a brighter green
-                              fontSize: 18.sp, // Increase font size
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.left, // Ensure text is aligned left
-                          ),
-                        )
-                            : Container(
-                          alignment: Alignment.centerLeft, // Align left
-                          padding: EdgeInsets.all(8.sp), // Add padding
-                          child: Text(
-                            'Incorrect Answer\nYou Selected ' +
-                                (_userAnswer[index] == true ? 'True' : 'False'),
-                            style: TextStyle(
-                              color: Colors.red[400], // Change to a deeper red
-                              fontSize: 18.sp, // Increase font size
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.left, // Ensure text is aligned left
-                          ),
-                        ),
+                                    alignment:
+                                        Alignment.centerLeft, // Align left
+                                    padding:
+                                        EdgeInsets.all(8.sp), // Add padding
+                                    child: Text(
+                                      'Correct Answer!\nYou Selected ' +
+                                          (_userAnswer[index] == true
+                                              ? 'True'
+                                              : 'False'),
+                                      style: TextStyle(
+                                        color: Colors.green[
+                                            800], // Change to a brighter green
+                                        fontSize: 18.sp, // Increase font size
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign
+                                          .left, // Ensure text is aligned left
+                                    ),
+                                  )
+                                : Container(
+                                    alignment:
+                                        Alignment.centerLeft, // Align left
+                                    padding:
+                                        EdgeInsets.all(8.sp), // Add padding
+                                    child: Text(
+                                      'Incorrect Answer\nYou Selected ' +
+                                          (_userAnswer[index] == true
+                                              ? 'True'
+                                              : 'False'),
+                                      style: TextStyle(
+                                        color: Colors
+                                            .red[400], // Change to a deeper red
+                                        fontSize: 18.sp, // Increase font size
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign
+                                          .left, // Ensure text is aligned left
+                                    ),
+                                  ),
                       ],
                     ),
                   ).py(5.sp);
