@@ -43,11 +43,13 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: MyColors.mint,
         title: const Center(
           child: Text(
             "Login Page",
             textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
