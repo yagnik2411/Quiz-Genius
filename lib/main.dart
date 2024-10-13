@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
             MyRoutes.signUpRoute: (context) => SignUp(),
             MyRoutes.splashScreenRoute: (context) => SplashScreen(),
             MyRoutes.quizMCQRoute: (context) => QuizMCQPage(),
-
           },
         );
       },
