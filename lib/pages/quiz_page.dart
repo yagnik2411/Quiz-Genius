@@ -86,10 +86,10 @@ class _QuizPageState extends State<QuizPage> {
                             textWidthBasis: TextWidthBasis.parent,
                           ),
                         ),
-                        ButtonBar(
+                        OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
-                          buttonPadding: EdgeInsets.symmetric(
-                              horizontal: 20.sp, vertical: 10.sp),
+                          //buttonPadding: EdgeInsets.symmetric(
+                              //horizontal: 20.sp, vertical: 10.sp),
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(
