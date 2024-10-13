@@ -1,5 +1,5 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,11 +10,15 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/utils/colors.dart';
 
+import '../utils/widget/custom_button.dart';
+import '../utils/widget/custom_text_form.dart';
+import '../utils/widget/validation_fucntion.dart';
+
 // ignore: must_be_immutable
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
-  static final _formkey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -22,26 +26,26 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
+  bool _obscureText = true;
 
   Future<String> signUpUser(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
-   return await Auth(FirebaseAuth.instance)
+    return await Auth(FirebaseAuth.instance)
         .signUp(email: email, password: password, context: context);
   }
 
-  moveToUserPage(BuildContext context)async {
-    if (SignUp._formkey.currentState!.validate()) {
+  moveToUserPage(BuildContext context) async {
+    if (SignUp._formKey.currentState!.validate()) {
       String email = emailController.text;
       String password = passwordController.text;
-      SignUp._formkey.currentState!.save();
+      SignUp._formKey.currentState!.save();
       CurrentUser.currentUser = UserName(email: email, password: password);
       print('sing up:name ${email} pass ${password}');
-     String ans=await signUpUser(context);
-     if(ans == "Sighup Complete")
-      Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
+      String ans = await signUpUser(context);
+      if (ans == "Sighup Complete")
+        Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
     }
   }
 
@@ -49,141 +53,127 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
-      appBar: AppBar(
-        backgroundColor: MyColors.mint,
-        title: Center(
-          child: Text(
-            "SignUp Page",
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
           child: Form(
-        key: SignUp._formkey,
+            key: SignUp._formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/images/login.svg",
+                  fit: BoxFit.contain,
+                  width: 600.w / 1.2,
+                ).centered().py(24.sp),
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            SvgPicture.asset(
-              "assets/images/login.svg",
-              fit: BoxFit.contain,
-              width: (393 / 1.2).w,
-            ).centered().py(24.sp),
-            SizedBox(
-              height: 20.h,
-            ),
-            "SignUp to Quiz Genius"
-                .text
-                .xl2
-                .color(MyColors.malachite)
-                .bold
-                .center
-                .makeCentered(),
-            SizedBox(
-              height: 20.h,
-            ),
-            Container(
-              padding:
-                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
-              decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.sp),
-                    topRight: Radius.circular(20.sp),
-                  )),
-              child: TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  hintText: "eg: abcd@gmail.com",
-                  hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4),
-                  ),
-                  labelText: "Email",
+                "SignUp to Quiz Genius"
+                    .text
+                    .xl2
+                    .color(MyColors.darkCyan)
+                    .extraBold
+                    .center
+                    .makeCentered(),
+                SizedBox(
+                  height: 3.h,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Email cannot be empty";
-                  }
-                  if (!EmailValidator.validate(value)) {
-                    return "Email is invalid";
-                  }
-                  
-                  return null;
-                },
-                // onChanged: (value) {
-                //   print("email" + value);
-                //   email = value;
-                //   print("email" + email);
-                // },
-              ),
-            ).px(16.sp),
-            Container(
-              padding:
-                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
-              decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.sp),
-                    bottomRight: Radius.circular(20.sp),
-                  )),
-              child: TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  hintText: "eg: 123456",
-                  hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4),
-                  ),
-                  labelText: "Password",
+                "Create your account"
+                    .text
+                    .normal
+                    .color(MyColors.darkCyan)
+                    .normal
+                    .center
+                    .makeCentered(),
+                SizedBox(
+                  height: 20.h,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Password cannot be empty";
-                  } else if (value.length < 6) {
-                    return "Password length should be atleast 6";
-                  }
-                  return null;
-                },
-                // onChanged: (value) {
-                //   password = value;
-                // },
-              ).pOnly(bottom: 10.sp),
-            ).px(16.sp),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 120,right: 120),
-              child: OverflowBar(
-
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      moveToUserPage(context);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(MyColors.malachite),
-                      elevation: WidgetStateProperty.all(10),
-                      side: WidgetStateProperty.all(
-                          const BorderSide(color: Colors.white)),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.sp),
-                        ),
-                      ),
+                CustomTextForm(
+                  controller: emailController,
+                  validator: validateEmail,
+                  labelText: 'Email',
+                  labelStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600),
+                  hintText: "eg:abcd@gmail.com",
+                  keyboard: TextInputType.emailAddress,
+                  icon: Icon(
+                    Icons.email_outlined,
+                    color: Colors.black.withOpacity(0.7),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                CustomTextForm(
+                    controller: passwordController,
+                    validator: validatePassword,
+                    obscureText: _obscureText,
+                    labelText: 'Password',
+                    labelStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600),
+                    hintText: "eg:123Hello!@",
+                    keyboard: TextInputType.text,
+                    icon: Icon(
+                      Icons.lock_outlined,
+                      color: Colors.black.withOpacity(0.7),
                     ),
-                    child: Center(child: const Text("Sign Up" ,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      )),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: Icon(
+                          _obscureText
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.black.withOpacity(0.8)),
+                    )),
+                SizedBox(
+                  height: 20.h,
+                ),
+
+                CustomButton(
+                  pressed: () {
+                    moveToUserPage(context);
+                  },
+                  bgColor: MyColors.malachite,
+                  text: "Sign up",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Center(
+                  child: Text.rich(TextSpan(children: [
+                    TextSpan(
+                      text: "Already have an account? ",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    TextSpan(
+                        text: "Login",
+                        style: TextStyle(
+                            color: MyColors.darkCyan,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushReplacementNamed(
+                                context, MyRoutes.loginRoute);
+                          }),
+                  ])),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

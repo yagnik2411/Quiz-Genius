@@ -54,8 +54,7 @@ class ProfileImageUploader {
         );
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("No image selected. image.Please try Again")));
+
       Fluttertoast.showToast(
         msg: "No image selected. image.Please try Again",
         toastLength: Toast.LENGTH_SHORT,

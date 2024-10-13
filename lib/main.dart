@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_genius/firebase_options.dart';
+import 'package:quiz_genius/pages/forget_page.dart';
 import 'package:quiz_genius/pages/home_page.dart';
 import 'package:quiz_genius/pages/previous_quiz_page.dart';
 import 'package:quiz_genius/pages/previous_scores_page.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.profileRoute: (context) => const ProfilePage(),
             MyRoutes.signUpRoute: (context) => SignUp(),
             MyRoutes.splashScreenRoute:(context)=>SplashScreen(),
+            MyRoutes.forgetRoute:(context)=>ForgetPage(),
           },
         );
       },

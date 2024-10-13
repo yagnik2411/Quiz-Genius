@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/models/current_user.dart';
@@ -138,138 +137,154 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.sp),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 50.w,
-                            backgroundColor: MyColors.lightLime,
-                            child: SvgPicture.asset(
-                              "assets/images/online_test.svg",
-                              fit: BoxFit.contain,
-                              height: 45.w,
-                              width: 45.w,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 50.w,
+                              backgroundColor: MyColors.darkCyan,
+                              backgroundImage: NetworkImage(
+                                  CurrentUser.currentUser.profileImage),
+                              // Use this line to set the image
+                              child:
+                                  CurrentUser.currentUser.profileImage.isEmpty
+                                      ? SvgPicture.asset(
+                                          "assets/images/online_test.svg",
+                                          fit: BoxFit.contain,
+                                          height: 45.h,
+                                          width: 45.w,
+                                        )
+                                      : null,
                             ),
-                          ).p(8.sp),
-                          Text("Hello, ${CurrentUser.currentUser.userName}")
-                              .text
-                              .xl3
-                              .color(MyColors.malachite)
-                              .bold
-                              .make()
-                              .p(16.sp),
-                        ],
+                            Text("Hello, ${CurrentUser.currentUser.userName}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,)
+                                .text
+                                .xl3
+                                .color(MyColors.malachite)
+                                .bold
+                                .make()
+                                .p(16.sp),
+                          ],
+                        ),
                       )).px(16.sp).py(8.sp),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.profile_circled,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Profile",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.sp),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.profileRoute);
-                      },
-                    ),
-                  ).px(16.sp).py(5.sp),
-                  Container(
-                    height: 60.h,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.question_answer_outlined,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "New Quiz",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          leading: const Icon(
+                            CupertinoIcons.profile_circled,
+                            color: MyColors.malachite,
+                            fill: 0.6,
+                          ),
+                          title: Text(
+                            "Profile",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: MyColors.malachite,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, MyRoutes.profileRoute);
+                          },
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.quizRoute);
-                      },
-                    ),
-                  ).px(16.sp).py(5.sp),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.question_circle_fill,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Last Quiz",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
+                      ).px(16.sp).py(5.sp),
+                      Container(
+                        height: 60.h,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.sp),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, MyRoutes.previousQuizRoute);
-                      },
-                    ),
-                  ).px16().py(5),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.arrow_left_square_fill,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Sign Out",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.question_answer_outlined,
+                            color: MyColors.malachite,
+                            fill: 0.6,
+                          ),
+                          title: Text(
+                            "New Quiz",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: MyColors.malachite,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, MyRoutes.quizRoute);
+                          },
                         ),
-                      ),
-                      onTap: () {
-                        Auth(FirebaseAuth.instance).signOut(context: context);
-                      },
-                    ),
-                  ).px16().py(5),
+                      ).px(16.sp).py(5.sp),
+                      Container(
+                        height: 60.h,
+                        width: 393.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.sp),
+                        ),
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          leading: const Icon(
+                            CupertinoIcons.question_circle_fill,
+                            color: MyColors.malachite,
+                            fill: 0.6,
+                          ),
+                          title: Text(
+                            "Last Quiz",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: MyColors.malachite,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, MyRoutes.previousQuizRoute);
+                          },
+                        ),
+                      ).px16().py(5),
+                      Container(
+                        height: 60.h,
+                        width: 393.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.sp),
+                        ),
+                        alignment: Alignment.center,
+                        child: ListTile(
+                          leading: const Icon(
+                            CupertinoIcons.arrow_left_square_fill,
+                            color: MyColors.malachite,
+                            fill: 0.6,
+                          ),
+                          title: Text(
+                            "Sign Out",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: MyColors.malachite,
+                            ),
+                          ),
+                          onTap: () {
+                            Auth(FirebaseAuth.instance)
+                                .signOut(context: context);
+                          },
+                        ),
+                      ).px16().py(5),
+                    ],
+                  )
                 ],
               ),
             ),

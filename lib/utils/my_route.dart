@@ -8,4 +8,5 @@ class MyRoutes {
   static const String profileRoute = "/profile";
   static const String signUpRoute = "/signUp";
   static const String splashScreenRoute = "/splashScreen";
+  static const String forgetRoute = "/forgetPage";
 }

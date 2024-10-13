@@ -38,41 +38,44 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               body: Column(
                 children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 200.w,
-                        width:200.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border:
-                              Border.all(color: MyColors.malachite, width: 2),
-                          borderRadius: BorderRadius.circular(40.sp),
-                        ),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.grey.withOpacity(0.2),
-                              radius: 65.w,
-                              child: SvgPicture.asset(
-                                "assets/images/online_test.svg",
-                                fit: BoxFit.contain,
-                                height: 45.w,
-                                width: 45.w,
-                              ),
-                            ).p(10.sp),
-                            Text(
-                              "$_user",
-                              style: TextStyle(
-                                fontSize: 25.sp,
-                                color: MyColors.darkCyan,
-                              ),
-                            )
-                          ],
-                        ),
-                      ).pOnly(right: 5.sp),
-                    ],
-                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border:
+                          Border.all(color: MyColors.malachite, width: 2),
+                      borderRadius: BorderRadius.circular(40.sp),
+                    ),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 50.w,
+                          backgroundColor: MyColors.darkCyan,
+                          backgroundImage: NetworkImage(
+                              CurrentUser.currentUser.profileImage),
+                          // Use this line to set the image
+                          child: CurrentUser.currentUser.profileImage.isEmpty
+                              ? SvgPicture.asset(
+                            "assets/images/online_test.svg",
+                            fit: BoxFit.contain,
+                            height: 45.h,
+                            width: 45.w,
+                          )
+                              : null,
+                        ).p(16.sp),
+                        Text(
+                          "$_user",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 25.sp,
+                            color: MyColors.darkCyan,
+
+                          ),
+                        )
+                      ],
+                    ),
+                  ).pOnly(right: 5.sp),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(

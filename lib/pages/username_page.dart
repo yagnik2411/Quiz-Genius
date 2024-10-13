@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
-import 'package:quiz_genius/utils/profile_image_uploader.dart';
+import 'package:quiz_genius/utils/widget/profile_image_uploader.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../utils/widget/custom_button.dart';
+import '../utils/widget/custom_text_form.dart';
 
 // ignore: must_be_immutable
 class UserName extends StatefulWidget {
@@ -15,27 +18,27 @@ class UserName extends StatefulWidget {
 }
 
 class _UserNameState extends State<UserName> {
-  late String _username;
+  final TextEditingController _usernameController = TextEditingController();
+
   final ProfileImageUploader _imageUploader = ProfileImageUploader();
-  String _profileImageUrl =" ";
+  String _profileImageUrl = " ";
 
   moveToHome(BuildContext context) {
-    CurrentUser.currentUser.setUserName(_username);
+    CurrentUser.currentUser.setUserName(_usernameController.text);
     CurrentUser.currentUser.add(context: context);
     Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
-
-
   //method upload profile Image & get Url
   void uploadProfileImage(BuildContext context) async {
     //call the image uploader
-    String? downloadUrl=await _imageUploader.pickAndUploadImage(context);
+    String? downloadUrl = await _imageUploader.pickAndUploadImage(context);
 
-    if(downloadUrl != null){
+    if (downloadUrl != null) {
       setState(() {
-        _profileImageUrl =downloadUrl; // Set the image URL
-            CurrentUser.currentUser.profileImage =_profileImageUrl; // Save in CurrentUser model
+        _profileImageUrl = downloadUrl; // Set the image URL
+        CurrentUser.currentUser.profileImage =
+            _profileImageUrl; // Save in CurrentUser model
       });
     }
   }
@@ -46,6 +49,7 @@ class _UserNameState extends State<UserName> {
       backgroundColor: Colors.white.withOpacity(0.5),
       body: Center(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.h),
           height: (1500 / 5).h,
           width: (393 / 1.3).w,
           decoration: BoxDecoration(
@@ -73,13 +77,18 @@ class _UserNameState extends State<UserName> {
                   backgroundColor: MyColors.darkCyan,
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: _profileImageUrl.trim().isNotEmpty // Check for trimmed empty string
-                        ? NetworkImage(_profileImageUrl.trim()) // Use trimmed URL
+                    backgroundImage: _profileImageUrl
+                            .trim()
+                            .isNotEmpty // Check for trimmed empty string
+                        ? NetworkImage(
+                            _profileImageUrl.trim()) // Use trimmed URL
                         : null,
                   ),
                 ),
                 // Only show the icon if no image is uploaded
-                if (_profileImageUrl.trim().isEmpty) // Check for trimmed empty string
+                if (_profileImageUrl
+                    .trim()
+                    .isEmpty) // Check for trimmed empty string
                   Positioned(
                     top: 0,
                     left: 0,
@@ -104,44 +113,54 @@ class _UserNameState extends State<UserName> {
                         uploadProfileImage(context);
                         print("Camera opened!");
                       },
-                      icon: Icon(Icons.camera_alt_outlined, color: Colors.white),
+                      icon:
+                          Icon(Icons.camera_alt_outlined, color: Colors.white),
                     ),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 8.h,
+              height: 15.h,
             ),
-            TextFormField(
-              onChanged: (value) {
-                _username = value;
+            CustomTextForm(
+              controller: _usernameController,
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Username cannot be empty';
+                } else if (value.trim().length < 3) {
+                  return 'Username must be at least 3 characters long';
+                }
+                return null; // No error if valid
               },
-              decoration: InputDecoration(
-                hintText: "eg: abc123",
-                hintStyle: TextStyle(
-                  color: Colors.deepPurple.withOpacity(0.4),
-                ),
-                labelText: "Username",
+              labelText: 'UserName',
+              labelStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600),
+              hintText: "eg:Name",
+              keyboard: TextInputType.emailAddress,
+              icon: Icon(
+                Icons.person_outlined,
+                color: Colors.black.withOpacity(0.7),
               ),
-            ).px(16.sp),
-            ElevatedButton(
-              onPressed: () {
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            CustomButton(
+              pressed: () {
                 moveToHome(context);
               },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(MyColors.mint),
-                elevation: WidgetStateProperty.all(10),
-                side: WidgetStateProperty.all(
-                    const BorderSide(color: Colors.white)),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.sp),
-                  ),
-                ),
-              ),
-              child: const Text("Sign in",),
-            ).px(12.sp),
+              bgColor: MyColors.malachite,
+              text: "Sign in",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold),
+              width: 120.w,
+              height: 50.h,
+            ),
           ]),
         ),
       ),
