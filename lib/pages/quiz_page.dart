@@ -24,11 +24,14 @@ class _QuizPageState extends State<QuizPage> {
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
-  // List<PreviousQuestions> previousQuestions = [];
+  bool isSubmitButtonDisabled = false; // Prevents multiple submissions
+
   @override
   void initState() {
     super.initState();
     quizFuture = Questions().getQuestions();
+    PreviousQuestions.questions
+        .clear(); // Clear previous questions for a new quiz
   }
 
   @override
@@ -60,138 +63,143 @@ class _QuizPageState extends State<QuizPage> {
             final quiz = snapshot.data!;
 
             return ListView.builder(
-                padding:
-                    EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(8.sp),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: MyColors.darkCyan, width: 3),
-                      borderRadius: BorderRadius.circular(15.sp),
-                      color: MyColors.malachite.withOpacity(0.8),
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            quiz[index + 10].question,
-                            style: TextStyle(
-                              color: MyColors.seashall,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.values[5],
-                            ),
-                            textWidthBasis: TextWidthBasis.parent,
+              padding: EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.all(8.sp),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: MyColors.darkCyan, width: 3),
+                    borderRadius: BorderRadius.circular(15.sp),
+                    color: MyColors.malachite.withOpacity(0.8),
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          quiz[index].question,
+                          style: TextStyle(
+                            color: MyColors.seashall,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.values[5],
                           ),
+                          textWidthBasis: TextWidthBasis.parent,
                         ),
-                        OverflowBar(
-                          alignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.sp, vertical: 10.sp),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (isAdd[index] == false) {
-                                    setState(() {
-                                      isAdd[index] = true;
+                      ),
+                      OverflowBar(
+                        alignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.sp, vertical: 10.sp),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (!isAdd[index]) {
+                                  setState(() {
+                                    isAdd[index] = true;
+                                    if (quiz[index].answer == true) {
+                                      isCorrect[index] = 0;
+                                      toMassage(msg: "correct");
+                                      correct++;
+                                    } else {
+                                      isCorrect[index] = 1;
+                                      toMassage(msg: "incorrect");
+                                    }
 
-                                      if (quiz[index].answer == true) {
-                                        isCorrect[index] = 0;
-                                        toMassage(msg: "correct");
-                                        correct++;
-                                      } else {
-                                        isCorrect[index] = 1;
-                                        toMassage(msg: "incorrect");
-                                      }
-                                      PreviousQuestions.questions.add(
-                                          PreviousQuestion(
-                                              id: index,
-                                              question: quiz[index].question,
-                                              correct: isCorrect[index] == 0
-                                                  ? true
-                                                  : false));
-                                    });
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: (isAdd[index] == false)
-                                      ? WidgetStateProperty.all(MyColors.mint)
-                                      : ((isCorrect[index] == 0)
-                                          ? WidgetStateProperty.all(
-                                              Colors.green)
-                                          : WidgetStateProperty.all(
-                                              Colors.red)),
-                                  elevation: WidgetStateProperty.all(10),
-                                  fixedSize: WidgetStateProperty.all(
-                                      Size(120.w, 40.h)),
-                                  side: WidgetStateProperty.all(
-                                      const BorderSide(color: Colors.white)),
-                                  shape: WidgetStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.sp),
-                                    ),
+                                    // Add question to PreviousQuestions
+                                    PreviousQuestions.questions.add(
+                                      PreviousQuestion(
+                                        id: index,
+                                        question: quiz[index].question,
+                                        correct: isCorrect[index] == 0,
+                                      ),
+                                    );
+                                  });
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  isAdd[index] == false
+                                      ? MyColors.mint
+                                      : (isCorrect[index] == 0
+                                          ? Colors.green
+                                          : Colors.red),
+                                ),
+                                elevation: MaterialStateProperty.all(10),
+                                fixedSize: MaterialStateProperty.all(
+                                  Size(120.w, 40.h),
+                                ),
+                                side: MaterialStateProperty.all(
+                                  const BorderSide(color: Colors.white),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.sp),
                                   ),
                                 ),
-                                child: "True".text.xl.make(),
                               ),
+                              child: "True".text.xl.make(),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.sp, vertical: 10.sp),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (isAdd[index] == false) {
-                                    setState(() {
-                                      isAdd[index] = true;
-                                      if (quiz[index].answer == false) {
-                                        isCorrect[index] = 1;
-                                        toMassage(msg: "correct");
-                                        correct++;
-                                      } else {
-                                        isCorrect[index] = 0;
-                                        toMassage(msg: "incorrect");
-                                      }
-                                      PreviousQuestions.questions.add(
-                                          PreviousQuestion(
-                                              id: index,
-                                              question: quiz[index].question,
-                                              correct: isCorrect[index] == 1
-                                                  ? true
-                                                  : false));
-                                    });
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: (isAdd[index] == false)
-                                      ? WidgetStateProperty.all(MyColors.mint)
-                                      : ((isCorrect[index] == 1)
-                                          ? WidgetStateProperty.all(
-                                              Colors.green)
-                                          : WidgetStateProperty.all(
-                                              Colors.red)),
-                                  elevation: WidgetStateProperty.all(10),
-                                  fixedSize: WidgetStateProperty.all(
-                                      Size(120.w, 40.h)),
-                                  side: WidgetStateProperty.all(
-                                      const BorderSide(color: Colors.white)),
-                                  shape: WidgetStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.sp),
-                                    ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.sp, vertical: 10.sp),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (!isAdd[index]) {
+                                  setState(() {
+                                    isAdd[index] = true;
+                                    if (quiz[index].answer == false) {
+                                      isCorrect[index] = 1;
+                                      toMassage(msg: "correct");
+                                      correct++;
+                                    } else {
+                                      isCorrect[index] = 0;
+                                      toMassage(msg: "incorrect");
+                                    }
+
+                                    // Add question to PreviousQuestions
+                                    PreviousQuestions.questions.add(
+                                      PreviousQuestion(
+                                        id: index,
+                                        question: quiz[index].question,
+                                        correct: isCorrect[index] == 1,
+                                      ),
+                                    );
+                                  });
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  isAdd[index] == false
+                                      ? MyColors.mint
+                                      : (isCorrect[index] == 1
+                                          ? Colors.green
+                                          : Colors.red),
+                                ),
+                                elevation: MaterialStateProperty.all(10),
+                                fixedSize: MaterialStateProperty.all(
+                                  Size(120.w, 40.h),
+                                ),
+                                side: MaterialStateProperty.all(
+                                  const BorderSide(color: Colors.white),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.sp),
                                   ),
                                 ),
-                                child: "False".text.xl.make(),
                               ),
+                              child: "False".text.xl.make(),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ).py(5.sp);
-                });
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ).py(5.sp);
+              },
+            );
           }
         },
       ),
@@ -211,50 +219,68 @@ class _QuizPageState extends State<QuizPage> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
-            onPressed: () async {
-              bool confirm = await showSubmissionConfirmationDialog(context);
+            onPressed: isSubmitButtonDisabled
+                ? null
+                : () async {
+                    if (isAdd.contains(false)) {
+                      toMassage(msg: "Please answer all questions!");
+                      return;
+                    }
 
-              // If confirmed, proceed with submission
-              if (confirm) {
-                await scoreUpdate(context);
-                print(Scores.scores.length);
+                    bool confirm =
+                        await showSubmissionConfirmationDialog(context);
 
-                int currentPerformance =
-                    ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
-                CurrentUser.currentUser.performanceUpdate(
-                    context: context,
-                    currentEmail: CurrentUser.currentUser.email,
-                    currentPerformance: currentPerformance);
+                    // If confirmed, proceed with submission
+                    if (confirm) {
+                      setState(() {
+                        isSubmitButtonDisabled = true; // Disable submit button
+                      });
 
-                Scores.updateScores(
-                    context: context,
-                    score: Scores.scores,
-                    email: CurrentUser.currentUser.email);
+                      await scoreUpdate(context);
+                      int currentPerformance = ((correct * 10) +
+                              CurrentUser.currentUser.performance) ~/
+                          2;
 
-                print(Scores.scores.length);
+                      CurrentUser.currentUser.performanceUpdate(
+                        context: context,
+                        currentEmail: CurrentUser.currentUser.email,
+                        currentPerformance: currentPerformance,
+                      );
 
-                PreviousQuestions.addToCollection(
-                    context: context,
-                    question: PreviousQuestions.questions,
-                    email: CurrentUser.currentUser.email);
+                      Scores.updateScores(
+                        context: context,
+                        score: Scores.scores,
+                        email: CurrentUser.currentUser.email,
+                      );
 
-                Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
-              }
-            },
+                      // Add previous questions to Firestore
+                      PreviousQuestions.addToCollection(
+                        context: context,
+                        question: PreviousQuestions.questions,
+                        email: CurrentUser.currentUser.email,
+                      );
+
+                      Navigator.pushReplacementNamed(
+                        context,
+                        MyRoutes.homeRoute,
+                      );
+                    }
+                  },
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(MyColors.mint),
-              elevation: WidgetStateProperty.all(10),
-              side: WidgetStateProperty.all(
-                  const BorderSide(color: MyColors.seashall, width: 2)),
-              shape: WidgetStateProperty.all(
+              backgroundColor: isSubmitButtonDisabled
+                  ? MaterialStateProperty.all(Colors.grey)
+                  : MaterialStateProperty.all(MyColors.mint),
+              elevation: MaterialStateProperty.all(10),
+              side: MaterialStateProperty.all(
+                const BorderSide(color: MyColors.seashall, width: 2),
+              ),
+              shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    15.sp,
-                  ),
+                  borderRadius: BorderRadius.circular(15.sp),
                 ),
               ),
             ),
-            child: "submit".text.xl2.make(),
+            child: "Submit".text.xl2.make(),
           ).p(12.sp),
         ),
       ),
@@ -262,19 +288,19 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void scoreListAdd(BuildContext context) {
-    // Add the new score to the list
+    // Add new score
     Scores.scores.add(Score(
       correct: correct,
       scoreInPercent: correct * 10,
       date: DateFormat('dd / MM / yyyy').format(DateTime.now()).toString(),
     ));
 
-    // Ensure we only keep the last 10 scores
+    // Keep only the last 10 scores
     if (Scores.scores.length > 10) {
       Scores.scores = Scores.scores.sublist(Scores.scores.length - 10);
     }
 
-    // Update the scores in Firestore
+    // Update Firestore with the new scores
     Scores.addScores(
       context: context,
       score: Scores.scores,
@@ -283,7 +309,6 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Future<void> scoreFetch() async {
-    print("score: ${CurrentUser.currentUser.email}");
     DocumentReference userDocRef = FirebaseFirestore.instance
         .collection("users")
         .doc(CurrentUser.currentUser.email)
@@ -294,100 +319,48 @@ class _QuizPageState extends State<QuizPage> {
       DocumentSnapshot data = await userDocRef.get();
 
       if (data.exists) {
-        // Document with scores exists, fetch scores
-        List temp = data['scores'];
-        print(temp.length);
-
-        for (int i = 0; i < temp.length; i++) {
-          Scores.scores.add(Score(
-            correct: data['scores'][i]['correct'],
-            scoreInPercent: data['scores'][i]['scoreInPercent'],
-            date: data['scores'][i]['date'],
-          ));
-        }
-
-        print(Scores.scores.length);
-      } else {
-        // Document does not exist, create a new one with an empty list
-        await userDocRef.set({'scores': []});
+        List<dynamic> fetchedScores = data.get('scores');
+        Scores.scores = fetchedScores
+            .map((score) => Score(
+                  correct: score['correct'],
+                  scoreInPercent: score['scoreInPercent'],
+                  date: score['date'],
+                ))
+            .toList();
       }
-    } catch (e) {
-      print("Error fetching scores: $e");
+    } catch (error) {
+      debugPrint('Error fetching scores: $error');
     }
-  }
-
-  Future<void> scoreUpdate(BuildContext context) async {
-    // Clear the current scores
-    Scores.scores.clear();
-
-    // Fetch existing scores
-    await scoreFetch();
-
-    // Add the new score and ensure the list has only the last 10 scores
-    scoreListAdd(context);
   }
 
   Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
     return await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: MyColors.malachite
-                  .withOpacity(0.9), // Set background color to match the theme
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    15.sp), // Rounded corners for consistency
-              ),
-              title: Text(
-                "Confirm Submission",
-                style: TextStyle(
-                  color: MyColors.seashall, // Text color matching theme
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: Text(
-                "Are you sure you want to submit your quiz?",
-                style: TextStyle(
-                  color: MyColors.seashall,
-                  fontSize: 16.sp,
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false); // Cancel submission
-                  },
-                  child: Text(
-                    "Cancel",
-                    style: TextStyle(
-                      color: MyColors.mint, // Button color from the theme
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true); // Confirm submission
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        MyColors.mint, // Button color matching theme
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.sp),
-                    ),
-                  ),
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                      color: MyColors.seashall, // Button text color
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ) ??
-        false; // Return false if the dialog is dismissed
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Submit Quiz'),
+        content: const Text('Are you sure you want to submit your answers?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, false); // Cancel
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, true); // Confirm
+            },
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> scoreUpdate(BuildContext context) async {
+    // Fetch existing scores from Firestore
+    await scoreFetch();
+    // Add current score to the list
+    scoreListAdd(context);
   }
 }
