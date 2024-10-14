@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quiz_genius/main.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/previous_questions.dart';
@@ -42,35 +41,53 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                   },
                   icon: const Icon(CupertinoIcons.back),
                 ),
-                backgroundColor: MyColors.mint,
-                title: const Text("Quiz Genius").centered(),
+backgroundColor: MyColors.mint,
+title: const Text("Quiz Genius").centered(),
+),
+body: Container(
+  height: (MediaQuery.of(context).size.height * 0.9).h,
+  child: (PreviousQuestions.questions.isNotEmpty)
+      ? ListView.builder(
+          padding: EdgeInsets.symmetric(
+              vertical: 8.sp, horizontal: 16.sp),
+          itemCount: PreviousQuestions.questions.length,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: EdgeInsets.all(8.sp),
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: MyColors.darkCyan, width: 3.w),
+                borderRadius: BorderRadius.circular(15.sp),
+                color: MyColors.malachite.withOpacity(0.8),
               ),
-              body: Container(
-                height: (MediaQuery.of(context).size.height * 0.9).h,
-                child: (PreviousQuestions.questions.isNotEmpty)
-                    ? ListView.builder(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8.sp, horizontal: 16.sp),
-                        itemCount: PreviousQuestions.questions.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(8.sp),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: MyColors.darkCyan, width: 3.w),
-                              borderRadius: BorderRadius.circular(15.sp),
-                              color: MyColors.malachite.withOpacity(0.8),
-                            ),
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    PreviousQuestions
-                                        .questions[index].question,
-                                    style: TextStyle(
-                                      color: MyColors.seashall,
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.values[5],
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      PreviousQuestions
+                          .questions[index].question,
+                      style: TextStyle(
+                        color: MyColors.seashall,
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.values[5],
+                      ),
+                    ),
+                    textWidthBasis: TextWidthBasis.parent,
+                  ),
+                ],
+              ),
+            ).py(5.sp);
+          })
+      : Center(
+          child: Text("No Previous Quizzes Found")
+              .text
+              .xl3
+              .color(MyColors.malachite)
+              .bold
+              .make()
+              .p(16.sp),
+        ),
+),
                                     ),
                                     textWidthBasis: TextWidthBasis.parent,
                                   ),
@@ -113,6 +130,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                       ),
               ),
             );
+
           } else {
             return Container(
               decoration: const BoxDecoration(

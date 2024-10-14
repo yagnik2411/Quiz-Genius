@@ -84,102 +84,215 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           textWidthBasis: TextWidthBasis.parent,
                         ),
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.spaceBetween,
-                        buttonPadding: EdgeInsets.symmetric(
-                          horizontal: 20.sp,
-                          vertical: 10.sp,
-                        ),
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              if (!isAdd[index]) {
-                                setState(() {
-                                  isAdd[index] = true;
-                                  if (quiz[index].answer == true) {
-                                    isCorrect[index] = 0;
-                                    toMassage(msg: "correct");
-                                    correct++;
-                                  } else {
-                                    isCorrect[index] = 1;
-                                    toMassage(msg: "incorrect");
-                                  }
+ButtonBar(
+  alignment: MainAxisAlignment.spaceBetween,
+  buttonPadding: EdgeInsets.symmetric(
+    horizontal: 20.sp,
+    vertical: 10.sp,
+  ),
+  children: [
+    ElevatedButton(
+      onPressed: () {
+        if (!isAdd[index]) {
+          setState(() {
+            isAdd[index] = true;
+            if (quiz[index].answer == true) {
+              isCorrect[index] = 0;
+              toMassage(msg: "correct");
+              correct++;
+            } else {
+              isCorrect[index] = 1;
+              toMassage(msg: "incorrect");
+            }
 
-                                  // Add question to PreviousQuestions
-                                  PreviousQuestions.questions.add(
-                                    PreviousQuestion(
-                                      id: index,
-                                      question: quiz[index].question,
-                                      correct: isCorrect[index] == 0,
-                                    ),
-                                  );
-                                });
-                              }
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: (isAdd[index] == false)
-                                  ? MaterialStateProperty.all(MyColors.mint)
-                                  : ((isCorrect[index] == 0)
-                                      ? MaterialStateProperty.all(Colors.green)
-                                      : MaterialStateProperty.all(Colors.red)),
-                              elevation: MaterialStateProperty.all(10),
-                              fixedSize: MaterialStateProperty.all(
-                                Size(120.w, 40.h),
-                              ),
-                              side: MaterialStateProperty.all(
-                                const BorderSide(color: Colors.white),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.sp),
+            // Add question to PreviousQuestions
+            PreviousQuestions.questions.add(
+              PreviousQuestion(
+                id: index,
+                question: quiz[index].question,
+                correct: isCorrect[index] == 0,
+              ),
+            );
+          });
+        }
+      },
+      style: ButtonStyle(
+        backgroundColor: (isAdd[index] == false)
+            ? MaterialStateProperty.all(MyColors.mint)
+            : ((isCorrect[index] == 0)
+                ? MaterialStateProperty.all(Colors.green)
+                : MaterialStateProperty.all(Colors.red)),
+        elevation: MaterialStateProperty.all(10),
+        fixedSize: MaterialStateProperty.all(
+          Size(120.w, 40.h),
+        ),
+        side: MaterialStateProperty.all(
+          const BorderSide(color: Colors.white),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.sp),
+          ),
+        ),
+      ),
+      child: "True".text.xl.make(),
+    ),
+    ElevatedButton(
+      onPressed: () {
+        if (!isAdd[index]) {
+          setState(() {
+            isAdd[index] = true;
+            if (quiz[index].answer == false) {
+              isCorrect[index] = 1;
+              toMassage(msg: "correct");
+              correct++;
+            } else {
+              isCorrect[index] = 0;
+              toMassage(msg: "incorrect");
+            }
+
+            // Add question to PreviousQuestions
+            PreviousQuestions.questions.add(
+              PreviousQuestion(
+                id: index,
+                question: quiz[index].question,
+                correct: isCorrect[index] == 1,
+              ),
+            );
+          });
+        }
+      },
+      style: ButtonStyle(
+        backgroundColor: (isAdd[index] == false)
+            ? MaterialStateProperty.all(MyColors.mint)
+            : ((isCorrect[index] == 1)
+                ? MaterialStateProperty.all(Colors.green)
+                : MaterialStateProperty.all(Colors.red)),
+        elevation: MaterialStateProperty.all(10),
+        fixedSize: MaterialStateProperty.all(
+          Size(120.w, 40.h),
+        ),
+        side: MaterialStateProperty.all(
+          const BorderSide(color: Colors.white),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.sp),
+          ),
+        ),
+      ),
+      child: "False".text.xl.make(),
+    ),
+  ],
+),
                                 ),
+                                child: "True".text.xl.make(),
                               ),
                             ),
-                            child: "True".text.xl.make(),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              if (!isAdd[index]) {
-                                setState(() {
-                                  isAdd[index] = true;
-                                  if (quiz[index].answer == false) {
-                                    isCorrect[index] = 1;
-                                    toMassage(msg: "correct");
-                                    correct++;
-                                  } else {
-                                    isCorrect[index] = 0;
-                                    toMassage(msg: "incorrect");
-                                  }
+ButtonBar(
+  alignment: MainAxisAlignment.spaceBetween,
+  buttonPadding: EdgeInsets.symmetric(
+    horizontal: 20.sp,
+    vertical: 10.sp,
+  ),
+  children: [
+    ElevatedButton(
+      onPressed: () {
+        if (!isAdd[index]) {
+          setState(() {
+            isAdd[index] = true;
+            if (quiz[index].answer == true) {
+              isCorrect[index] = 0;
+              toMassage(msg: "correct");
+              correct++;
+            } else {
+              isCorrect[index] = 1;
+              toMassage(msg: "incorrect");
+            }
 
-                                  // Add question to PreviousQuestions
-                                  PreviousQuestions.questions.add(
-                                    PreviousQuestion(
-                                      id: index,
-                                      question: quiz[index].question,
-                                      correct: isCorrect[index] == 1,
-                                    ),
-                                  );
-                                });
-                              }
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: (isAdd[index] == false)
-                                  ? MaterialStateProperty.all(MyColors.mint)
-                                  : ((isCorrect[index] == 1)
-                                      ? MaterialStateProperty.all(Colors.green)
-                                      : MaterialStateProperty.all(Colors.red)),
-                              elevation: MaterialStateProperty.all(10),
-                              fixedSize: MaterialStateProperty.all(
-                                Size(120.w, 40.h),
-                              ),
-                              side: MaterialStateProperty.all(
-                                const BorderSide(color: Colors.white),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.sp),
+            // Add question to PreviousQuestions
+            PreviousQuestions.questions.add(
+              PreviousQuestion(
+                id: index,
+                question: quiz[index].question,
+                correct: isCorrect[index] == 0,
+              ),
+            );
+          });
+        }
+      },
+      style: ButtonStyle(
+        backgroundColor: (isAdd[index] == false)
+            ? MaterialStateProperty.all(MyColors.mint)
+            : ((isCorrect[index] == 0)
+                ? MaterialStateProperty.all(Colors.green)
+                : MaterialStateProperty.all(Colors.red)),
+        elevation: MaterialStateProperty.all(10),
+        fixedSize: MaterialStateProperty.all(
+          Size(120.w, 40.h),
+        ),
+        side: MaterialStateProperty.all(
+          const BorderSide(color: Colors.white),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.sp),
+          ),
+        ),
+      ),
+      child: "True".text.xl.make(),
+    ),
+    ElevatedButton(
+      onPressed: () {
+        if (!isAdd[index]) {
+          setState(() {
+            isAdd[index] = true;
+            if (quiz[index].answer == false) {
+              isCorrect[index] = 1;
+              toMassage(msg: "correct");
+              correct++;
+            } else {
+              isCorrect[index] = 0;
+              toMassage(msg: "incorrect");
+            }
+
+            // Add question to PreviousQuestions
+            PreviousQuestions.questions.add(
+              PreviousQuestion(
+                id: index,
+                question: quiz[index].question,
+                correct: isCorrect[index] == 1,
+              ),
+            );
+          });
+        }
+      },
+      style: ButtonStyle(
+        backgroundColor: (isAdd[index] == false)
+            ? MaterialStateProperty.all(MyColors.mint)
+            : ((isCorrect[index] == 1)
+                ? MaterialStateProperty.all(Colors.green)
+                : MaterialStateProperty.all(Colors.red)),
+        elevation: MaterialStateProperty.all(10),
+        fixedSize: MaterialStateProperty.all(
+          Size(120.w, 40.h),
+        ),
+        side: MaterialStateProperty.all(
+          const BorderSide(color: Colors.white),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.sp),
+          ),
+        ),
+      ),
+      child: "False".text.xl.make(),
+    ),
+  ],
+),
+
                                 ),
+                                child: "False".text.xl.make(),
                               ),
                             ),
                             child: "False".text.xl.make(),

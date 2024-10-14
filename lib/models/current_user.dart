@@ -39,9 +39,10 @@ class UserName {
     required String currentEmail,
     required String profileImageUrl,
   }) async {
-    DocumentReference firestore=FirebaseFirestore.instance.collection("users").doc(currentEmail);
+    DocumentReference firestore =
+        FirebaseFirestore.instance.collection("users").doc(currentEmail);
     await firestore.update({
-      'profileImage':profileImageUrl,
+      'profileImage': profileImageUrl,
     });
     profileImageUrl = profileImageUrl;
   }

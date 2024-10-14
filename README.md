@@ -113,7 +113,7 @@ flutter run
 
 <div align="center">
   <a href="https://github.com/yagnik2411/Quiz-Genius">
-    <img src="https://contrib.rocks/image?repo=yagnik2411/Quiz-Genius&&max=100" />
+    <img src="https://contrib.rocks/image?repo=yagnik2411/Quiz-Genius&&max=400" />
   </a>
 </div>
 
