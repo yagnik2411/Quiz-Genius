@@ -30,7 +30,7 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
 
-    quizFuture = Questions().getQuestions();
+    quizFuture = Questions().getTFQuestions();
     PreviousQuestions.questions
         .clear(); // Clear previous questions for a new quiz
   }
