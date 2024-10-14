@@ -48,14 +48,15 @@ class _PreviousQuizState extends State<PreviousQuiz> {
               height: (MediaQuery.of(context).size.height * 0.9).h,
               child: (PreviousQuestions.questions.isNotEmpty)
                   ? ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 8.sp, horizontal: 16.sp),
                       itemCount: PreviousQuestions.questions.length,
                       itemBuilder: (context, index) {
                         return Container(
                           padding: EdgeInsets.all(8.sp),
                           decoration: BoxDecoration(
-                            border: Border.all(color: MyColors.darkCyan, width: 3.w),
+                            border: Border.all(
+                                color: MyColors.darkCyan, width: 3.w),
                             borderRadius: BorderRadius.circular(15.sp),
                             color: MyColors.malachite.withOpacity(0.8),
                           ),
@@ -79,7 +80,8 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.sp, vertical: 10.sp),
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white, width: 1),
+                                  border:
+                                      Border.all(color: Colors.white, width: 1),
                                   borderRadius: BorderRadius.circular(15.sp),
                                   color: MyColors.mint,
                                 ),

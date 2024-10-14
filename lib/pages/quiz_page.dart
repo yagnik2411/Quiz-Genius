@@ -30,7 +30,8 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
     quizFuture = Questions().getQuestions();
-    PreviousQuestions.questions.clear(); // Clear previous questions for a new quiz
+    PreviousQuestions.questions
+        .clear(); // Clear previous questions for a new quiz
   }
 
   @override
