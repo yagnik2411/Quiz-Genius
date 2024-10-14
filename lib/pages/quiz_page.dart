@@ -20,15 +20,19 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int q = 10;
   late Future<List<Question_T_F>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
+  bool isSubmitButtonDisabled = false;
+
   // List<PreviousQuestions> previousQuestions = [];
   @override
   void initState() {
     super.initState();
     quizFuture = Questions().getTFQuestions();
+    PreviousQuestions.questions.clear();
   }
 
   @override
@@ -62,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10,
+                itemCount: q,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
