@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/models/current_user.dart';
@@ -5,9 +7,9 @@ import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/widget/profile_image_uploader.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../utils/widget/custom_button.dart';
 import '../utils/widget/custom_text_form.dart';
+
 
 // ignore: must_be_immutable
 class UserName extends StatefulWidget {
@@ -18,10 +20,13 @@ class UserName extends StatefulWidget {
 }
 
 class _UserNameState extends State<UserName> {
-  final TextEditingController _usernameController = TextEditingController();
 
+  final TextEditingController _usernameController = TextEditingController();
   final ProfileImageUploader _imageUploader = ProfileImageUploader();
   String _profileImageUrl = " ";
+
+  final ProfileImageService _imageUploader = ProfileImageService();
+  String _profileImageUrl = "";
 
   moveToHome(BuildContext context) {
     CurrentUser.currentUser.setUserName(_usernameController.text);
@@ -40,6 +45,7 @@ class _UserNameState extends State<UserName> {
         CurrentUser.currentUser.profileImage =
             _profileImageUrl; // Save in CurrentUser model
       });
+
     }
   }
 

@@ -151,6 +151,7 @@ class _LoginState extends State<Login> {
                       moveToHome(context);
                     }
                   },
+
                   bgColor: MyColors.malachite,
                   text: "Login",
                   style: TextStyle(
@@ -183,6 +184,7 @@ class _LoginState extends State<Login> {
                           }),
                   ])),
                 ),
+
               ],
             ),
           )),

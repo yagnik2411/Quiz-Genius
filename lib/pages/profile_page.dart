@@ -18,6 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String _user = "";
   int _performance = 0;
+  String? _profileImageUrl;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -99,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CircularPercentIndicator(
                           radius: 150.w,
-                          percent: _performance/100,
+                          percent: _performance / 100,
                           lineWidth: 20.w,
                           animateFromLastPercent: true,
                           progressColor: MyColors.mint,
@@ -146,6 +147,8 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((data) {
       _user = data['userName'];
       _performance = data['performance'];
+      _profileImageUrl = data['profileImage'];
     });
+    CurrentUser.currentUser.profileImage = _profileImageUrl ?? "";
   }
 }
