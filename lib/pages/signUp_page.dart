@@ -5,16 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
 import 'package:quiz_genius/models/current_user.dart';
+import 'package:quiz_genius/pages/login_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:quiz_genius/utils/colors.dart';
 
-// ignore: must_be_immutable
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
-  static final _formkey = GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>(); // Removed static keyword
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -22,7 +22,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
 
   Future<String> signUpUser(BuildContext context) async {
@@ -33,12 +32,13 @@ class _SignUpState extends State<SignUp> {
   }
 
   moveToUserPage(BuildContext context) async {
-    if (SignUp._formkey.currentState!.validate()) {
+    if (widget._formkey.currentState!.validate()) {
+      // Access _formkey from widget
       String email = emailController.text;
       String password = passwordController.text;
-      SignUp._formkey.currentState!.save();
+      widget._formkey.currentState!.save(); // Access _formkey from widget
       CurrentUser.currentUser = UserName(email: email, password: password);
-      print('sing up:name ${email} pass ${password}');
+      print('sing up:name $email pass $password');
       String ans = await signUpUser(context);
       if (ans == "Signup Complete")
         Navigator.pushReplacementNamed(context, MyRoutes.usernameRoute);
@@ -50,31 +50,29 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: MyColors.mint,
         title: Center(
           child: Text(
             "SignUp Page",
+            style: TextStyle(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ),
       ),
       body: SingleChildScrollView(
           child: Form(
-        key: SignUp._formkey,
+        key: widget._formkey, // Access _formkey from widget
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             SvgPicture.asset(
               "assets/images/login.svg",
               fit: BoxFit.contain,
               width: (393 / 1.2).w,
             ).centered().py(24.sp),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             "SignUp to Quiz Genius"
                 .text
                 .xl2
@@ -82,9 +80,7 @@ class _SignUpState extends State<SignUp> {
                 .bold
                 .center
                 .makeCentered(),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             Container(
               padding:
                   EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
@@ -113,11 +109,6 @@ class _SignUpState extends State<SignUp> {
 
                   return null;
                 },
-                // onChanged: (value) {
-                //   print("email" + value);
-                //   email = value;
-                //   print("email" + email);
-                // },
               ),
             ).px(16.sp),
             Container(
@@ -142,18 +133,13 @@ class _SignUpState extends State<SignUp> {
                   if (value!.isEmpty) {
                     return "Password cannot be empty";
                   } else if (value.length < 6) {
-                    return "Password length should be atleast 6";
+                    return "Password length should be at least 6";
                   }
                   return null;
                 },
-                // onChanged: (value) {
-                //   password = value;
-                // },
               ).pOnly(bottom: 10.sp),
             ).px(16.sp),
-            SizedBox(
-              height: 10.h,
-            ),
+            SizedBox(height: 10.h),
             Padding(
               padding: const EdgeInsets.only(left: 120, right: 120),
               child: OverflowBar(
@@ -175,14 +161,28 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     child: Center(
-                        child: const Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            IconButton(
+              alignment: Alignment.center,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+              icon: Icon(Icons.arrow_back),
             )
           ],
         ),
