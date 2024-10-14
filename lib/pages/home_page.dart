@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_genius/firebase/auth.dart';
+import 'package:quiz_genius/pages/quiz_info_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
@@ -190,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, MyRoutes.quizRoute);
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx)=>QuizInfoScreen()));
                     },
                     style: ButtonStyle(
                       backgroundColor:
@@ -338,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.quizRoute);
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx)=>QuizInfoScreen()));
                       },
                     ),
                   ).px(16.sp).py(5.sp),
