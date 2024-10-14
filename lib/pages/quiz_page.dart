@@ -250,6 +250,11 @@ class _QuizPageState extends State<QuizPage> {
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
             onPressed: () async {
+              if (isAdd.contains(false)) {
+                toMassage(msg: "Please answer all questions!");
+                return;
+              }
+
               bool confirm = await showSubmissionConfirmationDialog(context);
 
               // If confirmed, proceed with submission
@@ -263,16 +268,20 @@ class _QuizPageState extends State<QuizPage> {
                     currentPerformance: currentPerformance);
 
                 Scores.updateScores(
-                    context: context,
-                    score: Scores.scores,
-                    email: CurrentUser.currentUser.email);
+                  context: context,
+                  score: Scores.scores,
+                  email: CurrentUser.currentUser.email,
+                );
 
                 PreviousQuestions.addToCollection(
                     context: context,
                     question: PreviousQuestions.questions,
                     email: CurrentUser.currentUser.email);
 
-                Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+                Navigator.pushReplacementNamed(
+                  context,
+                  MyRoutes.homeRoute,
+                );
               }
             },
             style: ButtonStyle(
@@ -282,9 +291,7 @@ class _QuizPageState extends State<QuizPage> {
                   const BorderSide(color: MyColors.seashall, width: 2)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    15.sp,
-                  ),
+                  borderRadius: BorderRadius.circular(15.sp),
                 ),
               ),
             ),
@@ -351,13 +358,15 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Future<void> scoreUpdate(BuildContext context) async {
-  // Add the new score to the list of scores.
-  Scores.scores.add(
-    Score(
-      correct: correct, // Number of correct answers
-      scoreInPercent: (correct * 10), // Calculate percentage or whatever logic you have
-      date: DateFormat('yyyy-MM-dd').format(DateTime.now()), // Add the current date
-    ),
-  );
-}
+    // Add the new score to the list of scores.
+    Scores.scores.add(
+      Score(
+        correct: correct, // Number of correct answers
+        scoreInPercent:
+            (correct * 10), // Calculate percentage or whatever logic you have
+        date: DateFormat('yyyy-MM-dd')
+            .format(DateTime.now()), // Add the current date
+      ),
+    );
+  }
 }
