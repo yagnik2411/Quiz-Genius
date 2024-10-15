@@ -1,3 +1,4 @@
+import 'dart:async'; // For Timer
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,19 +21,44 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int q = 10;
-  late Future<List<Question_T_F>> quizFuture;
+  late Future<List<Question>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
-  bool isSubmitButtonDisabled = false;
+  Timer? timer; // Declare a timer
+  int remainingTime = 600; // 10 minutes in seconds
 
-  // List<PreviousQuestions> previousQuestions = [];
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getTFQuestions();
-    PreviousQuestions.questions.clear();
+    quizFuture = Questions().getQuestions();
+    startTimer(); // Start the timer when the quiz page is initialized
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--; // Decrease the time
+        });
+      } else {
+        timer.cancel();
+        autoSubmitQuiz(); // Automatically submit the quiz when time is up
+      }
+    });
+  }
+
+  // Convert the remaining time into a mm:ss format
+  String formatTime(int timeInSeconds) {
+    int minutes = timeInSeconds ~/ 60;
+    int seconds = timeInSeconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -43,13 +69,29 @@ class _QuizPageState extends State<QuizPage> {
         backgroundColor: MyColors.mint,
         title: const Center(
           child: Text(
-            "True or False Quiz",
+            "Quiz Genius",
             textAlign: TextAlign.center,
           ),
         ),
         automaticallyImplyLeading: false,
+        actions: [
+          // Timer in the AppBar's trailing position
+          Padding(
+            padding: EdgeInsets.only(right: 16.sp),
+            child: Center(
+              child: Text(
+                formatTime(remainingTime), // Display formatted time
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.seashall,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-      body: FutureBuilder<List<Question_T_F>>(
+      body: FutureBuilder<List<Question>>(
         future: quizFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -66,7 +108,7 @@ class _QuizPageState extends State<QuizPage> {
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: q,
+                itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
@@ -88,107 +130,99 @@ class _QuizPageState extends State<QuizPage> {
                             textWidthBasis: TextWidthBasis.parent,
                           ),
                         ),
-                        OverflowBar(
+                        ButtonBar(
                           alignment: MainAxisAlignment.spaceBetween,
+                          buttonPadding: EdgeInsets.symmetric(
+                              horizontal: 20.sp, vertical: 10.sp),
                           children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.sp, vertical: 10.sp),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (isAdd[index] == false) {
-                                    setState(() {
-                                      isAdd[index] = true;
+                            ElevatedButton(
+                              onPressed: () {
+                                if (isAdd[index] == false) {
+                                  setState(() {
+                                    isAdd[index] = true;
 
-                                      if (quiz[index].answer == true) {
-                                        isCorrect[index] = 0;
-                                        toMassage(msg: "correct");
-                                        correct++;
-                                      } else {
-                                        isCorrect[index] = 1;
-                                        toMassage(msg: "incorrect");
-                                      }
-                                      PreviousQuestions.questions.add(
-                                          PreviousQuestion(
-                                              id: index,
-                                              question: quiz[index].question,
-                                              correct: isCorrect[index] == 0
-                                                  ? true
-                                                  : false));
-                                    });
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: (isAdd[index] == false)
-                                      ? WidgetStateProperty.all(MyColors.mint)
-                                      : ((isCorrect[index] == 0)
-                                          ? WidgetStateProperty.all(
-                                              Colors.green)
-                                          : WidgetStateProperty.all(
-                                              Colors.red)),
-                                  elevation: WidgetStateProperty.all(10),
-                                  fixedSize: WidgetStateProperty.all(
-                                      Size(120.w, 40.h)),
-                                  side: WidgetStateProperty.all(
-                                      const BorderSide(color: Colors.white)),
-                                  shape: WidgetStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.sp),
-                                    ),
+                                    if (quiz[index].answer == true) {
+                                      isCorrect[index] = 0;
+                                      toMassage(msg: "correct");
+                                      correct++;
+                                    } else {
+                                      isCorrect[index] = 1;
+                                      toMassage(msg: "incorrect");
+                                    }
+                                    PreviousQuestions.questions.add(
+                                        PreviousQuestion(
+                                            id: index,
+                                            question: quiz[index].question,
+                                            correct: isCorrect[index] == 0
+                                                ? true
+                                                : false));
+                                  });
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: (isAdd[index] == false)
+                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    : ((isCorrect[index] == 0)
+                                        ? MaterialStateProperty.all(
+                                            Colors.green)
+                                        : MaterialStateProperty.all(
+                                            Colors.red)),
+                                elevation: MaterialStateProperty.all(10),
+                                fixedSize: MaterialStateProperty.all(
+                                    Size(120.w, 40.h)),
+                                side: MaterialStateProperty.all(
+                                    const BorderSide(color: Colors.white)),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.sp),
                                   ),
                                 ),
-                                child: "True".text.xl.make(),
                               ),
+                              child: "True".text.xl.make(),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.sp, vertical: 10.sp),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (isAdd[index] == false) {
-                                    setState(() {
-                                      isAdd[index] = true;
-                                      if (quiz[index].answer == false) {
-                                        isCorrect[index] = 1;
-                                        toMassage(msg: "correct");
-                                        correct++;
-                                      } else {
-                                        isCorrect[index] = 0;
-                                        toMassage(msg: "incorrect");
-                                      }
-                                      PreviousQuestions.questions.add(
-                                          PreviousQuestion(
-                                              id: index,
-                                              question: quiz[index].question,
-                                              correct: isCorrect[index] == 1
-                                                  ? true
-                                                  : false));
-                                    });
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: (isAdd[index] == false)
-                                      ? WidgetStateProperty.all(MyColors.mint)
-                                      : ((isCorrect[index] == 1)
-                                          ? WidgetStateProperty.all(
-                                              Colors.green)
-                                          : WidgetStateProperty.all(
-                                              Colors.red)),
-                                  elevation: WidgetStateProperty.all(10),
-                                  fixedSize: WidgetStateProperty.all(
-                                      Size(120.w, 40.h)),
-                                  side: WidgetStateProperty.all(
-                                      const BorderSide(color: Colors.white)),
-                                  shape: WidgetStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.sp),
-                                    ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (isAdd[index] == false) {
+                                  setState(() {
+                                    isAdd[index] = true;
+                                    if (quiz[index].answer == false) {
+                                      isCorrect[index] = 1;
+                                      toMassage(msg: "correct");
+                                      correct++;
+                                    } else {
+                                      isCorrect[index] = 0;
+                                      toMassage(msg: "incorrect");
+                                    }
+                                    PreviousQuestions.questions.add(
+                                        PreviousQuestion(
+                                            id: index,
+                                            question: quiz[index].question,
+                                            correct: isCorrect[index] == 1
+                                                ? true
+                                                : false));
+                                  });
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: (isAdd[index] == false)
+                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    : ((isCorrect[index] == 1)
+                                        ? MaterialStateProperty.all(
+                                            Colors.green)
+                                        : MaterialStateProperty.all(
+                                            Colors.red)),
+                                elevation: MaterialStateProperty.all(10),
+                                fixedSize: MaterialStateProperty.all(
+                                    Size(120.w, 40.h)),
+                                side: MaterialStateProperty.all(
+                                    const BorderSide(color: Colors.white)),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.sp),
                                   ),
                                 ),
-                                child: "False".text.xl.make(),
                               ),
+                              child: "False".text.xl.make(),
                             ),
                           ],
                         ),
@@ -216,13 +250,16 @@ class _QuizPageState extends State<QuizPage> {
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
             onPressed: () async {
+              if (isAdd.contains(false)) {
+                toMassage(msg: "Please answer all questions!");
+                return;
+              }
+
               bool confirm = await showSubmissionConfirmationDialog(context);
 
               // If confirmed, proceed with submission
               if (confirm) {
                 await scoreUpdate(context);
-                print(Scores.scores.length);
-
                 int currentPerformance =
                     ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
                 CurrentUser.currentUser.performanceUpdate(
@@ -231,167 +268,105 @@ class _QuizPageState extends State<QuizPage> {
                     currentPerformance: currentPerformance);
 
                 Scores.updateScores(
-                    context: context,
-                    score: Scores.scores,
-                    email: CurrentUser.currentUser.email);
-
-                print(Scores.scores.length);
+                  context: context,
+                  score: Scores.scores,
+                  email: CurrentUser.currentUser.email,
+                );
 
                 PreviousQuestions.addToCollection(
                     context: context,
                     question: PreviousQuestions.questions,
                     email: CurrentUser.currentUser.email);
 
-                Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+                Navigator.pushReplacementNamed(
+                  context,
+                  MyRoutes.homeRoute,
+                );
               }
             },
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(MyColors.mint),
-              elevation: WidgetStateProperty.all(10),
-              side: WidgetStateProperty.all(
+              backgroundColor: MaterialStateProperty.all(MyColors.mint),
+              elevation: MaterialStateProperty.all(10),
+              side: MaterialStateProperty.all(
                   const BorderSide(color: MyColors.seashall, width: 2)),
-              shape: WidgetStateProperty.all(
+              shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    15.sp,
-                  ),
+                  borderRadius: BorderRadius.circular(15.sp),
                 ),
               ),
             ),
-            child: "submit".text.xl2.make(),
-          ).p(12.sp),
+            child: const Center(
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  void scoreListAdd(BuildContext context) {
-    // Add the new score to the list
-    Scores.scores.add(Score(
-      correct: correct,
-      scoreInPercent: correct * 10,
-      date: DateFormat('dd / MM / yyyy').format(DateTime.now()).toString(),
-    ));
+  Future<void> autoSubmitQuiz() async {
+    await scoreUpdate(context);
+    int currentPerformance =
+        ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
+    CurrentUser.currentUser.performanceUpdate(
+        context: context,
+        currentEmail: CurrentUser.currentUser.email,
+        currentPerformance: currentPerformance);
 
-    // Ensure we only keep the last 10 scores
-    if (Scores.scores.length > 10) {
-      Scores.scores = Scores.scores.sublist(Scores.scores.length - 10);
-    }
+    Scores.updateScores(
+        context: context,
+        score: Scores.scores,
+        email: CurrentUser.currentUser.email);
 
-    // Update the scores in Firestore
-    Scores.addScores(
-      context: context,
-      score: Scores.scores,
-      email: CurrentUser.currentUser.email,
-    );
-  }
+    PreviousQuestions.addToCollection(
+        context: context,
+        question: PreviousQuestions.questions,
+        email: CurrentUser.currentUser.email);
 
-  Future<void> scoreFetch() async {
-    print("score: ${CurrentUser.currentUser.email}");
-    DocumentReference userDocRef = FirebaseFirestore.instance
-        .collection("users")
-        .doc(CurrentUser.currentUser.email)
-        .collection("previousScores")
-        .doc("scores");
-
-    try {
-      DocumentSnapshot data = await userDocRef.get();
-
-      if (data.exists) {
-        // Document with scores exists, fetch scores
-        List temp = data['scores'];
-        print(temp.length);
-
-        for (int i = 0; i < temp.length; i++) {
-          Scores.scores.add(Score(
-            correct: data['scores'][i]['correct'],
-            scoreInPercent: data['scores'][i]['scoreInPercent'],
-            date: data['scores'][i]['date'],
-          ));
-        }
-
-        print(Scores.scores.length);
-      } else {
-        // Document does not exist, create a new one with an empty list
-        await userDocRef.set({'scores': []});
-      }
-    } catch (e) {
-      print("Error fetching scores: $e");
-    }
-  }
-
-  Future<void> scoreUpdate(BuildContext context) async {
-    // Clear the current scores
-    Scores.scores.clear();
-
-    // Fetch existing scores
-    await scoreFetch();
-
-    // Add the new score and ensure the list has only the last 10 scores
-    scoreListAdd(context);
+    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
   Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
-    return await showDialog(
+    return await showDialog<bool>(
           context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: MyColors.malachite
-                  .withOpacity(0.9), // Set background color to match the theme
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    15.sp), // Rounded corners for consistency
+          builder: (context) => AlertDialog(
+            title: const Text('Submit Quiz'),
+            content: const Text('Are you sure you want to submit the quiz?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false); // Return false if canceled
+                },
+                child: const Text('Cancel'),
               ),
-              title: Text(
-                "Confirm Submission",
-                style: TextStyle(
-                  color: MyColors.seashall, // Text color matching theme
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true); // Return true if confirmed
+                },
+                child: const Text('Submit'),
               ),
-              content: Text(
-                "Are you sure you want to submit your quiz?",
-                style: TextStyle(
-                  color: MyColors.seashall,
-                  fontSize: 16.sp,
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false); // Cancel submission
-                  },
-                  child: Text(
-                    "Cancel",
-                    style: TextStyle(
-                      color: MyColors.mint, // Button color from the theme
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true); // Confirm submission
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        MyColors.mint, // Button color matching theme
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.sp),
-                    ),
-                  ),
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                      color: MyColors.seashall, // Button text color
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+            ],
+          ),
         ) ??
-        false; // Return false if the dialog is dismissed
+        false; // If dialog is dismissed, return false by default
+  }
+
+  Future<void> scoreUpdate(BuildContext context) async {
+    // Add the new score to the list of scores.
+    Scores.scores.add(
+      Score(
+        correct: correct, // Number of correct answers
+        scoreInPercent:
+            (correct * 10), // Calculate percentage or whatever logic you have
+        date: DateFormat('yyyy-MM-dd')
+            .format(DateTime.now()), // Add the current date
+      ),
+    );
   }
 }
