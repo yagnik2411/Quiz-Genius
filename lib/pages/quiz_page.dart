@@ -8,7 +8,6 @@ import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:quiz_genius/models/previous_questions.dart';
 import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
@@ -21,7 +20,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  late Future<List<Question>> quizFuture;
+  late Future<List<QuestionTF>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
@@ -31,7 +30,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getQuestions();
+    quizFuture = Questions().getTFQuestions();
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
@@ -91,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Question>>(
+      body: FutureBuilder<List<QuestionTF>>(
         future: quizFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

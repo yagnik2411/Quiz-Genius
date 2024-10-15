@@ -1,3 +1,4 @@
+import 'dart:async'; // For Timer
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,15 +20,44 @@ class QuizMCQPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizMCQPage> {
-  late Future<List<Question_MCQ>> quizFuture;
+  late Future<List<QuestionMCQ>> quizFuture;
   List<bool> isAdd = List.generate(10, (i) => false);
   List<int> isCorrect = List.generate(10, (i) => -1);
   int correct = 0;
+  Timer? timer; // Declare a timer
+  int remainingTime = 600; // 10 minutes in seconds
   // List<PreviousQuestions> previousQuestions = [];
   @override
   void initState() {
     super.initState();
     quizFuture = Questions().getMCQQuestions();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--; // Decrease the time
+        });
+      } else {
+        timer.cancel();
+        autoSubmitQuiz(); // Automatically submit the quiz when time is up
+      }
+    });
+  }
+
+  // Convert the remaining time into a mm:ss format
+  String formatTime(int timeInSeconds) {
+    int minutes = timeInSeconds ~/ 60;
+    int seconds = timeInSeconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -43,8 +73,24 @@ class _QuizPageState extends State<QuizMCQPage> {
           ),
         ),
         automaticallyImplyLeading: false,
+        actions: [
+          // Timer in the AppBar's trailing position
+          Padding(
+            padding: EdgeInsets.only(right: 16.sp),
+            child: Center(
+              child: Text(
+                formatTime(remainingTime), // Display formatted time
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.seashall,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-      body: FutureBuilder<List<Question_MCQ>>(
+      body: FutureBuilder<List<QuestionMCQ>>(
         future: quizFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -387,25 +433,39 @@ class _QuizPageState extends State<QuizMCQPage> {
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
             onPressed: () async {
-              await scoreUpdate(context);
-              print(Scores.scores.length);
-              int currentPerformance =
-                  ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
-              CurrentUser.currentUser.performanceUpdate(
-                  context: context,
-                  currentEmail: CurrentUser.currentUser.email,
-                  currentPerformance: currentPerformance);
+              if (isAdd.contains(false)) {
+                toMassage(msg: "Please answer all questions!");
+                return;
+              }
 
-              Scores.updateScores(
+              bool confirm = await showSubmissionConfirmationDialog(context);
+
+              // If confirmed, proceed with submission
+              if (confirm) {
+                await scoreUpdate(context);
+                int currentPerformance =
+                    ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
+                CurrentUser.currentUser.performanceUpdate(
+                    context: context,
+                    currentEmail: CurrentUser.currentUser.email,
+                    currentPerformance: currentPerformance);
+
+                Scores.updateScores(
                   context: context,
                   score: Scores.scores,
-                  email: CurrentUser.currentUser.email);
-              print(Scores.scores.length);
-              PreviousQuestions.addToCollection(
-                  context: context,
-                  question: PreviousQuestions.questions,
-                  email: CurrentUser.currentUser.email);
-              Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+                  email: CurrentUser.currentUser.email,
+                );
+
+                PreviousQuestions.addToCollection(
+                    context: context,
+                    question: PreviousQuestions.questions,
+                    email: CurrentUser.currentUser.email);
+
+                Navigator.pushReplacementNamed(
+                  context,
+                  MyRoutes.homeRoute,
+                );
+              }
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(MyColors.mint),
@@ -425,6 +485,53 @@ class _QuizPageState extends State<QuizMCQPage> {
         ),
       ),
     );
+  }
+
+  Future<void> autoSubmitQuiz() async {
+    await scoreUpdate(context);
+    int currentPerformance =
+        ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
+    CurrentUser.currentUser.performanceUpdate(
+        context: context,
+        currentEmail: CurrentUser.currentUser.email,
+        currentPerformance: currentPerformance);
+
+    Scores.updateScores(
+        context: context,
+        score: Scores.scores,
+        email: CurrentUser.currentUser.email);
+
+    PreviousQuestions.addToCollection(
+        context: context,
+        question: PreviousQuestions.questions,
+        email: CurrentUser.currentUser.email);
+
+    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+  }
+
+  Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Submit Quiz'),
+            content: const Text('Are you sure you want to submit the quiz?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false); // Return false if canceled
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true); // Return true if confirmed
+                },
+                child: const Text('Submit'),
+              ),
+            ],
+          ),
+        ) ??
+        false; // If dialog is dismissed, return false by default
   }
 
   void scoreListAdd(BuildContext context) {

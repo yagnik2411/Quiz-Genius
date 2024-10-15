@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Questions {
-  List<Question_T_F> questions = [];
+  List<QuestionTF> questions = [];
 
-  Future<List<Question_T_F>> getTFQuestions() async {
-    List<Question_T_F> questions = [];
+  Future<List<QuestionTF>> getTFQuestions() async {
+    List<QuestionTF> questions = [];
 
     final String url = "https://opentdb.com/api.php?amount=50&type=boolean";
     final response = await http.get(Uri.parse(url));
@@ -15,7 +15,7 @@ class Questions {
     var question = decodeData["results"];
     for (int i = 0; i < question.length; i++) {
       questions.add(
-        Question_T_F(
+        QuestionTF(
           i,
           question[i]["question"],
           question[i]["correct_answer"] == "True" ? true : false,
@@ -26,8 +26,8 @@ class Questions {
     return questions;
   }
 
-  Future<List<Question_MCQ>> getMCQQuestions() async {
-    List<Question_MCQ> questions = [];
+  Future<List<QuestionMCQ>> getMCQQuestions() async {
+    List<QuestionMCQ> questions = [];
     final String url =
         "https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple";
     final response = await http.get(Uri.parse(url));
@@ -48,7 +48,7 @@ class Questions {
       ];
       answers.shuffle();
       questions.add(
-        Question_MCQ(
+        QuestionMCQ(
           i,
           question[i]["question"],
           question[i]["correct_answer"],
@@ -60,13 +60,13 @@ class Questions {
   }
 }
 
-class Question_MCQ {
+class QuestionMCQ {
   int id;
   String question;
   String answer;
   List<String> opt;
 
-  Question_MCQ(
+  QuestionMCQ(
     this.id,
     this.question,
     this.answer,
@@ -74,10 +74,10 @@ class Question_MCQ {
   );
 }
 
-class Question_T_F {
+class QuestionTF {
   int id;
   String question;
   bool answer;
 
-  Question_T_F(this.id, this.question, this.answer);
+  QuestionTF(this.id, this.question, this.answer);
 }
