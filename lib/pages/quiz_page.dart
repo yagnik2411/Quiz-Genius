@@ -360,7 +360,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ) ??
         false; // If dialog is dismissed, return false by default
-  
+      }
 
   Future<void> scoreUpdate(BuildContext context) async {
     // Add the new score to the list of scores.
