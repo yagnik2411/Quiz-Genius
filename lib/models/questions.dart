@@ -7,7 +7,6 @@ class Questions {
 
   Future<List<QuestionTF>> getTFQuestions() async {
     List<QuestionTF> questions = [];
-
     final String url = "https://opentdb.com/api.php?amount=50&type=boolean";
     final response = await http.get(Uri.parse(url));
     final String data = response.body;
@@ -18,18 +17,17 @@ class Questions {
         QuestionTF(
           i,
           question[i]["question"],
+          question[i]["difficulty"],
           question[i]["correct_answer"] == "True" ? true : false,
         ),
       );
     }
-
     return questions;
   }
 
   Future<List<QuestionMCQ>> getMCQQuestions() async {
     List<QuestionMCQ> questions = [];
-    final String url =
-        "https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple";
+    final String url = "https://opentdb.com/api.php?amount=50&type=multiple";
     final response = await http.get(Uri.parse(url));
     final String data = response.body;
     final decodeData = jsonDecode(data);
@@ -52,6 +50,7 @@ class Questions {
           i,
           question[i]["question"],
           question[i]["correct_answer"],
+          question[i]["difficulty"],
           answers,
         ),
       );
@@ -64,12 +63,14 @@ class QuestionMCQ {
   int id;
   String question;
   String answer;
+  String difficulty;
   List<String> opt;
 
   QuestionMCQ(
     this.id,
     this.question,
     this.answer,
+    this.difficulty,
     this.opt,
   );
 }
@@ -77,7 +78,8 @@ class QuestionMCQ {
 class QuestionTF {
   int id;
   String question;
+  String difficulty;
   bool answer;
 
-  QuestionTF(this.id, this.question, this.answer);
+  QuestionTF(this.id, this.question, this.difficulty, this.answer);
 }

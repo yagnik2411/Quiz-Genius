@@ -13,7 +13,9 @@ import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({Key? key}) : super(key: key);
+  final String difficulty;
+
+  const QuizPage({Key? key, required this.difficulty}) : super(key: key);
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -21,12 +23,10 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   late Future<List<QuestionTF>> quizFuture;
-  List<bool> isAdd = List.generate(10, (i) => false);
-  List<int> isCorrect = List.generate(10, (i) => -1);
+
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
-
   @override
   void initState() {
     super.initState();
@@ -34,6 +34,8 @@ class _QuizPageState extends State<QuizPage> {
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
+  late List<bool> isAdd = List.generate(10, (i) => false);
+  late List<int> isCorrect = List.generate(10, (i) => -1);
   @override
   void dispose() {
     timer?.cancel(); // Cancel the timer when the widget is disposed
@@ -102,7 +104,12 @@ class _QuizPageState extends State<QuizPage> {
               child: Text("Error: ${snapshot.error}"),
             );
           } else {
-            final quiz = snapshot.data!;
+            List<QuestionTF> quiz = [];
+            snapshot.data!.forEach((element) {
+              if (element.difficulty == widget.difficulty) {
+                quiz.add(element);
+              }
+            });
 
             return ListView.builder(
                 padding:
@@ -120,7 +127,7 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index + 10].question,
+                            quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,

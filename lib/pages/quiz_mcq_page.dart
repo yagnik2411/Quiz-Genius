@@ -13,7 +13,9 @@ import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 class QuizMCQPage extends StatefulWidget {
-  const QuizMCQPage({Key? key}) : super(key: key);
+  final String difficulty;
+
+  const QuizMCQPage({Key? key, required this.difficulty}) : super(key: key);
 
   @override
   State<QuizMCQPage> createState() => _QuizPageState();
@@ -102,7 +104,12 @@ class _QuizPageState extends State<QuizMCQPage> {
               child: Text("Error: ${snapshot.error}"),
             );
           } else {
-            final quiz = snapshot.data!;
+            List<QuestionMCQ> quiz = [];
+            snapshot.data!.forEach((element) {
+              if (element.difficulty == widget.difficulty) {
+                quiz.add(element);
+              }
+            });
 
             return ListView.builder(
                 padding:
