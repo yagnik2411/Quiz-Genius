@@ -2,6 +2,9 @@
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 <!-- Added Hacktoberfest 2024 and GSSoC Extended 2024 banners -->
 ### This project is now OFFICIALLY accepted for
 
@@ -10,6 +13,9 @@
   <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
 </div>
 <br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## UI Preview
 <div align="center">
@@ -23,6 +29,9 @@
   </div>  
 </div>
 
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Features
 
 - **User Profile:** Each user has a profile that saves their name and quiz performance for easy tracking.
@@ -30,12 +39,18 @@
 - **Login & Data Saving:** User progress is saved through Firebase, ensuring continuity between sessions.
 - **Take a Quiz:** Users can start a new quiz and test their knowledge on a variety of topics.
 
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Technical Implementation
 
 - **User Login:** Authentication (login, sign-up, sign-in) is managed using Firebase Authentication.
 - **Data Storage:** User data and quiz performance are stored securely using Cloud Firestore.
 - **Questions Bank:** Quiz questions are fetched from a third-party API using JSON serialization to handle the data.
 - **User-Friendly UI:** The app features a professional and intuitive UI, providing a seamless user experience.
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Example of API Structure (Question Bank)
 
@@ -57,6 +72,10 @@ The questions are pulled from an external API with the following structure:
   ]
 }
 ```
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Contributing to Quiz Genius
 
 Thank you for your interest in contributing to **Quiz Genius**! We greatly appreciate community involvement to help enhance the app and introduce new features. Whether you're reporting bugs or submitting code contributions, your input is valuable. For more detailed information on how to contribute, please refer to the [CONTRIBUTING.md](./CONTRIBUTING.md) file. Here are some guidelines to help you get started:
@@ -79,6 +98,9 @@ Contributions that improve functionality or user experience are always welcome. 
 8. Submit a **pull request** to the main repository's `main` branch, describing the purpose and scope of your changes.
 
 We look forward to your contributions!
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Getting Started
 
@@ -113,7 +135,11 @@ flutter doctor
 ```bash
 flutter run
 ```
----
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 
 <div>
   <h2 align = "center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" width="35" height="35">Our Contributors</h2>
@@ -127,7 +153,8 @@ flutter run
 - We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
 - Make sure you show some love by giving ⭐ to our repository.
 
----
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 <!-- Added: Team Section  -->
 ## 👥 Team
