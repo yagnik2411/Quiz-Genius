@@ -8,33 +8,34 @@ import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:quiz_genius/models/previous_questions.dart';
 import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({Key? key}) : super(key: key);
+  final String difficulty;
+
+  const QuizPage({Key? key, required this.difficulty}) : super(key: key);
 
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
-  late Future<List<Question>> quizFuture;
-  List<bool> isAdd = List.generate(10, (i) => false);
-  List<int> isCorrect = List.generate(10, (i) => -1);
+  late Future<List<QuestionTF>> quizFuture;
+
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
-
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getQuestions();
+    quizFuture = Questions().getTFQuestions();
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
+  late List<bool> isAdd = List.generate(10, (i) => false);
+  late List<int> isCorrect = List.generate(10, (i) => -1);
   @override
   void dispose() {
     timer?.cancel(); // Cancel the timer when the widget is disposed
@@ -91,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Question>>(
+      body: FutureBuilder<List<QuestionTF>>(
         future: quizFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -103,7 +104,12 @@ class _QuizPageState extends State<QuizPage> {
               child: Text("Error: ${snapshot.error}"),
             );
           } else {
-            final quiz = snapshot.data!;
+            List<QuestionTF> quiz = [];
+            snapshot.data!.forEach((element) {
+              if (element.difficulty == widget.difficulty) {
+                quiz.add(element);
+              }
+            });
 
             return ListView.builder(
                 padding:
@@ -121,7 +127,7 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index + 10].question,
+                            quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
