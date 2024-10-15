@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, MyRoutes.quizRoute);
+                      showQuizMenu(context);
                     },
                     style: ButtonStyle(
                       backgroundColor:
@@ -432,4 +432,50 @@ class _HomePageState extends State<HomePage> {
       profileImageUrl = CurrentUser.currentUser.profileImage;
     }).catchError((e) {});
   }
+}
+
+void showQuizMenu(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: MyColors.lightCyan,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sp)),
+        title: Text(
+          "Select Quiz Type",
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text(
+                "True/False Quiz",
+                style: TextStyle(
+                    color: Colors.black87, fontWeight: FontWeight.normal),
+              ),
+              onTap: () {
+                // Navigate to True/False Quiz Page
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pushNamed(context, MyRoutes.quizRoute);
+              },
+            ),
+            ListTile(
+              title: Text(
+                "MCQ Quiz",
+                style: TextStyle(
+                    color: Colors.black87, fontWeight: FontWeight.normal),
+              ),
+              onTap: () {
+                // Navigate to MCQ Quiz Page
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pushNamed(context, MyRoutes.quizMCQRoute);
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }

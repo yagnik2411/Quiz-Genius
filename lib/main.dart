@@ -8,6 +8,7 @@ import 'package:quiz_genius/pages/home_page.dart';
 import 'package:quiz_genius/pages/previous_quiz_page.dart';
 import 'package:quiz_genius/pages/previous_scores_page.dart';
 import 'package:quiz_genius/pages/profile_page.dart';
+import 'package:quiz_genius/pages/quiz_mcq_page.dart';
 import 'package:quiz_genius/pages/quiz_page.dart';
 import 'package:quiz_genius/pages/signUp_page.dart';
 import 'package:quiz_genius/pages/splash_screen.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.profileRoute: (context) => const ProfilePage(),
             MyRoutes.signUpRoute: (context) => SignUp(),
             MyRoutes.splashScreenRoute: (context) => SplashScreen(),
+            MyRoutes.quizMCQRoute: (context) => QuizMCQPage(),
           },
         );
       },
