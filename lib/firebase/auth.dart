@@ -18,7 +18,7 @@ class Auth {
       print('auth:name ${email} pass ${password}');
       toMassage(msg: "Sighup Complete");
       return "Signup Complete";
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       toMassage(msg: "Sighup Fail");
       return "Signup Fail";
     }
