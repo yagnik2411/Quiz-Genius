@@ -119,7 +119,10 @@ flutter run
 
 ---
 
-## Contact
+## 👥 Team
+| ![Yagnik Panchal](https://avatars.githubusercontent.com/u/113328020?v=4&s=80) |
+|:--:|
+| **Yagnik Panchal** <br> <sub>Project Admin</sub> | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/yagnikpanchal) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:panchalyagnik2411@gmail.com)|
 
-- [LinkedIn](https://www.linkedin.com/in/yagnikpanchal)
-- [Email](mailto:panchalyagnik2411@gmail.com)
+For any inquiries or feedback, please contact. Happy Contributing 🫡
