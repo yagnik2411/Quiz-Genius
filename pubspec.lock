@@ -143,6 +143,9 @@ packages:
     source: hosted
     version: "1.18.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8559d22 (summary page)
   convert:
     dependency: transitive
     description:
@@ -151,8 +154,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+<<<<<<< HEAD
 =======
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   cross_file:
     dependency: transitive
     description:
@@ -217,7 +223,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "2.1.3"
+=======
+    version: "2.1.2"
+>>>>>>> 8559d22 (summary page)
   file:
     dependency: transitive
     description:
@@ -226,9 +236,12 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+<<<<<<< HEAD
 =======
     version: "2.1.2"
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   file_selector_linux:
     dependency: transitive
     description:
@@ -309,55 +322,77 @@ packages:
       url: "https://pub.dev"
     source: hosted
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "2.18.1"
 =======
     version: "2.17.0"
 >>>>>>> 6e39883 (minor changes)
+=======
+    version: "2.18.1"
+>>>>>>> 8559d22 (summary page)
   firebase_storage:
     dependency: "direct main"
     description:
       name: firebase_storage
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8559d22 (summary page)
       sha256: e00e2909e36f5e44f839fd77dff90ff764f7bb303ed548d43617014ce05c77c8
       url: "https://pub.dev"
     source: hosted
     version: "12.3.3"
+<<<<<<< HEAD
 =======
       sha256: acbdd91f0bfa9b9ee0654d67bef9a5e1499ea4d786b7423a03a58ca8e9870ea3
       url: "https://pub.dev"
     source: hosted
     version: "11.7.6"
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   firebase_storage_platform_interface:
     dependency: transitive
     description:
       name: firebase_storage_platform_interface
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8559d22 (summary page)
       sha256: "462621bbdb5ab496518aa0f4785cb6db87763d5f1063aa228e1f65562937af1d"
       url: "https://pub.dev"
     source: hosted
     version: "5.1.31"
+<<<<<<< HEAD
 =======
       sha256: "8021188daed5f540af3032b3edabd1832fd6bbbc84bc9aa77ec780a27f8dd73f"
       url: "https://pub.dev"
     source: hosted
     version: "5.1.21"
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   firebase_storage_web:
     dependency: transitive
     description:
       name: firebase_storage_web
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8559d22 (summary page)
       sha256: d9221c943c1341ee2cba51857ddb5916686994b16b181e9e9d2e0d5a9056f9b7
       url: "https://pub.dev"
     source: hosted
     version: "3.10.3"
+<<<<<<< HEAD
 =======
       sha256: "710a735da58f7416a14fdc057e13297760b43e49ccb08e03a403300a77bde543"
       url: "https://pub.dev"
     source: hosted
     version: "3.9.6"
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   flutter:
     dependency: "direct main"
     description: flutter
@@ -632,6 +667,9 @@ packages:
     source: hosted
     version: "1.0.6"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8559d22 (summary page)
   package_config:
     dependency: transitive
     description:
@@ -640,8 +678,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+<<<<<<< HEAD
 =======
 >>>>>>> 6e39883 (minor changes)
+=======
+>>>>>>> 8559d22 (summary page)
   path:
     dependency: transitive
     description:
