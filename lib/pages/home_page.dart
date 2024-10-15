@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            radius: 50.w,
+                            radius: 40.w,
                             backgroundColor: MyColors.lightLime,
                             child: SvgPicture.asset(
                               "assets/images/online_test.svg",
@@ -150,8 +150,9 @@ class _HomePageState extends State<HomePage> {
                               height: 45.w,
                               width: 45.w,
                             ),
-                          ).p(8.sp),
-                          Text("Hello, $name")
+
+                          ).p(10.sp),
+                          Text("Hello, ${CurrentUser.currentUser.userName.trim()}")
                               .text
                               .xl3
                               .color(MyColors.malachite)
