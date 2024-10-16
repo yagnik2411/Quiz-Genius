@@ -277,7 +277,6 @@ class _HomePageState extends State<HomePage> {
                               height: 45.w,
                               width: 45.w,
                             ),
-
                           ).p(10.sp),
                           Text("Hello, ${CurrentUser.currentUser.userName.trim()}")
                               .text

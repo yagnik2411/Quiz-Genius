@@ -106,7 +106,6 @@ class _QuizPageState extends State<QuizPage> {
             );
           } else {
             final quiz = snapshot.data!;
-            
 
             return ListView.builder(
                 padding:
