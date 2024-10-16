@@ -14,7 +14,7 @@ class PreviousQuestions {
       data.add(question[i].toMap(question[i]));
     }
     Map<String, List<Map<String, dynamic>>> actualData = {
-      "Questions":data,
+      "Questions": data,
     };
 
     DocumentReference firestore = FirebaseFirestore.instance

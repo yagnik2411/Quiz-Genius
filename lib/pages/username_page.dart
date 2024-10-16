@@ -21,31 +21,31 @@ class _UserNameState extends State<UserName> {
   late String _username;
 
   final ProfileImageService _imageUploader = ProfileImageService();
-  String _profileImageUrl ="";
+  String _profileImageUrl = "";
 
   moveToHome(BuildContext context) {
     CurrentUser.currentUser.setUserName(_username);
-     CurrentUser.currentUser.add(context: context);
+    CurrentUser.currentUser.add(context: context);
     Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
   //method upload profile Image & get Url
   void uploadProfileImage(BuildContext context) async {
     //Pick an image
-    File? imageFile =await _imageUploader.pickAndUploadImage();
+    File? imageFile = await _imageUploader.pickAndUploadImage();
     //call the image uploader
-   if(imageFile != null){
-     String? downloadUrl =await _imageUploader.uploadImageToFirebase(imageFile);
+    if (imageFile != null) {
+      String? downloadUrl =
+          await _imageUploader.uploadImageToFirebase(imageFile);
 
-     if(downloadUrl != null){
-       setState(() {
-         _profileImageUrl =downloadUrl; // Set the image URL
-         CurrentUser.currentUser.profileImage =_profileImageUrl; // Save in CurrentUser model
-       });
-     }
-   }
-
-
+      if (downloadUrl != null) {
+        setState(() {
+          _profileImageUrl = downloadUrl; // Set the image URL
+          CurrentUser.currentUser.profileImage =
+              _profileImageUrl; // Save in CurrentUser model
+        });
+      }
+    }
   }
 
   @override
@@ -81,14 +81,19 @@ class _UserNameState extends State<UserName> {
                   backgroundColor: MyColors.darkCyan,
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: _profileImageUrl.trim().isNotEmpty // Check for trimmed empty string
-                        ? NetworkImage(_profileImageUrl.trim()) // Use trimmed URL
+                    backgroundImage: _profileImageUrl
+                            .trim()
+                            .isNotEmpty // Check for trimmed empty string
+                        ? NetworkImage(
+                            _profileImageUrl.trim()) // Use trimmed URL
                         : null,
                     backgroundColor: Colors.white,
                   ),
                 ),
                 // Only show the icon if no image is uploaded
-                if (_profileImageUrl.trim().isEmpty) // Check for trimmed empty string
+                if (_profileImageUrl
+                    .trim()
+                    .isEmpty) // Check for trimmed empty string
                   Positioned(
                     top: 0,
                     left: 0,
@@ -113,7 +118,8 @@ class _UserNameState extends State<UserName> {
                         uploadProfileImage(context);
                         print("Camera opened!");
                       },
-                      icon: Icon(Icons.camera_alt_outlined, color: Colors.white),
+                      icon:
+                          Icon(Icons.camera_alt_outlined, color: Colors.white),
                     ),
                   ),
                 ),
