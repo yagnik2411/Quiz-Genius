@@ -142,7 +142,6 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
-
                           children: [
                             ElevatedButton(
                               onPressed: () {
@@ -344,7 +343,6 @@ class _QuizPageState extends State<QuizPage> {
   Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
     return await showDialog<bool>(
           context: context,
-
           builder: (context) => AlertDialog(
             title: const Text('Submit Quiz'),
             content: const Text('Are you sure you want to submit the quiz?'),
