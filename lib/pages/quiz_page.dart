@@ -29,6 +29,7 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
+
   @override
   void initState() {
     super.initState();
@@ -258,13 +259,16 @@ class _QuizPageState extends State<QuizPage> {
           margin: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
           child: ElevatedButton(
             onPressed: () async {
+              if (isAdd.contains(false)) {
+                toMassage(msg: "Please answer all questions!");
+                return;
+              }
+
               bool confirm = await showSubmissionConfirmationDialog(context);
 
               // If confirmed, proceed with submission
               if (confirm) {
                 await scoreUpdate(context);
-                print(Scores.scores.length);
-
                 int currentPerformance =
                     ((correct * 10) + CurrentUser.currentUser.performance) ~/ 2;
                 CurrentUser.currentUser.performanceUpdate(
@@ -273,11 +277,10 @@ class _QuizPageState extends State<QuizPage> {
                     currentPerformance: currentPerformance);
 
                 Scores.updateScores(
-                    context: context,
-                    score: Scores.scores,
-                    email: CurrentUser.currentUser.email);
-
-                print(Scores.scores.length);
+                  context: context,
+                  score: Scores.scores,
+                  email: CurrentUser.currentUser.email,
+                );
 
                 PreviousQuestions.addToCollection(
                     context: context,
@@ -341,6 +344,7 @@ class _QuizPageState extends State<QuizPage> {
   Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
     return await showDialog<bool>(
           context: context,
+
           builder: (context) => AlertDialog(
             title: const Text('Submit Quiz'),
             content: const Text('Are you sure you want to submit the quiz?'),
