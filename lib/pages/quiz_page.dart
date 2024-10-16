@@ -65,6 +65,18 @@ class _QuizPageState extends State<QuizPage> {
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
+  void _showSnackbar(BuildContext context, bool isCorrect, String userAnswer) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(isCorrect
+            ? 'Correct Answer!\nYou selected $userAnswer'
+            : 'Incorrect Answer\nYou selected $userAnswer'),
+        backgroundColor: isCorrect ? Colors.green : Colors.red,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +156,7 @@ class _QuizPageState extends State<QuizPage> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                  _userAnswer[index] = true;
+                                _userAnswer[index] = true;
                                 if (isAdd[index] == false) {
                                   setState(() {
                                     isAdd[index] = true;
@@ -152,11 +164,9 @@ class _QuizPageState extends State<QuizPage> {
                                     if (quiz[index].answer == true) {
                                       _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
                                       isCorrect[index] = 1;
-                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -166,19 +176,22 @@ class _QuizPageState extends State<QuizPage> {
                                                 ? true
                                                 : false));
                                   });
+                                  _showSnackbar(
+                                    context,
+                                    _correctAnswer[index] == _userAnswer[index],
+                                    _userAnswer[index] ? 'True' : 'False',
+                                  );
                                 }
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
                                     ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 0)
-                                        ? WidgetStateProperty.all(
-                                            Colors.green)
-                                        : WidgetStateProperty.all(
-                                            Colors.red)),
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
                                 elevation: WidgetStateProperty.all(10),
-                                fixedSize: WidgetStateProperty.all(
-                                    Size(120.w, 40.h)),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
                                 side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
                                 shape: WidgetStateProperty.all(
@@ -196,12 +209,10 @@ class _QuizPageState extends State<QuizPage> {
                                     isAdd[index] = true;
                                     if (quiz[index].answer == false) {
                                       isCorrect[index] = 1;
-                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
                                       _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -211,19 +222,23 @@ class _QuizPageState extends State<QuizPage> {
                                                 ? true
                                                 : false));
                                   });
+
+                                  _showSnackbar(
+                                    context,
+                                    _correctAnswer[index] == _userAnswer[index],
+                                    _userAnswer[index] ? 'True' : 'False',
+                                  );
                                 }
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
                                     ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 1)
-                                        ? WidgetStateProperty.all(
-                                            Colors.green)
-                                        : WidgetStateProperty.all(
-                                            Colors.red)),
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
                                 elevation: WidgetStateProperty.all(10),
-                                fixedSize: WidgetStateProperty.all(
-                                    Size(120.w, 40.h)),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
                                 side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
                                 shape: WidgetStateProperty.all(
@@ -236,50 +251,6 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                           ],
                         ),
-                        isAdd[index] == false
-                            ? SizedBox.shrink()
-                            : _correctAnswer[index] ==
-                                    _userAnswer[index] //answered correctly
-                                ? Container(
-                                    alignment:
-                                        Alignment.centerLeft, // Align left
-                                    padding:
-                                        EdgeInsets.all(8.sp), // Add padding
-                                    child: Text(
-                                      'Correct Answer!\nYou Selected ' +
-                                          (_userAnswer[index] == true
-                                              ? 'True'
-                                              : 'False'),
-                                      style: TextStyle(
-                                        color: Colors.green[
-                                            800], // Change to a brighter green
-                                        fontSize: 18.sp, // Increase font size
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign
-                                          .left, // Ensure text is aligned left
-                                    ),
-                                  )
-                                : Container(
-                                    alignment:
-                                        Alignment.centerLeft, // Align left
-                                    padding:
-                                        EdgeInsets.all(8.sp), // Add padding
-                                    child: Text(
-                                      'Incorrect Answer\nYou Selected ' +
-                                          (_userAnswer[index] == true
-                                              ? 'True'
-                                              : 'False'),
-                                      style: TextStyle(
-                                        color: Colors
-                                            .red[400], // Change to a deeper red
-                                        fontSize: 18.sp, // Increase font size
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign
-                                          .left, // Ensure text is aligned left
-                                    ),
-                                  ),
                       ],
                     ),
                   ).py(5.sp);
