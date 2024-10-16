@@ -1,4 +1,7 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "cSpell.words": ["nativewrappers"]
+  "cSpell.words": [
+    "nativewrappers"
+  ],
+  "cmake.sourceDirectory": "C:/Users/lenovo/StudioProjects/Quiz-Genius-M/linux"
 }

@@ -18,7 +18,7 @@ class Auth {
       print('auth:name ${email} pass ${password}');
       toMassage(msg: "Sighup Complete");
       return "Signup Complete";
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       toMassage(msg: "Sighup Fail");
       return "Signup Fail";
     }
@@ -36,8 +36,19 @@ class Auth {
       return "SignIn Complete";
     } on FirebaseAuthException catch (e) {
       print(e);
-      toMassage(msg: "SignIn Fail");
-      return "SignIn Fail";
+
+      if (e.code == 'user-not-found') {
+        toMassage(msg: "No User Found for that Email");
+        return "No User Found for that Email";
+      } else if (e.code == 'wrong-password') {
+        toMassage(
+          msg: "wrong password",
+        );
+        return "wrong password";
+      } else {
+        toMassage(msg: "SignIn Fail");
+        return "SignIn Fail";
+      }
     }
   }
 

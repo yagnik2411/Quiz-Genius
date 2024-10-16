@@ -21,29 +21,30 @@ class Scores {
         .doc(email)
         .collection("previousScores")
         .doc("scores");
-      await firestore
+    await firestore
         .set(actualData)
         .whenComplete(() => print("data added"))
-        .onError((error, stackTrace) => print(error));   
+        .onError((error, stackTrace) => print(error));
   }
-  
-  static updateScores({required BuildContext context,
+
+  static updateScores(
+      {required BuildContext context,
       required List<Score> score,
       required String email}) async {
-       
-         DocumentReference firestore = FirebaseFirestore.instance
+    DocumentReference firestore = FirebaseFirestore.instance
         .collection("users")
         .doc(email)
         .collection("previousScores")
         .doc("scores");
-      await firestore
-        .update({"scores": FieldValue.arrayUnion(score.map((e) => e.toMap(score: e)).toList())})
+    await firestore
+        .update({
+          "scores": FieldValue.arrayUnion(
+              score.map((e) => e.toMap(score: e)).toList())
+        })
         .whenComplete(() => print("data added"))
-        .onError((error, stackTrace) => print(error));  
-      }
+        .onError((error, stackTrace) => print(error));
+  }
 }
-
-
 
 class Score {
   final int correct;
