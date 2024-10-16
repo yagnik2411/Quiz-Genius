@@ -158,9 +158,10 @@ flutter run
 
 <!-- Added: Team Section  -->
 ## 👥 Team
-| ![Yagnik Panchal](https://avatars.githubusercontent.com/u/113328020?v=4&s=80) |
-|:--:|
-| **Yagnik Panchal** <br> <sub>Project Admin</sub> | 
-| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/yagnikpanchal) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:panchalyagnik2411@gmail.com)|
+
+| ![Yagnik Panchal](https://avatars.githubusercontent.com/u/113328020?v=4&s=80) | ![Kirolos Mayiz Fahem](https://avatars.githubusercontent.com/u/72953174?v=4&s=80) |
+|:--:|:--:|
+| **Yagnik Panchal** <br> <sub>Project Admin</sub> | **Kirolos Mayiz Fahem** <br> <sub>Project Mentor</sub> |
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/yagnikpanchal) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:panchalyagnik2411@gmail.com) | [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/kirolos-m/) |
 
 For any inquiries or feedback, please contact. Happy Contributing 🫡
