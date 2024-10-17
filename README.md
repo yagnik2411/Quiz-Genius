@@ -10,7 +10,7 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
-  <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
+  <img src="https://hacktoberfest.com/_next/static/media/opengraph.9dc60c9d.png" alt="Hacktoberfest 2024" width="80%">
 </div>
 <br>
 
@@ -162,6 +162,6 @@ flutter run
 | ![Yagnik Panchal](https://avatars.githubusercontent.com/u/113328020?v=4&s=80) | ![Kirolos Mayiz Fahem](https://avatars.githubusercontent.com/u/72953174?v=4&s=80) |
 |:--:|:--:|
 | **Yagnik Panchal** <br> <sub>Project Admin</sub> | **Kirolos Mayiz Fahem** <br> <sub>Project Mentor</sub> |
-| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/yagnikpanchal) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:panchalyagnik2411@gmail.com) | [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/kirolos-m/) |
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/yagnikpanchal) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:panchalyagnik2411@gmail.com) | [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/kirolos-m/) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:km@kirolos.me) |
 
 For any inquiries or feedback, please contact. Happy Contributing 🫡
