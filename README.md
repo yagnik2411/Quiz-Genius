@@ -31,7 +31,7 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
-  <img src="https://github.com/neeru24/Connect_icons/blob/main/hacktober.png" alt="Hacktoberfest 2024" width="80%">
+  <img src="https://hacktoberfest.com/_next/static/media/opengraph.9dc60c9d.png" alt="Hacktoberfest 2024" width="80%">
 </div>
 <br>
 
