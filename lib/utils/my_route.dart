@@ -9,4 +9,5 @@ class MyRoutes {
   static const String signUpRoute = "/signUp";
   static const String splashScreenRoute = "/splashScreen";
   static const String quizMCQRoute = "/mcqquiz";
+  static const String summaryRoute = "/summary"; //Route for Summary Page
 }
