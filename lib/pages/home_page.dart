@@ -11,6 +11,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -150,7 +151,6 @@ class _HomePageState extends State<HomePage> {
                               height: 45.w,
                               width: 45.w,
                             ),
-
                           ).p(10.sp),
                           Text("Hello, ${CurrentUser.currentUser.userName.trim()}")
                               .text
@@ -291,6 +291,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _fetch() async {
+    //Fetch user data from Firestore
     await FirebaseFirestore.instance
         .collection('users')
         .doc(CurrentUser.currentUser.email)
