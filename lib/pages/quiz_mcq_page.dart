@@ -32,7 +32,7 @@ class _QuizPageState extends State<QuizMCQPage> {
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getMCQQuestions();
+    quizFuture = Questions().getMCQQuestions(widget.difficulty);
     startTimer();
   }
 

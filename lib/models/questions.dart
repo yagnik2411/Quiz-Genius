@@ -5,56 +5,74 @@ import 'package:http/http.dart' as http;
 class Questions {
   List<QuestionTF> questions = [];
 
-  Future<List<QuestionTF>> getTFQuestions() async {
+  Future<List<QuestionTF>> getTFQuestions(String difficulty) async {
     List<QuestionTF> questions = [];
-    final String url = "https://opentdb.com/api.php?amount=50&type=boolean";
+    print(difficulty);
+    // Updated URL to include difficulty as a parameter
+    final String url =
+        "https://opentdb.com/api.php?amount=50&type=boolean&difficulty=$difficulty";
+
     final response = await http.get(Uri.parse(url));
-    final String data = response.body;
-    final decodeData = jsonDecode(data);
-    var question = decodeData["results"];
-    for (int i = 0; i < question.length; i++) {
-      questions.add(
-        QuestionTF(
-          i,
-          question[i]["question"],
-          question[i]["difficulty"],
-          question[i]["correct_answer"] == "True" ? true : false,
-        ),
-      );
+
+    if (response.statusCode == 200) {
+      final String data = response.body;
+      final decodeData = jsonDecode(data);
+      var question = decodeData["results"];
+
+      for (int i = 0; i < question.length; i++) {
+        questions.add(
+          QuestionTF(
+            i,
+            question[i]["question"],
+            question[i]["difficulty"],
+            question[i]["correct_answer"] == "True" ? true : false,
+          ),
+        );
+      }
+    } else {
+      throw Exception("Failed to load questions");
     }
+
     return questions;
   }
 
-  Future<List<QuestionMCQ>> getMCQQuestions() async {
+  Future<List<QuestionMCQ>> getMCQQuestions(String difficulty) async {
     List<QuestionMCQ> questions = [];
-    final String url = "https://opentdb.com/api.php?amount=50&type=multiple";
+    // Updated URL to include difficulty as a parameter
+    final String url = "https://opentdb.com/api.php?amount=50&type=multiple&difficulty=$difficulty";
+    
     final response = await http.get(Uri.parse(url));
-    final String data = response.body;
-    final decodeData = jsonDecode(data);
-    var question = decodeData["results"];
-    print(question);
-    for (int i = 0; i < question.length; i++) {
-      // List<dynamic> answer =
-      //     question[i]['incorrect_answers'].map((x) => x).toList();
-      //
-      // List answers = question[i]['correct_answer'] + answer;
-      List<String> answers = [
-        question[i]["incorrect_answers"][0],
-        question[i]["incorrect_answers"][1],
-        question[i]["incorrect_answers"][2],
-        question[i]["correct_answer"],
-      ];
-      answers.shuffle();
-      questions.add(
-        QuestionMCQ(
-          i,
-          question[i]["question"],
+
+    if (response.statusCode == 200) {
+      final String data = response.body;
+      final decodeData = jsonDecode(data);
+      var question = decodeData["results"];
+
+      for (int i = 0; i < question.length; i++) {
+        // Combine incorrect answers and correct answer into one list
+        List<String> answers = [
+          ...question[i]["incorrect_answers"].map<String>((answer) => answer),
           question[i]["correct_answer"],
-          question[i]["difficulty"],
-          answers,
-        ),
-      );
+        ];
+        
+        // Shuffle the answers to randomize their order
+        answers.shuffle();
+
+        // Add each question to the list
+        questions.add(
+          QuestionMCQ(
+            i,
+            question[i]["question"],
+            question[i]["correct_answer"],
+            question[i]["difficulty"],
+            answers,
+          ),
+        );
+      }
+    } else {
+      throw Exception("Failed to load questions");
     }
+
     return questions;
   }
 }

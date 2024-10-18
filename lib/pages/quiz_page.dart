@@ -27,10 +27,38 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
+  Future<List<QuestionTF>> fetchQuiz() async {
+    List<QuestionTF> quiz = [];
+
+    while (quiz.length < 10) {
+      List<QuestionTF>? fetchedQuiz =
+          await Questions().getTFQuestions(widget.difficulty);
+
+      if (fetchedQuiz != null && fetchedQuiz.isNotEmpty) {
+        fetchedQuiz.forEach((element) {
+          if (element.difficulty == widget.difficulty) {
+            quiz.add(element);
+          }
+        });
+
+        // Remove duplicates if required
+        quiz = quiz.toSet().toList();
+      }
+
+      if (quiz.length >= 10) {
+        break;
+      }
+    }
+
+    // Ensure that an empty list is never returned as null
+    return quiz.isEmpty ? [] : quiz.sublist(0, 10);
+  }
+
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getTFQuestions();
+    quizFuture = fetchQuiz();
+
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
@@ -103,18 +131,18 @@ class _QuizPageState extends State<QuizPage> {
             return Center(
               child: Text("Error: ${snapshot.error}"),
             );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Handle the case when no data is available
+            return const Center(
+              child: Text("No questions available."),
+            );
           } else {
-            List<QuestionTF> quiz = [];
-            snapshot.data!.forEach((element) {
-              if (element.difficulty == widget.difficulty) {
-                quiz.add(element);
-              }
-            });
+            List<QuestionTF> quiz = snapshot.data ?? [];
+            print(quiz.length);
 
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
@@ -235,7 +263,8 @@ class _QuizPageState extends State<QuizPage> {
                       ],
                     ),
                   ).py(5.sp);
-                });
+                },
+                itemCount: quiz.length);
           }
         },
       ),
