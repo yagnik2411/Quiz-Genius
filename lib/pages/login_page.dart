@@ -24,6 +24,7 @@ class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+  bool isVisible=true;
 
   moveToHome(BuildContext context) async {
     CurrentUser.currentUser = UserName(
@@ -116,12 +117,21 @@ class _LoginState extends State<Login> {
                     bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
+                obscureText: isVisible,
                 decoration: InputDecoration(
                   hintText: "eg: 123456",
                   hintStyle: TextStyle(
                     color: Colors.deepPurple.withOpacity(0.4),
                   ),
                   labelText: "Password",
+                  suffixIcon: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        isVisible = !isVisible;
+                      });
+                    },
+                    child: Icon(!isVisible?Icons.visibility:Icons.visibility_off),
+                  )
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {

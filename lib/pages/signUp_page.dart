@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+  bool isObscure=true;
 
   Future<String> signUpUser(BuildContext context) async {
     String email = emailController.text;
@@ -130,6 +133,7 @@ class _SignUpState extends State<SignUp> {
                     bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
+                obscureText: isObscure,
                 controller: passwordController,
                 decoration: InputDecoration(
                   hintText: "eg: 123456",
@@ -137,6 +141,15 @@ class _SignUpState extends State<SignUp> {
                     color: Colors.deepPurple.withOpacity(0.4),
                   ),
                   labelText: "Password",
+                  suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isObscure = !isObscure;
+                          });
+                        },
+                        icon: Icon(isObscure
+                            ? Icons.visibility_off
+                            : Icons.visibility))
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
