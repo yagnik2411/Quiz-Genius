@@ -1,4 +1,8 @@
+<div align="center">
+  
 # Quiz Genius - A Flutter Quiz App
+<img  src="https://readme-typing-svg.herokuapp.com?color=2ecc71&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+Quiz+Genius!"/>
+</div>
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
@@ -6,16 +10,43 @@
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 <!-- Added Hacktoberfest 2024 and GSSoC Extended 2024 banners -->
+
 ### This project is now OFFICIALLY accepted for
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
-  <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
-</div>
-<br>
+<table>
+
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+   <tr>
+      <td><img src="https://github.com/Annapoornaaradhya/Quiz-Genius/blob/README/assets/images/gssocextd.jpg" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
+      <td>GirlScript Summer of Code 2024</td>
+      <td>GirlScript Summer of Code is a three-month-long Open Source Program conducted every summer by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development.</td>
+   </tr>
+    <tr>
+      <td><img src="https://github.com/Annapoornaaradhya/Quiz-Genius/blob/README/assets/images/hacktoberfest.png" width="200" height="auto" loading="lazy" alt="Hacktoberfest 2024"/></td>
+      <td>Hacktoberfest 2024</td>
+      <td>Hacktoberfest is a month-long celebration of open source software run by DigitalOcean, GitHub, and Twilio. It encourages contributions to open source projects and promotes a global community of developers.</td>
+   </tr>
+
+</table>
+<br/>
 
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+## Table of Contents
+
+1. [UI Preview](#ui-preview)
+2. [Features](#features)
+3. [Technical Implementation](#technical-implementation)
+4. [Example of API Structure](#example-of-api-structure)
+5. [Contributing to Quiz Genius](#contributing-to-quiz-genius)
+6. [Reporting Bugs and Requesting Features](#reporting-bugs-and-requesting-features)
+7. [Code Contributions](#code-contributions)
+8. [Getting Started](#getting-started)
 
 ## UI Preview
 <div align="center">
@@ -52,7 +83,8 @@
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-## Example of API Structure (Question Bank)
+## Example of API Structure 
+### (Question Bank)
 
 The questions are pulled from an external API with the following structure:
 
