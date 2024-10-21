@@ -2,12 +2,14 @@ import 'dart:async'; // For Timer
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 import 'package:quiz_genius/models/previous_questions.dart';
 import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
@@ -27,6 +29,7 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
+
   @override
   void initState() {
     super.initState();
@@ -127,7 +130,8 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index].question,
+                            parse(quiz[index].question).body?.text ??
+                                quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
@@ -136,10 +140,8 @@ class _QuizPageState extends State<QuizPage> {
                             textWidthBasis: TextWidthBasis.parent,
                           ),
                         ),
-                        ButtonBar(
+                        OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
-                          buttonPadding: EdgeInsets.symmetric(
-                              horizontal: 20.sp, vertical: 10.sp),
                           children: [
                             ElevatedButton(
                               onPressed: () {
