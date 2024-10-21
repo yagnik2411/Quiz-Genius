@@ -55,6 +55,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   firebase_storage: ^12.3.3
   image_picker: ^1.1.2
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:

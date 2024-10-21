@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 
@@ -49,6 +50,27 @@ class Auth {
         toMassage(msg: "SignIn Fail");
         return "SignIn Fail";
       }
+    }
+  }
+
+  Future<String> signInWithGoogle({required BuildContext context}) async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    try {
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .whenComplete(() {});
+      Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+      toMassage(msg: "SignIn Complete");
+      return "SignIn Complete";
+    } catch (e) {
+      print(e);
+      return "SignIn Fail";
     }
   }
 
