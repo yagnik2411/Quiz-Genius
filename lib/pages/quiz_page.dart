@@ -6,6 +6,7 @@ import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
+import 'package:quiz_genius/pages/summary_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -107,12 +108,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Text("Error: ${snapshot.error}"),
             );
           } else {
-            List<QuestionTF> quiz = [];
-            snapshot.data!.forEach((element) {
-              if (element.difficulty == widget.difficulty) {
-                quiz.add(element);
-              }
-            });
+            final quiz = snapshot.data!;
 
             return ListView.builder(
                 padding:
@@ -337,7 +333,11 @@ class _QuizPageState extends State<QuizPage> {
         question: PreviousQuestions.questions,
         email: CurrentUser.currentUser.email);
 
-    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SummaryPage(previousQuestions: PreviousQuestions.questions)));
   }
 
   Future<bool> showSubmissionConfirmationDialog(BuildContext context) async {
@@ -355,7 +355,11 @@ class _QuizPageState extends State<QuizPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true); // Return true if confirmed
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SummaryPage(
+                              previousQuestions: PreviousQuestions.questions)));
                 },
                 child: const Text('Submit'),
               ),
