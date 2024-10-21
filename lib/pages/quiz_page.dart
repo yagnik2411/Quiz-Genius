@@ -25,6 +25,8 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   late Future<List<QuestionTF>> quizFuture;
+  List<bool> _userAnswer = List.generate(10, (i) => false);
+  List<bool> _correctAnswer = List.generate(10, (i) => false);
 
   int correct = 0;
   Timer? timer; // Declare a timer
@@ -63,6 +65,18 @@ class _QuizPageState extends State<QuizPage> {
     int minutes = timeInSeconds ~/ 60;
     int seconds = timeInSeconds % 60;
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  void _showSnackbar(BuildContext context, bool isCorrect, String userAnswer) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(isCorrect
+            ? 'Correct Answer!\nYou selected $userAnswer'
+            : 'Incorrect Answer\nYou selected $userAnswer'),
+        backgroundColor: isCorrect ? Colors.green : Colors.red,
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -145,17 +159,17 @@ class _QuizPageState extends State<QuizPage> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
+                                _userAnswer[index] = true;
                                 if (isAdd[index] == false) {
                                   setState(() {
                                     isAdd[index] = true;
 
                                     if (quiz[index].answer == true) {
+                                      _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
                                       isCorrect[index] = 1;
-                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -165,22 +179,25 @@ class _QuizPageState extends State<QuizPage> {
                                                 ? true
                                                 : false));
                                   });
+                                  _showSnackbar(
+                                    context,
+                                    _correctAnswer[index] == _userAnswer[index],
+                                    _userAnswer[index] ? 'True' : 'False',
+                                  );
                                 }
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 0)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
@@ -195,11 +212,10 @@ class _QuizPageState extends State<QuizPage> {
                                     isAdd[index] = true;
                                     if (quiz[index].answer == false) {
                                       isCorrect[index] = 1;
-                                      toMassage(msg: "correct");
                                       correct++;
                                     } else {
+                                      _correctAnswer[index] = true;
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");
                                     }
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
@@ -209,22 +225,26 @@ class _QuizPageState extends State<QuizPage> {
                                                 ? true
                                                 : false));
                                   });
+
+                                  _showSnackbar(
+                                    context,
+                                    _correctAnswer[index] == _userAnswer[index],
+                                    _userAnswer[index] ? 'True' : 'False',
+                                  );
                                 }
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 1)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
