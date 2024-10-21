@@ -2,12 +2,14 @@ import 'dart:async'; // For Timer
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/models/scores.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 import 'package:quiz_genius/models/previous_questions.dart';
 import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/utils/colors.dart';
@@ -27,32 +29,32 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
-  Future<List<QuestionTF>> fetchQuiz() async {
-    List<QuestionTF> quiz = [];
+Future<List<QuestionTF>> fetchQuiz() async {
+  Set<QuestionTF> quizSet = {}; // Use a Set to automatically handle duplicates
 
-    while (quiz.length < 10) {
-      List<QuestionTF>? fetchedQuiz =
-          await Questions().getTFQuestions(widget.difficulty);
+  // Limit iterations to avoid infinite loops
+  const int maxAttempts = 10;
+  int attempts = 0;
 
-      if (fetchedQuiz != null && fetchedQuiz.isNotEmpty) {
-        fetchedQuiz.forEach((element) {
-          if (element.difficulty == widget.difficulty) {
-            quiz.add(element);
-          }
-        });
+  while (quizSet.length < 10 && attempts < maxAttempts) {
+    List<QuestionTF>? fetchedQuiz = await Questions().getTFQuestions(widget.difficulty);
 
-        // Remove duplicates if required
-        quiz = quiz.toSet().toList();
-      }
-
-      if (quiz.length >= 10) {
-        break;
+    // Ensure fetchedQuiz is not null
+    if (fetchedQuiz != null && fetchedQuiz.isNotEmpty) {
+      // Filter based on difficulty and add to Set
+      for (var element in fetchedQuiz) {
+        if (element.difficulty == widget.difficulty) {
+          quizSet.add(element); // Set will handle duplicates
+        }
       }
     }
-
-    // Ensure that an empty list is never returned as null
-    return quiz.isEmpty ? [] : quiz.sublist(0, 10);
+    attempts++;
   }
+
+  // Convert Set back to List and ensure at least 10 questions
+  return quizSet.isEmpty ? [] : quizSet.toList().sublist(0, quizSet.length < 10 ? quizSet.length : 10);
+}
+
 
   @override
   void initState() {
@@ -155,7 +157,8 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index].question,
+                            parse(quiz[index].question).body?.text ??
+                                quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
@@ -164,10 +167,8 @@ class _QuizPageState extends State<QuizPage> {
                             textWidthBasis: TextWidthBasis.parent,
                           ),
                         ),
-                        ButtonBar(
+                        OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
-                          buttonPadding: EdgeInsets.symmetric(
-                              horizontal: 20.sp, vertical: 10.sp),
                           children: [
                             ElevatedButton(
                               onPressed: () {
