@@ -183,6 +183,18 @@ class _LoginState extends State<Login> {
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
                 ).px(12.sp),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Container(
+                  height: 60,
+                  child: IconButton(
+                      onPressed: () {
+                        Auth(FirebaseAuth.instance)
+                            .signInWithGoogle(context: context);
+                      },
+                      icon: Image.asset("assets/images/google.png")),
+                ),
               ],
             ).px(16.sp)
           ],
