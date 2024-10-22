@@ -96,7 +96,7 @@ class _QuizPageState extends State<QuizPage> {
         ],
       ),
       body: FutureBuilder<List<QuestionTF>>(
-        future: quizFuture,
+        future: quizFuture, // Future holding the quiz data
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -107,6 +107,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Text("Error: ${snapshot.error}"),
             );
           } else {
+             // If quiz data is available, filter by difficulty level
             List<QuestionTF> quiz = [];
             snapshot.data!.forEach((element) {
               if (element.difficulty == widget.difficulty) {
@@ -117,7 +118,7 @@ class _QuizPageState extends State<QuizPage> {
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10,
+                itemCount: 10, // Display 10 questions
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
@@ -130,6 +131,7 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
+                            // Parse and display the question text
                             parse(quiz[index].question).body?.text ??
                                 quiz[index].question,
                             style: TextStyle(
@@ -143,6 +145,7 @@ class _QuizPageState extends State<QuizPage> {
                         OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // "True" button to select True as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
@@ -167,6 +170,7 @@ class _QuizPageState extends State<QuizPage> {
                                   });
                                 }
                               },
+                              // Update button style based on answer correctness
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
                                     ? MaterialStateProperty.all(MyColors.mint)
@@ -188,19 +192,21 @@ class _QuizPageState extends State<QuizPage> {
                               ),
                               child: "True".text.xl.make(),
                             ),
+                              // "False" button to select False as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
                                   setState(() {
-                                    isAdd[index] = true;
+                                    isAdd[index] = true;// Mark question as answered
                                     if (quiz[index].answer == false) {
-                                      isCorrect[index] = 1;
+                                      isCorrect[index] = 1;// Mark as correct if the answer is false
                                       toMassage(msg: "correct");
-                                      correct++;
+                                      correct++;// Increment correct answer count
                                     } else {
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");
+                                      toMassage(msg: "incorrect");// Mark as incorrect
                                     }
+                                    // Add question to the previous questions list
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
                                             id: index,

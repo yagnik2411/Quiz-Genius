@@ -52,9 +52,11 @@ class ProfileImageService {
       UploadTask uploadTask = storageRef.putFile(imageFile);
       TaskSnapshot snapshot = await uploadTask;
 
-      //Get and return the download URL
+      // Get the download URL of the uploaded image
       String downloadUrl = await snapshot.ref.getDownloadURL();
       print("Profile image uploaded Successfully");
+
+      // Show success message using FlutterToast
       Fluttertoast.showToast(
         msg: "Profile image uploaded successfully",
         toastLength: Toast.LENGTH_SHORT,
@@ -65,6 +67,7 @@ class ProfileImageService {
       );
       return downloadUrl;
     } catch (e) {
+      // Handle any errors that occur during the upload process
       print("Error uploading Image:$e");
 
       print("Error occurred:$e\n");
