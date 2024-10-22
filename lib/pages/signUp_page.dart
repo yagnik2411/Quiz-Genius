@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
-
+  bool isVisible = true;
   Future<String> signUpUser(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
@@ -130,14 +130,23 @@ class _SignUpState extends State<SignUp> {
                     bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
+                obscureText: isVisible,
                 controller: passwordController,
                 decoration: InputDecoration(
-                  hintText: "eg: 123456",
-                  hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4),
-                  ),
-                  labelText: "Password",
-                ),
+                    hintText: "eg: 123456",
+                    hintStyle: TextStyle(
+                      color: Colors.deepPurple.withOpacity(0.4),
+                    ),
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                          });
+                        },
+                        icon: Icon(isVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility))),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Password cannot be empty";
@@ -146,6 +155,7 @@ class _SignUpState extends State<SignUp> {
                   }
                   return null;
                 },
+
                 // onChanged: (value) {
                 //   password = value;
                 // },
