@@ -142,23 +142,30 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 40.w,
-                            backgroundColor: MyColors.lightLime,
-                            child: SvgPicture.asset(
-                              "assets/images/online_test.svg",
-                              fit: BoxFit.contain,
-                              height: 45.w,
-                              width: 45.w,
-                            ),
-                          ).p(10.sp),
-                          Text("Hello, ${CurrentUser.currentUser.userName.trim()}")
-                              .text
-                              .xl3
-                              .color(MyColors.malachite)
-                              .bold
-                              .make()
-                              .p(16.sp),
+                          Expanded(
+                            flex: 1,
+                            child: CircleAvatar(
+                              radius: 40.w,
+                              backgroundColor: MyColors.lightLime,
+                              child: SvgPicture.asset(
+                                "assets/images/online_test.svg",
+                                fit: BoxFit.contain,
+                                height: 45.w,
+                                width: 45.w,
+                              ),
+                            
+                            ).p(10.sp),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text("Hello, \n${CurrentUser.currentUser.userName.trim()}")
+                                .text
+                                .xl3
+                                .color(MyColors.malachite)
+                                .bold
+                                .make()
+                                .p(16.sp),
+                          ),
                         ],
                       )).px(16.sp).py(8.sp),
                   Container(
