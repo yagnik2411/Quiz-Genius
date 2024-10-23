@@ -6,6 +6,10 @@
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
+| Stars                                                                                                                                   | Forks                                                                                                                                        | Issues                                                                                                                                | Pull Requests                                                                                                                                  | Closed PRs                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [![Stars](https://img.shields.io/github/stars/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/stargazers) | [![Forks](https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/network/members) | [![Issues](https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/issues) | [![Pull Requests](https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls) | [![Closed PRs](https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls?q=is%3Apr+is%3Aclosed) |
+
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
@@ -140,8 +144,8 @@ To run the Quiz Genius app locally, you need to have Flutter and Dart installed 
 
 1. Clone this repository:
 
- ```bash
- git clone https://github.com/yagnik2411/Quiz-Genius.git
+```bash
+git clone https://github.com/yagnik2411/Quiz-Genius.git
 ```
 
 2. Navigate to the project's root directory:
@@ -154,7 +158,7 @@ cd Quiz-Genius
 
 ```bash
 flutter pub get
-``` 
+```
 
 4. Check for Flutter setup and connected devices:
 
