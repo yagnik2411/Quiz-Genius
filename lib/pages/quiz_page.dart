@@ -29,11 +29,38 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
+Future<List<QuestionTF>> fetchQuiz() async {
+  Set<QuestionTF> quizSet = {}; // Use a Set to automatically handle duplicates
+
+  // Limit iterations to avoid infinite loops
+  const int maxAttempts = 10;
+  int attempts = 0;
+
+  while (quizSet.length < 10 && attempts < maxAttempts) {
+    List<QuestionTF>? fetchedQuiz = await Questions().getTFQuestions(widget.difficulty);
+
+    // Ensure fetchedQuiz is not null
+    if (fetchedQuiz != null && fetchedQuiz.isNotEmpty) {
+      // Filter based on difficulty and add to Set
+      for (var element in fetchedQuiz) {
+        if (element.difficulty == widget.difficulty) {
+          quizSet.add(element); // Set will handle duplicates
+        }
+      }
+    }
+    attempts++;
+  }
+
+  // Convert Set back to List and ensure at least 10 questions
+  return quizSet.isEmpty ? [] : quizSet.toList().sublist(0, quizSet.length < 10 ? quizSet.length : 10);
+}
+
 
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getTFQuestions();
+    quizFuture = fetchQuiz();
+
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
@@ -106,19 +133,17 @@ class _QuizPageState extends State<QuizPage> {
             return Center(
               child: Text("Error: ${snapshot.error}"),
             );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Handle the case when no data is available
+            return const Center(
+              child: Text("No questions available."),
+            );
           } else {
-             // If quiz data is available, filter by difficulty level
-            List<QuestionTF> quiz = [];
-            snapshot.data!.forEach((element) {
-              if (element.difficulty == widget.difficulty) {
-                quiz.add(element);
-              }
-            });
-
+            List<QuestionTF> quiz = snapshot.data ?? [];
+            print(quiz.length);
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10, // Display 10 questions
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
@@ -243,7 +268,8 @@ class _QuizPageState extends State<QuizPage> {
                       ],
                     ),
                   ).py(5.sp);
-                });
+                },
+                itemCount: quiz.length);
           }
         },
       ),
