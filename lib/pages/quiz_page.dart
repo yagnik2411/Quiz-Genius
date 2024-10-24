@@ -123,7 +123,7 @@ Future<List<QuestionTF>> fetchQuiz() async {
         ],
       ),
       body: FutureBuilder<List<QuestionTF>>(
-        future: quizFuture,
+        future: quizFuture, // Future holding the quiz data
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -141,7 +141,6 @@ Future<List<QuestionTF>> fetchQuiz() async {
           } else {
             List<QuestionTF> quiz = snapshot.data ?? [];
             print(quiz.length);
-
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
@@ -157,6 +156,7 @@ Future<List<QuestionTF>> fetchQuiz() async {
                       children: [
                         ListTile(
                           title: Text(
+                            // Parse and display the question text
                             parse(quiz[index].question).body?.text ??
                                 quiz[index].question,
                             style: TextStyle(
@@ -170,6 +170,7 @@ Future<List<QuestionTF>> fetchQuiz() async {
                         OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // "True" button to select True as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
@@ -194,6 +195,7 @@ Future<List<QuestionTF>> fetchQuiz() async {
                                   });
                                 }
                               },
+                              // Update button style based on answer correctness
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
                                     ? MaterialStateProperty.all(MyColors.mint)
@@ -215,19 +217,21 @@ Future<List<QuestionTF>> fetchQuiz() async {
                               ),
                               child: "True".text.xl.make(),
                             ),
+                              // "False" button to select False as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
                                   setState(() {
-                                    isAdd[index] = true;
+                                    isAdd[index] = true;// Mark question as answered
                                     if (quiz[index].answer == false) {
-                                      isCorrect[index] = 1;
+                                      isCorrect[index] = 1;// Mark as correct if the answer is false
                                       toMassage(msg: "correct");
-                                      correct++;
+                                      correct++;// Increment correct answer count
                                     } else {
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");
+                                      toMassage(msg: "incorrect");// Mark as incorrect
                                     }
+                                    // Add question to the previous questions list
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
                                             id: index,
