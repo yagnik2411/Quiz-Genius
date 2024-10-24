@@ -9,6 +9,14 @@
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
+## 📈 GitHub Repository Stats
+| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** | 🛠️ **Languages** | ✅ **Contributors** |
+|--------------|--------------|---------------|-----------------|------------------|------------------|------------------|
+| ![GitHub stars](https://img.shields.io/github/stars/yagnik2411/Quiz-Genius) | ![forks](https://img.shields.io/github/forks/yagnik2411/Quiz-Genius) | ![issues](https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?color=32CD32) | ![pull requests](https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?color=FFFF8F) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?color=20B2AA) | ![Languages](https://img.shields.io/github/languages/count/yagnik2411/Quiz-Genius?color=20B2AA) | ![Contributors](https://img.shields.io/github/contributors/yagnik2411/Quiz-Genius?color=00FA9A) |
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 <!-- Added Hacktoberfest 2024 and GSSoC Extended 2024 banners -->
 
 ### This project is now OFFICIALLY accepted for
