@@ -35,9 +35,9 @@ class _ProfilePageState extends State<ProfilePage> {
         // Checks if the data fetching is complete
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            backgroundColor: MyColors.lightCyan,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor, 
             appBar: AppBar(
-              backgroundColor: MyColors.mint,
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
               leading: IconButton(
                 onPressed: () {
                   // Navigates back to the previous screen
@@ -56,8 +56,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 200.w,
                       width: 200.w,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: MyColors.malachite, width: 2),
+                        color: Theme.of(context).colorScheme.onBackground,
+                        border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
                         borderRadius: BorderRadius.circular(40.sp),
                       ),
                       child: Column(
@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             "$_user",
                             style: TextStyle(
                               fontSize: 25.sp,
-                              color: MyColors.darkCyan,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           )
                         ],
@@ -95,8 +95,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: MyColors.malachite, width: 2),
+                    color: Theme.of(context).colorScheme.onBackground,
+                    border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
                     borderRadius: BorderRadius.circular(20.sp),
                   ),
                   child: Column(
@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         "Performance",
                         style: TextStyle(
                           fontSize: 40.sp,
-                          color: MyColors.darkCyan,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       SizedBox(height: 30.h),

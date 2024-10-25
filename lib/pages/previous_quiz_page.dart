@@ -37,7 +37,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
         if (snapshot.connectionState == ConnectionState.done) {
           // Once the future is completed, display the quiz history
           return Scaffold(
-            backgroundColor: MyColors.lightCyan, // Background color of the screen
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,  // Background color of the screen
             appBar: AppBar(
               leading: IconButton(
                 onPressed: () {
@@ -45,7 +45,7 @@ class _PreviousQuizState extends State<PreviousQuiz> {
                 },
                 icon: const Icon(CupertinoIcons.back),
               ),
-              backgroundColor: MyColors.mint, // AppBar color
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // AppBar color
               title: const Text("Quiz Genius").centered(), // Centered title in AppBar
             ),
             body: Container(

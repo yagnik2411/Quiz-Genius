@@ -95,9 +95,9 @@ Future<List<QuestionTF>> fetchQuiz() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.lightCyan,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, 
       appBar: AppBar(
-        backgroundColor: MyColors.mint,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Center(
           child: Text(
             "Quiz Genius",
@@ -115,7 +115,7 @@ Future<List<QuestionTF>> fetchQuiz() async {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  color: MyColors.seashall,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ),
@@ -325,22 +325,22 @@ Future<List<QuestionTF>> fetchQuiz() async {
               }
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(MyColors.mint),
+              backgroundColor: MaterialStateProperty.all(Theme.of(context).appBarTheme.backgroundColor,),
               elevation: MaterialStateProperty.all(10),
               side: MaterialStateProperty.all(
-                  const BorderSide(color: MyColors.seashall, width: 2)),
+                   BorderSide(color: Theme.of(context).colorScheme.onPrimary, width: 2)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.sp),
                 ),
               ),
             ),
-            child: const Center(
+            child:  Center(
               child: Text(
                 "Submit",
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ),
@@ -383,13 +383,19 @@ Future<List<QuestionTF>> fetchQuiz() async {
                 onPressed: () {
                   Navigator.of(context).pop(false); // Return false if canceled
                 },
-                child: const Text('Cancel'),
+                child:  Text('Cancel',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true); // Return true if confirmed
                 },
-                child: const Text('Submit'),
+                child:  Text('Submit',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
             ],
           ),
