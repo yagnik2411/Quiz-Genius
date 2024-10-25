@@ -1,15 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/models/current_user.dart';
 import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../utils/profile_image_service.dart';
 
-// ignore: must_be_immutable
+// UserName class for setting the username and uploading a profile image.
 class UserName extends StatefulWidget {
   UserName({super.key});
 
@@ -18,31 +16,31 @@ class UserName extends StatefulWidget {
 }
 
 class _UserNameState extends State<UserName> {
-  late String _username;
+  late String _username; // Variable to hold the username
+  final ProfileImageService _imageUploader = ProfileImageService(); // Service for uploading images
+  String _profileImageUrl = ""; // Variable to store the URL of the uploaded profile image
 
-  final ProfileImageService _imageUploader = ProfileImageService();
-  String _profileImageUrl = "";
-
-  moveToHome(BuildContext context) {
-    CurrentUser.currentUser.setUserName(_username);
-    CurrentUser.currentUser.add(context: context);
-    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
+  // Method to navigate to the home page after setting the username
+  void moveToHome(BuildContext context) {
+    CurrentUser.currentUser.setUserName(_username); // Set the username in CurrentUser model
+    CurrentUser.currentUser.add(context: context); // Add the user to the current context
+    Navigator.pushReplacementNamed(context, MyRoutes.homeRoute); // Navigate to the home route
   }
 
-  //method upload profile Image & get Url
+  // Method to upload profile image and retrieve the URL
   void uploadProfileImage(BuildContext context) async {
-    //Pick an image
+    // Pick an image
     File? imageFile = await _imageUploader.pickAndUploadImage();
-    //call the image uploader
+    // Call the image uploader
     if (imageFile != null) {
       String? downloadUrl =
-          await _imageUploader.uploadImageToFirebase(imageFile);
+          await _imageUploader.uploadImageToFirebase(imageFile); // Upload image and get URL
 
       if (downloadUrl != null) {
         setState(() {
           _profileImageUrl = downloadUrl; // Set the image URL
           CurrentUser.currentUser.profileImage =
-              _profileImageUrl; // Save in CurrentUser model
+              _profileImageUrl; // Save URL in CurrentUser model
         });
       }
     }
@@ -115,7 +113,7 @@ class _UserNameState extends State<UserName> {
                     backgroundColor: MyColors.darkCyan,
                     child: IconButton(
                       onPressed: () {
-                        uploadProfileImage(context);
+                        uploadProfileImage(context); // Upload profile image on button press
                         print("Camera opened!");
                       },
                       icon:
@@ -125,9 +123,10 @@ class _UserNameState extends State<UserName> {
                 ),
               ],
             ),
+            // Text field for entering username
             TextFormField(
               onChanged: (value) {
-                _username = value;
+                _username = value; // Update username on change
               },
               decoration: InputDecoration(
                 hintText: "eg: abc123",
@@ -137,9 +136,10 @@ class _UserNameState extends State<UserName> {
                 labelText: "Username",
               ),
             ).px(16.sp),
+            // Button to proceed to home
             ElevatedButton(
               onPressed: () {
-                moveToHome(context);
+                moveToHome(context); // Navigate to home on button press
               },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(MyColors.mint),

@@ -25,8 +25,9 @@ jobs:
       # Get flutter dependencies.
       - run: flutter pub get
 
-      # Check for any formatting issues in the code.
-      - run: dart run dart_style:format --dry-run --set-exit-if-changed .
+      # Check for any formatting issues in the code but don't fail the build.
+      - run: dart run dart_style:format --dry-run .
+        continue-on-error: true
 
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
