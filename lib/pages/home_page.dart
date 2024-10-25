@@ -67,170 +67,6 @@ class _HomePageState extends State<HomePage> {
                     style: _buttonStyle(),
                     child: _buttonContent("Previous Scores", context),
                   ).px(12.sp),
-                  // Text("For new users: Actual scores will be calculated from the second quiz onwards; the first quiz was a demo.")
-                  //     .text
-                  //     .color(MyColors.malachite)
-                  //     .bold
-                  //     .make().p(12.sp)
-                ],
-              ),
-            ),
-            drawer: Drawer(
-              elevation: 10.0,
-              backgroundColor: MyColors.elfGreen,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  Container(
-                      height: 200.h,
-                      width: 393.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.sp),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: CircleAvatar(
-                              radius: 40.w,
-                              backgroundColor: MyColors.lightLime,
-                              child: SvgPicture.asset(
-                                "assets/images/online_test.svg",
-                                fit: BoxFit.contain,
-                                height: 45.w,
-                                width: 45.w,
-                              ),
-                            
-                            ).p(10.sp),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Text("Hello, \n${CurrentUser.currentUser.userName.trim()}")
-                                .text
-                                .xl3
-                                .color(MyColors.malachite)
-                                .bold
-                                .make()
-                                .p(16.sp),
-                          ),
-                        ],
-                      )).px(16.sp).py(8.sp),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.profile_circled,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Profile",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.profileRoute);
-                      },
-                    ),
-                  ).px(16.sp).py(5.sp),
-                  Container(
-                    height: 60.h,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.question_answer_outlined,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "New Quiz",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.quizRoute);
-                      },
-                    ),
-                  ).px(16.sp).py(5.sp),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.question_circle_fill,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Last Quiz",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, MyRoutes.previousQuizRoute);
-                      },
-                    ),
-                  ).px16().py(5),
-                  Container(
-                    height: 60.h,
-                    width: 393.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: const Icon(
-                        CupertinoIcons.arrow_left_square_fill,
-                        color: MyColors.malachite,
-                        fill: 0.6,
-                      ),
-                      title: Text(
-                        "Sign Out",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: MyColors.malachite,
-                        ),
-                      ),
-                      onTap: () {
-                        Auth(FirebaseAuth.instance).signOut(context: context);
-                      },
-                    ),
-                  ).px16().py(5),
-
                 ],
               ),
             ),
@@ -252,7 +88,9 @@ class _HomePageState extends State<HomePage> {
         .then((ds) {
       CurrentUser.currentUser.userName = ds['userName'];
       CurrentUser.currentUser.performance = ds['performance'];
-    }).catchError((e) {});
+    }).catchError((e) {
+      print("Error fetching user data: $e");
+    });
   }
 
   ButtonStyle _buttonStyle() {
@@ -356,68 +194,69 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-void showDiffMenu(BuildContext context) {
-  // Difficulty selection menu
-  showDialog(
-    context: context,
-    builder: (context) {
-      return _buildDialog(
-        "Select Difficulty Type",
-        [
-          _dialogOption("Easy", () {
-            Navigator.pop(context);
-            showQuizMenu(context, "easy");
-          }),
-          _dialogOption("Medium", () {
-            Navigator.pop(context);
-            showQuizMenu(context, "medium");
-          }),
-          _dialogOption("Hard", () {
-            Navigator.pop(context);
-            showQuizMenu(context, "hard");
-          }),
-        ],
-      );
-    },
-  );
-}
+  // Moved into the _HomePageState class
+  void showDiffMenu(BuildContext context) {
+    // Difficulty selection menu
+    showDialog(
+      context: context,
+      builder: (context) {
+        return _buildDialog(
+          "Select Difficulty Type",
+          [
+            _dialogOption("Easy", () {
+              Navigator.pop(context);
+              showQuizMenu(context, "easy");
+            }),
+            _dialogOption("Medium", () {
+              Navigator.pop(context);
+              showQuizMenu(context, "medium");
+            }),
+            _dialogOption("Hard", () {
+              Navigator.pop(context);
+              showQuizMenu(context, "hard");
+            }),
+          ],
+        );
+      },
+    );
+  }
 
-void showQuizMenu(BuildContext context, String difficulty) {
-  // Quiz type selection menu
-  showDialog(
-    context: context,
-    builder: (context) {
-      return _buildDialog(
-        "Select Quiz Type",
-        [
-          _dialogOption("True/False Quiz", () {
-            Navigator.pop(context);
-            Navigator.push(context, MaterialPageRoute(builder: (_) => QuizPage(difficulty: difficulty)));
-          }),
-          _dialogOption("MCQ Quiz", () {
-            Navigator.pop(context);
-            Navigator.push(context, MaterialPageRoute(builder: (_) => QuizMCQPage(difficulty: difficulty)));
-          }),
-        ],
-      );
-    },
-  );
-}
+  void showQuizMenu(BuildContext context, String difficulty) {
+    // Quiz type selection menu
+    showDialog(
+      context: context,
+      builder: (context) {
+        return _buildDialog(
+          "Select Quiz Type",
+          [
+            _dialogOption("True/False Quiz", () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => QuizPage(difficulty: difficulty)));
+            }),
+            _dialogOption("MCQ Quiz", () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => QuizMCQPage(difficulty: difficulty)));
+            }),
+          ],
+        );
+      },
+    );
+  }
 
-Widget _buildDialog(String title, List<Widget> options) {
-  return AlertDialog(
-    backgroundColor: MyColors.lightCyan,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sp)),
-    title: Text(title, style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500)),
-    content: Column(mainAxisSize: MainAxisSize.min, children: options),
-  );
-}
+  Widget _buildDialog(String title, List<Widget> options) {
+    return AlertDialog(
+      backgroundColor: MyColors.lightCyan,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sp)),
+      title: Text(title, style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500)),
+      content: Column(mainAxisSize: MainAxisSize.min, children: options),
+    );
+  }
 
-Widget _dialogOption(String text, VoidCallback onTap) {
-  return ListTile(
-    title: Text(text, style: TextStyle(color: Colors.black87)),
-    onTap: onTap,
-  );
+  Widget _dialogOption(String text, VoidCallback onTap) {
+    return ListTile(
+      title: Text(text, style: TextStyle(color: Colors.black87)),
+      onTap: onTap,
+    );
+  }
 }
