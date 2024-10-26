@@ -261,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            drawer: _buildDrawer(context), // Drawer for navigation
+       // Drawer for navigation
           );
         } else {
           return _loadingScreen(); // Show loading indicator
