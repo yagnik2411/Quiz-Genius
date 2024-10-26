@@ -226,6 +226,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
+                        //signoutout confirmation dialog box added
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
