@@ -266,7 +266,34 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        Auth(FirebaseAuth.instance).signOut(context: context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Sign Out"),
+                              content: const Text(
+                                  "Do you really want to sign out from the app?"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("No"),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text("Yes"),
+                                  onPressed: () {
+                                    Auth(FirebaseAuth.instance)
+                                        .signOut(context: context);
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog after sign out
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                     ),
                   ).px16().py(5),
