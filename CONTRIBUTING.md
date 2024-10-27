@@ -216,11 +216,12 @@ Please ensure that all contributions follow the [Flutter style guide](https://do
 
 When submitting a pull request, please adhere to the following:
 
-1. **Self-review your code** before submission. 😀
-2. Include a detailed description of the functionality you’ve added or modified.
-3. Comment your code, especially in complex sections, to aid understanding.
-4. Add relevant screenshots to assist in the review process.
-5. Submit your PR using the provided template and hang tight; we'll review it as soon as possible! 🚀
+1. You should open an issue first and reference it in the PR.
+2. **Self-review your code** before submission. 😀
+3. Include a detailed description of the functionality you’ve added or modified.
+4. Comment your code, especially in complex sections, to aid understanding.
+5. Add relevant screenshots to assist in the review process.
+6. Submit your PR using the provided template and hang tight; we'll review it as soon as possible! 🚀
 
 <br>
 
