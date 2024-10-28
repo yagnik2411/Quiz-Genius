@@ -226,7 +226,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        //signoutout confirmation dialog box added
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -239,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                                   child: const Text("No"),
                                   onPressed: () {
                                     Navigator.of(context)
-                                        .pop(); // Close the dialog
+                                        .pop(); 
                                   },
                                 ),
                                 TextButton(
@@ -248,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                                     Auth(FirebaseAuth.instance)
                                         .signOut(context: context);
                                     Navigator.of(context)
-                                        .pop(); // Close the dialog after sign out
+                                        .pop(); 
                                   },
                                 ),
                               ],
@@ -258,11 +257,9 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ).px16().py(5),
-
                 ],
               ),
             ),
-       // Drawer for navigation
           );
         } else {
           return _loadingScreen(); // Show loading indicator

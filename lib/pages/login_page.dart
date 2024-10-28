@@ -32,16 +32,16 @@ class _LoginState extends State<Login> {
     // Setting the current user with email and password from input fields
     CurrentUser.currentUser = UserName(
         email: emailController.text, password: passwordController.text);
-    
+
     // Print email for debugging purposes
     print("email ${emailController.text} ");
-    
+
     // Signing in using Firebase authentication
     String ans = await Auth(FirebaseAuth.instance).signIn(
         email: CurrentUser.currentUser.email,
         password: CurrentUser.currentUser.password,
         context: context);
-    
+
     // If sign-in is successful, navigate to home screen
     if (ans == "SignIn Complete") {
       Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
@@ -61,7 +61,8 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
-      body: SingleChildScrollView( // Allows the page to scroll when content exceeds screen height
+      body: SingleChildScrollView(
+          // Allows the page to scroll when content exceeds screen height
           child: Form(
         key: Login._formkey, // Assign form key for validation
         child: Column(
@@ -91,10 +92,13 @@ class _LoginState extends State<Login> {
             ),
             // Email input field with rounded borders at the top
             Container(
-              padding:
-                  EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp), // Padding around the text field
+              padding: EdgeInsets.only(
+                  left: 20.sp,
+                  right: 20.sp,
+                  bottom: 10.sp), // Padding around the text field
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Semi-transparent green background
+                  color: MyColors.elfGreen
+                      .withOpacity(0.6), // Semi-transparent green background
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.sp),
                     topRight: Radius.circular(20.sp),
@@ -104,7 +108,8 @@ class _LoginState extends State<Login> {
                 decoration: InputDecoration(
                   hintText: "eg: abcd@gmail.com", // Placeholder text
                   hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4), // Hint text color
+                    color:
+                        Colors.deepPurple.withOpacity(0.4), // Hint text color
                   ),
                   labelText: "Email", // Label for the text field
                 ),
@@ -126,7 +131,8 @@ class _LoginState extends State<Login> {
               padding:
                   EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Semi-transparent green background
+                  color: MyColors.elfGreen
+                      .withOpacity(0.6), // Semi-transparent green background
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.sp),
                     bottomRight: Radius.circular(20.sp),
@@ -157,7 +163,8 @@ class _LoginState extends State<Login> {
                   }
                   return null; // No error
                 },
-                controller: passwordController, // Controller for the password input
+                controller:
+                    passwordController, // Controller for the password input
               ).pOnly(bottom: 10.sp), // Padding below the password field
             ).px(16.sp), // Horizontal padding
             SizedBox(
@@ -175,43 +182,50 @@ class _LoginState extends State<Login> {
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStateProperty.all(MyColors.malachite), // Button color
-                    elevation: WidgetStateProperty.all(10), // Button elevation (shadow)
+                    backgroundColor: WidgetStateProperty.all(
+                        MyColors.malachite), // Button color
+                    elevation: WidgetStateProperty.all(
+                        10), // Button elevation (shadow)
                     side: WidgetStateProperty.all(
                         const BorderSide(color: Colors.white)), // Button border
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.sp), // Rounded corners
+                        borderRadius:
+                            BorderRadius.circular(15.sp), // Rounded corners
                       ),
                     ),
                   ),
                   child: const Text(
                     "Login", // Button text
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold), // Text styling
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold), // Text styling
                   ),
                 ),
                 // Sign Up button
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, MyRoutes.signUpRoute); // Navigate to SignUp page
+                    Navigator.pushReplacementNamed(context,
+                        MyRoutes.signUpRoute); // Navigate to SignUp page
                   },
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(MyColors.mint), // Button color
-                    elevation: WidgetStateProperty.all(10), // Button elevation (shadow)
+                    backgroundColor:
+                        WidgetStateProperty.all(MyColors.mint), // Button color
+                    elevation: WidgetStateProperty.all(
+                        10), // Button elevation (shadow)
                     side: WidgetStateProperty.all(
                         const BorderSide(color: Colors.white)), // Button border
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.sp), // Rounded corners
+                        borderRadius:
+                            BorderRadius.circular(15.sp), // Rounded corners
                       ),
                     ),
                   ),
                   child: const Text("Sign Up",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)), // Text styling
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)), // Text styling
                 ).px(12.sp), // Padding around the Sign Up button
               ],
             ).px(16.sp) // Horizontal padding for button row
