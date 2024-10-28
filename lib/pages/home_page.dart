@@ -75,38 +75,37 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            drawer: Drawer(
-              elevation: 10.0,
-              backgroundColor: MyColors.elfGreen,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  Container(
-                      height: 200.h,
-                      width: 393.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.sp),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: CircleAvatar(
-                              radius: 40.w,
-                              backgroundColor: MyColors.lightLime,
-                              child: SvgPicture.asset(
-                                "assets/images/online_test.svg",
-                                fit: BoxFit.contain,
-                                height: 45.w,
-                                width: 45.w,
-                              ),
-                            
+            // drawer: Drawer(
+            //   elevation: 10.0,
+            //   backgroundColor: MyColors.elfGreen,
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       SizedBox(
+            //         height: 50.h,
+            //       ),
+            //       Container(
+            //           height: 200.h,
+            //           width: 393.w,
+            //           decoration: BoxDecoration(
+            //             color: Colors.white,
+            //             borderRadius: BorderRadius.circular(20.sp),
+            //           ),
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Expanded(
+            //                 flex: 1,
+            //                 child: CircleAvatar(
+            //                   radius: 40.w,
+            //                   backgroundColor: MyColors.lightLime,
+            //                   child: SvgPicture.asset(
+            //                     "assets/images/online_test.svg",
+            //                     fit: BoxFit.contain,
+            //                     height: 45.w,
+            //                     width: 45.w,
+            //                   ),
                             ).p(10.sp),
                           ),
                           Expanded(
@@ -257,7 +256,6 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ).px16().py(5),
-
                 ],
               ),
             ),
