@@ -26,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   // Text controllers for email and password input
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true; // Variable to control password visibility
 
   // Function to sign up a user using Firebase Auth
   Future<String> signUpUser(BuildContext context) async {
@@ -104,12 +105,21 @@ class _SignUpState extends State<SignUp> {
                   )),
               child: TextFormField(
                 controller: emailController, // Bind email controller
+                 cursorColor: Colors.black, // Set cursor color to black
                 decoration: InputDecoration(
                   hintText: "eg: abcd@gmail.com", // Hint for email input
                   hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4), // Hint text color
+                    color: Colors.black.withOpacity(0.5), // Hint text color
+                    fontSize: 15,
                   ),
                   labelText: "Email", // Label for email input
+                  labelStyle: TextStyle(color: Colors.black), // Set label color to black
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black), // Set underline color when not focused
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black), // Set underline color when focused
+    ),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -132,23 +142,47 @@ class _SignUpState extends State<SignUp> {
                     bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
-                controller: passwordController, // Bind password controller
-                decoration: InputDecoration(
-                  hintText: "eg: 123456", // Hint for password input
-                  hintStyle: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.4), // Hint text color
+  controller: passwordController, // Bind password controller
+  cursorColor: Colors.black, // Set cursor color to black
+   obscureText: _obscurePassword, // Set password visibility
+  decoration: InputDecoration(
+    hintText: "eg: 123456", // Hint for password input
+    hintStyle: TextStyle(
+      color: Colors.black.withOpacity(0.5), // Hint text color
+      fontSize: 15,
+    ),
+    labelText: "Password", // Label for password input
+    labelStyle: TextStyle(color: Colors.black), // Set label color to black
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black), // Set underline color when not focused
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black), // Set underline color when focused
+    ),
+    suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
                   ),
-                  labelText: "Password", // Label for password input
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Password cannot be empty"; // Validation message
-                  } else if (value.length < 6) {
-                    return "Password length should be at least 6"; // Validation message for short password
-                  }
-                  return null; // Return null if valid
-                },
-              ).pOnly(bottom: 10.sp),
+  ),
+  validator: (value) {
+    if (value!.isEmpty) {
+      return "Password cannot be empty"; // Validation message
+    } else if (value.length < 6) {
+      return "Password length should be at least 6"; // Validation message for short password
+    }
+    return null; // Return null if valid
+  },
+).pOnly(bottom: 10.sp),
+
             ).px(16.sp), // Padding for the container
             SizedBox(height: 10.h), // Spacing
             Padding(
