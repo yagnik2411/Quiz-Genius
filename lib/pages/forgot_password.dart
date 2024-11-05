@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quiz_genius/utils/colors.dart';
 
@@ -47,13 +47,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       backgroundColor: MyColors.lightCyan,
       appBar: AppBar(
-          leading: IconButton(
-                onPressed: () {
-                  // Navigates back to the previous screen
-                  Navigator.pop(context);
-                },
-                icon: const Icon(CupertinoIcons.back),
-              ),
+        leading: IconButton(
+          onPressed: () {
+            // Navigates back to the previous screen
+            Navigator.pop(context);
+          },
+          icon: const Icon(CupertinoIcons.back),
+        ),
         title: const Text("Forgot Password"),
         backgroundColor: MyColors.mint,
       ),
@@ -99,8 +99,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       onPressed: _sendPasswordResetEmail,
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(MyColors.malachite),
-                        shape: MaterialStateProperty.all(
+                            WidgetStateProperty.all(MyColors.malachite),
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.sp)),
                         ),

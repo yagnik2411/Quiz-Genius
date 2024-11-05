@@ -1,18 +1,17 @@
 import 'dart:async'; // For Timer
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
+import 'package:quiz_genius/models/previous_questions.dart';
+import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/models/scores.dart';
+import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import 'package:quiz_genius/models/previous_questions.dart';
-import 'package:quiz_genius/models/questions.dart';
-import 'package:quiz_genius/utils/colors.dart';
 
 class QuizPage extends StatefulWidget {
   final String difficulty;
@@ -29,32 +28,37 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
-Future<List<QuestionTF>> fetchQuiz() async {
-  Set<QuestionTF> quizSet = {}; // Use a Set to automatically handle duplicates
+  Future<List<QuestionTF>> fetchQuiz() async {
+    Set<QuestionTF> quizSet =
+        {}; // Use a Set to automatically handle duplicates
 
-  // Limit iterations to avoid infinite loops
-  const int maxAttempts = 10;
-  int attempts = 0;
+    // Limit iterations to avoid infinite loops
+    const int maxAttempts = 10;
+    int attempts = 0;
 
-  while (quizSet.length < 10 && attempts < maxAttempts) {
-    List<QuestionTF>? fetchedQuiz = await Questions().getTFQuestions(widget.difficulty);
+    while (quizSet.length < 10 && attempts < maxAttempts) {
+      List<QuestionTF>? fetchedQuiz =
+          await Questions().getTFQuestions(widget.difficulty);
 
-    // Ensure fetchedQuiz is not null
-    if (fetchedQuiz != null && fetchedQuiz.isNotEmpty) {
-      // Filter based on difficulty and add to Set
-      for (var element in fetchedQuiz) {
-        if (element.difficulty == widget.difficulty) {
-          quizSet.add(element); // Set will handle duplicates
+      // Ensure fetchedQuiz is not null
+      if (fetchedQuiz.isNotEmpty) {
+        // Filter based on difficulty and add to Set
+        for (var element in fetchedQuiz) {
+          if (element.difficulty == widget.difficulty) {
+            quizSet.add(element); // Set will handle duplicates
+          }
         }
       }
+      attempts++;
     }
-    attempts++;
+
+    // Convert Set back to List and ensure at least 10 questions
+    return quizSet.isEmpty
+        ? []
+        : quizSet
+            .toList()
+            .sublist(0, quizSet.length < 10 ? quizSet.length : 10);
   }
-
-  // Convert Set back to List and ensure at least 10 questions
-  return quizSet.isEmpty ? [] : quizSet.toList().sublist(0, quizSet.length < 10 ? quizSet.length : 10);
-}
-
 
   @override
   void initState() {
@@ -198,18 +202,16 @@ Future<List<QuestionTF>> fetchQuiz() async {
                               // Update button style based on answer correctness
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 0)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
@@ -217,19 +219,23 @@ Future<List<QuestionTF>> fetchQuiz() async {
                               ),
                               child: "True".text.xl.make(),
                             ),
-                              // "False" button to select False as an answer
+                            // "False" button to select False as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
                                   setState(() {
-                                    isAdd[index] = true;// Mark question as answered
+                                    isAdd[index] =
+                                        true; // Mark question as answered
                                     if (quiz[index].answer == false) {
-                                      isCorrect[index] = 1;// Mark as correct if the answer is false
+                                      isCorrect[index] =
+                                          1; // Mark as correct if the answer is false
                                       toMassage(msg: "correct");
-                                      correct++;// Increment correct answer count
+                                      correct++; // Increment correct answer count
                                     } else {
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");// Mark as incorrect
+                                      toMassage(
+                                          msg:
+                                              "incorrect"); // Mark as incorrect
                                     }
                                     // Add question to the previous questions list
                                     PreviousQuestions.questions.add(
@@ -244,18 +250,16 @@ Future<List<QuestionTF>> fetchQuiz() async {
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 1)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
@@ -325,11 +329,11 @@ Future<List<QuestionTF>> fetchQuiz() async {
               }
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(MyColors.mint),
-              elevation: MaterialStateProperty.all(10),
-              side: MaterialStateProperty.all(
+              backgroundColor: WidgetStateProperty.all(MyColors.mint),
+              elevation: WidgetStateProperty.all(10),
+              side: WidgetStateProperty.all(
                   const BorderSide(color: MyColors.seashall, width: 2)),
-              shape: MaterialStateProperty.all(
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.sp),
                 ),
