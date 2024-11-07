@@ -251,8 +251,20 @@ class _LoginState extends State<Login> {
                   ),
                   child: const Text("Sign Up",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)), // Text styling
-                ).px(12.sp), // Padding around the Sign Up button
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                ).px(12.sp),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Container(
+                  height: 60,
+                  child: IconButton(
+                      onPressed: () {
+                        Auth(FirebaseAuth.instance)
+                            .signInWithGoogle(context: context);
+                      },
+                      icon: Image.asset("assets/images/google.png")),
+                )
               ],
             ).px(16.sp) // Horizontal padding for button row
           ],
