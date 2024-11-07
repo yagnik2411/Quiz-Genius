@@ -401,8 +401,8 @@ class _QuizPageState extends State<QuizPage> {
         false; // If dialog is dismissed, return false by default
   }
 
-  Future<void> scoreUpdate(BuildContext context) async {
-    // Add the new score to the list of scores.
+  void scoreListAdd(BuildContext context) {
+    // Add the new score to the list
     Scores.scores.add(
       Score(
         correct: correct, // Number of correct answers
@@ -412,5 +412,72 @@ class _QuizPageState extends State<QuizPage> {
             .format(DateTime.now()), // Add the current date
       ),
     );
+
+    // Ensure we only keep the last 10 scores
+    if (Scores.scores.length > 10) {
+      Scores.scores = Scores.scores.sublist(Scores.scores.length - 10);
+    }
+
+    // Update the scores in Firestore
+    Scores.addScores(
+      context: context,
+      score: Scores.scores,
+      email: CurrentUser.currentUser.email,
+    );
+  }
+
+  Future<void> scoreFetch() async {
+    print("score: ${CurrentUser.currentUser.email}");
+    DocumentReference userDocRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(CurrentUser.currentUser.email)
+        .collection("previousScores")
+        .doc("scores");
+
+    try {
+      DocumentSnapshot data = await userDocRef.get();
+
+      if (data.exists) {
+        // Document with scores exists, fetch scores
+        List temp = data['scores'];
+        print(temp.length);
+
+        for (int i = 0; i < temp.length; i++) {
+          Scores.scores.add(Score(
+            correct: data['scores'][i]['correct'],
+            scoreInPercent: data['scores'][i]['scoreInPercent'],
+            date: data['scores'][i]['date'],
+          ));
+        }
+
+        print(Scores.scores.length);
+      } else {
+        // Document does not exist, create a new one with an empty list
+        await userDocRef.set({'scores': []});
+      }
+    } catch (e) {
+      print("Error fetching scores: $e");
+    }
+  }
+
+  Future<void> scoreUpdate(BuildContext context) async {
+    // Add the new score to the list of scores.
+
+    // Scores.scores.add(
+    //   Score(
+    //     correct: correct, // Number of correct answers
+    //     scoreInPercent:
+    //         (correct * 10), // Calculate percentage or whatever logic you have
+    //     date: DateFormat('yyyy-MM-dd')
+    //         .format(DateTime.now()), // Add the current date
+    //   ),
+    // );
+    Scores.scores.clear();
+
+    // Fetch existing scores
+    await scoreFetch();
+
+    // Add the new score and ensure the list has only the last 10 scores
+    scoreListAdd(context);
   }
 }
