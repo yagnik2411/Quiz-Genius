@@ -13,6 +13,7 @@ import 'package:quiz_genius/pages/signUp_page.dart';
 import 'package:quiz_genius/pages/splash_screen.dart';
 import 'package:quiz_genius/pages/username_page.dart';
 import 'package:quiz_genius/utils/my_route.dart';
+
 import 'pages/login_page.dart';
 
 // Main entry point of the app
