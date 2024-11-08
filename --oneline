@@ -1,0 +1,195 @@
+[33m1602540[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m Add gamification features
+[33m949edfb[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/gamification-features[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mgamification-features[m[33m)[m Merge pull request #143 from carlosfiori/master
+[33m88214b5[m Merge pull request #151 from amiya-cyber/patch-2
+[33mdca3bfb[m Create pr-merge.yml
+[33m7913fa1[m Merge pull request #145 from amiya-cyber/patch-1
+[33m36cb100[m Merge pull request #148 from Nikhil0-3/master
+[33maad813b[m Update CODE_OF_CONDUCT.md
+[33m84c7f8f[m issue-open-close.yml
+[33m2cd800f[m Remove unused imports and replaced deprecated MaterialStateProperty with WidgetStateProperty
+[33m7722bf9[m Merge pull request #139 from WednesdaySP/forgot-password
+[33mf668ddc[m forgot password functionality integrated
+[33m54db277[m Merge pull request #134 from milansamuel609/master
+[33mbcbb218[m Merge pull request #88 from vijaykarthiktk/master
+[33mc28368f[m Merge pull request #114 from smog-root/patch-1
+[33m4c653c7[m Update CONTRIBUTING.md
+[33m22f79e6[m Merge pull request #130 from carlosfiori/master
+[33m5fd6931[m Done the enhancements and also added some new sections
+[33m87cbf4c[m remove CI isues
+[33m3790e66[m Merge pull request #128 from WednesdaySP/documentation
+[33m09d1943[m Merge branch 'master' into documentation
+[33mbbc5136[m Merge pull request #125 from Dhruv80576/master
+[33mb5155cf[m Merge pull request #107 from Yash05080/master
+[33md6d3ef2[m Add emojis
+[33m143c2c0[m Add table with badges
+[33mdc4922f[m documentation of code done
+[33m2e6cd71[m Update homePage.dart
+[33m1521807[m Merge branch 'master' into master
+[33m275e506[m Merge pull request #83 from aashika-j18/bug/html
+[33m2de1036[m Update pr-checker.yaml
+[33m7642308[m Implement GitHub PR Issue Checker Workflow
+[33meaac6c0[m Merge pull request #113 from Annapoornaaradhya/README
+[33ma4e9293[m Update README.md
+[33m4ffd1ac[m Add files via upload
+[33m0b1eb97[m API call method changed with addition of difficulty level in the parameters such that we only fetch the required questions that we need. solved issue #101
+[33m664afc7[m Merge pull request #102 from rajdeepchakraborty-rc/readme
+[33m55c2c66[m Added: Project Mentor in Team Section
+[33me1b9c31[m Format
+[33md36b1ff[m Resolve conflicts
+[33m639b924[m Resolve conflicts
+[33m7810589[m sync
+[33m2f01388[m remove deprecated widget
+[33m1190ced[m Pulled Updated Code
+[33mc5c7d59[m Added: Animated Line Seperators in between Sections
+[33m556d831[m Modified: Contributor Mention Section
+[33m38d0670[m Merge pull request #94 from ezsarthak/difficulty
+[33m192e6b0[m Added: GSSoC Extended & Hacktoberfest 2024 acceptance banners
+[33mc00777b[m Added: Documentation for Team Section
+[33m339cf8c[m Replaced: Contact Section with Team Section
+[33m330fc55[m Merge branch 'master' into difficulty
+[33mc63204b[m Merge pull request #98 from WednesdaySP/overflow-solve
+[33m35052f9[m Merge pull request #35 from ezsarthak/master
+[33m8bbb5c4[m oerflow resolved
+[33me2c499e[m #53
+[33mea19cf1[m #16 #23
+[33mc4ac855[m Merge remote-tracking branch 'origin/master'
+[33md2d7216[m Update quiz_page.dart
+[33m96f6d12[m Merge branch 'master' into bug/html
+[33ma6dd4e5[m Merge remote-tracking branch 'origin/master'
+[33m4395d92[m Formatted
+[33mf9a5780[m Merge pull request #82 from 17arindam/countdown
+[33m29dded2[m Merge branch 'countdown' of https://github.com/17arindam/Quiz-Genius into countdown
+[33m2f13a8e[m conflicts resolved
+[33m1623333[m quiz info screen added
+[33mfe89df7[m Update quiz_page.dart
+[33mf351712[m Merge branch 'master' into master
+[33me991073[m Merge pull request #37 from lavitratyagi1/lastquizpage
+[33m818e1b8[m Formatted code to follow Dart guidelines
+[33mc53c7d6[m fixed issues
+[33m1757803[m Merge branch 'master' into lastquizpage
+[33mf617634[m Fix import error
+[33md14cfd5[m Formatted
+[33m4c49101[m Update GitHub Actions workflow to use Java 17 for Flutter CI
+[33ma0bc281[m flutter dependecies upgraded
+[33mc8b8e6b[m Fix GitHub Actions errors in workflow configuration
+[33mbc6ef9a[m formatting
+[33m55f4800[m Resolved Errors
+[33m15b965d[m sync
+[33md2e495c[m Merge branch 'master' of https://github.com/17arindam/Quiz-Genius into countdown
+[33m666019d[m display counter added
+[33m29bef90[m Merge branch 'master' into master
+[33m181ad4e[m Merge pull request #78 from KirolosMFahem/master
+[33m0c48fd6[m Merge pull request #74 from Abhi-0987/flutter_ci
+[33m58100c7[m Create LICENSE
+[33mb264320[m added html parser to fix entity codes
+[33m054cb0e[m updated CI
+[33m7f47220[m Feat: Implemented Flutter CI
+[33mc8dc193[m Merge branch 'master' into master
+[33m0a71400[m autolabeling remove
+[33mc99f2a7[m Merge pull request #63 from KiranBaliga/master
+[33m42d04df[m Merge pull request #67 from shubhagarwal1/automate
+[33m06c5535[m Update README.md
+[33m157bdf9[m Merge pull request #64 from JomanaMahmoud/master
+[33m6c5ace3[m Merge branch 'master' into lastquizpage
+[33m066c251[m Merge pull request #3 from shubhagarwal1/automate
+[33me6a1d4f[m add restricter
+[33m1e775c8[m Merge pull request #1 from JomanaMahmoud/JomanaMahmoud-updated-issue-templates-1
+[33m573d054[m Update issue templates
+[33m25a3892[m Update home_page.dart
+[33mcac5be6[m Merge branch 'yagnik2411:master' into master
+[33m038f8ab[m Create Auto-labels.yml
+[33medf0716[m Merge pull request #42 from MaRyamFatima1120/add-image-upload-feature
+[33mf21f2d3[m Create Greetings.yml
+[33m0939469[m Resolved confilts
+[33m402cce9[m Merge branch 'master' into add-image-upload-feature
+[33m8a4fe42[m Merge pull request #56 from yehiarasheed/create-contributing
+[33mfecfde3[m Merge pull request #34 from T-Soni/master
+[33m6afeb4a[m Create CONTRIBUTING.md with detailed notes on how to contribute
+[33m20a3ea7[m update link for opening an issue and linked CONTRIBUTING.md
+[33me042b3d[m Fixed submit button
+[33m945d772[m Improved the UI of Confirm SignOut Dialog Box #32
+[33m67cf5f0[m Resolved conflicts in pubspec.lock and updated dependencies
+[33mad31ddc[m 2 by 2 Matrix for options in MCQ Page
+[33mb5d2fef[m Resolved conflicts in pubspec.lock and updated dependencies
+[33m7ad5c36[m Added MCQ Type Quiz
+[33m7a41ad9[m Merge pull request #48 from 17arindam/quiz_page
+[33me84e15d[m Merge pull request #44 from Shariq2003/AdditionOfAllContributors
+[33m657f11b[m Merge pull request #31 from lavitratyagi1/master
+[33m25577d8[m Merge pull request #20 from Nimitshekhawat/master
+[33m6ccdad4[m Update CODE_OF_CONDUCT.md
+[33m92b1a1b[m Merge pull request #30 from kartikey369-ind/master
+[33m6ad17c9[m letest changes
+[33ma66ae82[m confirmation modal on submit quiz
+[33mf6448f2[m Additon of All Contributors
+[33md0e39b4[m Add Image Upload Feature
+[33m7ffb698[m Fixed Last quiz page issue
+[33mb6f7223[m Added MCQ Type Quiz
+[33m5a4fe7e[m Fixes #32 Implemented a Confirm Signout dialog box
+[33m4aceb53[m on Signup page i change the old depriciated widget with new ones and also change the ui of the signup button and make it more interactive
+[33mfbfe6a8[m Create CODE_OF_CONDUCT.md
+[33md6e4d24[m Added username
+[33ma38d679[m Fixed #23 issue
+[33m8755dbe[m Added MCQ Quiz
+[33mc1fed43[m Added MCQ Quiz
+[33mbc44469[m For now i've changed some Ui with text color of login and signup and also want to explore further code if u merge this :)
+[33m31f0852[m Update README.md
+[33m43b869a[m Add files via upload
+[33mf08496a[m Update README.md
+[33m8ea9e42[m Update README.md
+[33m29c833e[m bug fix
+[33md7d085a[m splashscreen added
+[33m98953c2[m bug fixes
+[33mf0c3e89[m screenutil package added
+[33m7989a99[m bug fixed
+[33mf26d1ba[m final approve
+[33m144aefc[m crud file remove
+[33m37f63b3[m Merge pull request #12 from yagnik2411/profilepage
+[33ma7a2c58[m[33m ([m[1;31morigin/profilepage[m[33m)[m login improvement
+[33m55361e1[m profile page has connected with database
+[33m840b9f5[m Merge branch 'profilepage' of https://github.com/yagnik2411/Quiz-Genius into profilepage
+[33m3e69706[m local commit
+[33m8473c93[m Merge pull request #11 from yagnik2411/master
+[33mdc0f980[m Merge pull request #10 from yagnik2411/scorepage
+[33m7db6a5e[m[33m ([m[1;31morigin/scorepage[m[33m)[m previous score is shown on page
+[33m9b1875a[m Merge pull request #9 from yagnik2411/master
+[33ma995357[m Merge pull request #8 from yagnik2411/previousQuizPage
+[33m8c69b0f[m[33m ([m[1;31morigin/previousQuizPage[m[33m)[m  camelcase improve
+[33mddb2a39[m previous qustions successfully get from firestore database
+[33m87c4056[m current quiz questions added acording to email in firestore database
+[33m7dba0f1[m Merge pull request #7 from yagnik2411/master
+[33m0a9d302[m Merge pull request #6 from yagnik2411/homepage
+[33mcd42e8b[m[33m ([m[1;31morigin/homepage[m[33m)[m temp
+[33m26b7767[m submit button set with previous quiz and add logic for previous quiz
+[33m81b5468[m button chages color according correct or incorrect
+[33m77e0acd[m question takeing using json api
+[33m30ac443[m Merge pull request #5 from yagnik2411/master
+[33mf5302dc[m Merge pull request #4 from yagnik2411/login
+[33m354bf5c[m[33m ([m[1;31morigin/login[m[33m)[m login commit
+[33m5645f45[m Merge pull request #3 from yagnik2411/login
+[33mcaee1ad[m Retrive Username From Firestore
+[33md3b0749[m LoginPage:current user data added in firestore database
+[33mb5b21fd[m new signUp Page Made
+[33m51d9d29[m sign in & sign up is working on login page
+[33m704bbb0[m Merge pull request #2 from yagnik2411/login
+[33m42e7e75[m Merge branch 'master' into login
+[33mc5c2f3d[m firebase setup finish
+[33m02f6877[m email and password validation added
+[33m510e33d[m Merge pull request #1 from yagnik2411/profilepage
+[33m8039398[m Profile page UI complete
+[33ma466924[m Profile page Added
+[33md35e0bc[m Previous QuizPage UI completed
+[33m2fe8750[m previous quition model and previous quiz page added
+[33m5bf1d3b[m Scorepage UI comepleted
+[33mfa7881b[m score model and scorepage added
+[33m1814ae7[m[33m ([m[1;31morigin/quizpage[m[33m)[m Quiz page submit button added
+[33m49d7f25[m Quiz page UI completed
+[33m0830339[m add quiz page layout
+[33m5830a25[m add some question list function
+[33me172c7e[m add question model with dummy entry
+[33ma4e269d[m homepage:UI Work finish
+[33m11321d0[m homepage added & drawer completed
+[33me05236c[m username page :added and UI work   finish
+[33mc6c337c[m login page:finish
+[33ma1cc1b4[m Widgets & InputFeild added in login page
+[33m424a255[m login page and routes added
+[33mfc3eeae[m colors Added
