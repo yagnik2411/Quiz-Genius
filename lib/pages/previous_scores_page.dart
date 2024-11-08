@@ -28,7 +28,7 @@ class _ScorePageState extends State<ScorePage> {
           /// Check if the Future is completed.
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
-              backgroundColor: MyColors.lightCyan,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor, 
               appBar: AppBar(
                 leading: IconButton(
                   onPressed: () {
@@ -37,7 +37,7 @@ class _ScorePageState extends State<ScorePage> {
                   },
                   icon: const Icon(CupertinoIcons.back),
                 ),
-                backgroundColor: MyColors.mint,
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
                 title: const Text("Quiz Genius").centered(),
               ),
 
