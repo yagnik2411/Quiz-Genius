@@ -1,4 +1,9 @@
+<div align="center">
+  
 # Quiz Genius - A Flutter Quiz App
+<img src="https://readme-typing-svg.herokuapp.com?color=2ecc71&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+Quiz+Genius!"/>
+
+</div>
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
@@ -9,24 +14,23 @@
             <td><b>🍴 Forks</b></td>
             <td><b>🐛 Issues</b></td>
             <td><b>🔔 Open PRs</b></td>
-            <td><b>🔕 Close PRs</b></td>
+            <td><b>🔕 Closed PRs</b></td>
         </tr>
-     </thead>
+    </thead>
     <tbody>
          <tr>
             <td><img alt="Stars" src="https://img.shields.io/github/stars/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-             <td><img alt="Forks" src="https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
+            <td><img alt="Forks" src="https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
             <td><img alt="Issues" src="https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
             <td><img alt="Open Pull Requests" src="https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-           <td><img alt="Close Pull Requests" src="https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat&color=green&logo=github"/></td>
+            <td><img alt="Closed Pull Requests" src="https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat&color=green&logo=github"/></td>
         </tr>
     </tbody>
 </table>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
 
-<!-- Added Hacktoberfest 2024 and GSSoC Extended 2024 banners -->
 ### This project is now OFFICIALLY accepted for
 
 <div align="center">
@@ -36,22 +40,29 @@
 <br>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
+
+## Table of Contents
+
+1. [UI Preview](#ui-preview)
+2. [Features](#features)
+3. [Technical Implementation](#technical-implementation)
+4. [Example of API Structure](#example-of-api-structure)
+5. [Contributing to Quiz Genius](#contributing-to-quiz-genius)
+6. [Reporting Bugs and Requesting Features](#reporting-bugs-and-requesting-features)
+7. [Code Contributions](#code-contributions)
+8. [Getting Started](#getting-started)
 
 ## UI Preview
 <div align="center">
-  <div align="center">
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_1.png" alt="Screenshot 1" width="300"/>
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_2.png" alt="Screenshot 2" width="300"/>
-  </div>
-  <div align="center">
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_3.png" alt="Screenshot 3" width="300"/>
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_4.png" alt="Screenshot 4" width="300"/>
-  </div>  
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_1.png" alt="Screenshot 1" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_2.png" alt="Screenshot 2" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_3.png" alt="Screenshot 3" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_4.png" alt="Screenshot 4" width="300"/>
 </div>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
 
 ## Features
 
@@ -73,7 +84,8 @@
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-## Example of API Structure (Question Bank)
+## Example of API Structure 
+### (Question Bank)
 
 The questions are pulled from an external API with the following structure:
 
@@ -129,8 +141,8 @@ To run the Quiz Genius app locally, you need to have Flutter and Dart installed 
 
 1. Clone this repository:
 
- ```bash
- git clone https://github.com/yagnik2411/Quiz-Genius.git
+```bash
+git clone https://github.com/yagnik2411/Quiz-Genius.git
 ```
 
 2. Navigate to the project's root directory:
@@ -143,7 +155,7 @@ cd Quiz-Genius
 
 ```bash
 flutter pub get
-``` 
+```
 
 4. Check for Flutter setup and connected devices:
 

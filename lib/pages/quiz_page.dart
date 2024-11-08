@@ -1,16 +1,17 @@
 import 'dart:async'; // For Timer
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
 import 'package:quiz_genius/models/current_user.dart';
+import 'package:quiz_genius/models/previous_questions.dart';
+import 'package:quiz_genius/models/questions.dart';
 import 'package:quiz_genius/models/scores.dart';
+import 'package:quiz_genius/utils/colors.dart';
 import 'package:quiz_genius/utils/my_route.dart';
 import 'package:quiz_genius/utils/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:quiz_genius/models/previous_questions.dart';
-import 'package:quiz_genius/models/questions.dart';
-import 'package:quiz_genius/utils/colors.dart';
 
 class QuizPage extends StatefulWidget {
   final String difficulty;
@@ -27,10 +28,43 @@ class _QuizPageState extends State<QuizPage> {
   int correct = 0;
   Timer? timer; // Declare a timer
   int remainingTime = 600; // 10 minutes in seconds
+  Future<List<QuestionTF>> fetchQuiz() async {
+    Set<QuestionTF> quizSet =
+        {}; // Use a Set to automatically handle duplicates
+
+    // Limit iterations to avoid infinite loops
+    const int maxAttempts = 10;
+    int attempts = 0;
+
+    while (quizSet.length < 10 && attempts < maxAttempts) {
+      List<QuestionTF>? fetchedQuiz =
+          await Questions().getTFQuestions(widget.difficulty);
+
+      // Ensure fetchedQuiz is not null
+      if (fetchedQuiz.isNotEmpty) {
+        // Filter based on difficulty and add to Set
+        for (var element in fetchedQuiz) {
+          if (element.difficulty == widget.difficulty) {
+            quizSet.add(element); // Set will handle duplicates
+          }
+        }
+      }
+      attempts++;
+    }
+
+    // Convert Set back to List and ensure at least 10 questions
+    return quizSet.isEmpty
+        ? []
+        : quizSet
+            .toList()
+            .sublist(0, quizSet.length < 10 ? quizSet.length : 10);
+  }
+
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getTFQuestions();
+    quizFuture = fetchQuiz();
+
     startTimer(); // Start the timer when the quiz page is initialized
   }
 
@@ -65,9 +99,9 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.lightCyan,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, 
       appBar: AppBar(
-        backgroundColor: MyColors.mint,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Center(
           child: Text(
             "Quiz Genius",
@@ -85,7 +119,7 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  color: MyColors.seashall,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ),
@@ -93,7 +127,7 @@ class _QuizPageState extends State<QuizPage> {
         ],
       ),
       body: FutureBuilder<List<QuestionTF>>(
-        future: quizFuture,
+        future: quizFuture, // Future holding the quiz data
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -103,18 +137,17 @@ class _QuizPageState extends State<QuizPage> {
             return Center(
               child: Text("Error: ${snapshot.error}"),
             );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Handle the case when no data is available
+            return const Center(
+              child: Text("No questions available."),
+            );
           } else {
-            List<QuestionTF> quiz = [];
-            snapshot.data!.forEach((element) {
-              if (element.difficulty == widget.difficulty) {
-                quiz.add(element);
-              }
-            });
-
+            List<QuestionTF> quiz = snapshot.data ?? [];
+            print(quiz.length);
             return ListView.builder(
                 padding:
                     EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
-                itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(8.sp),
@@ -127,7 +160,9 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         ListTile(
                           title: Text(
-                            quiz[index].question,
+                            // Parse and display the question text
+                            parse(quiz[index].question).body?.text ??
+                                quiz[index].question,
                             style: TextStyle(
                               color: MyColors.seashall,
                               fontSize: 15.sp,
@@ -136,11 +171,10 @@ class _QuizPageState extends State<QuizPage> {
                             textWidthBasis: TextWidthBasis.parent,
                           ),
                         ),
-                        ButtonBar(
+                        OverflowBar(
                           alignment: MainAxisAlignment.spaceBetween,
-                          buttonPadding: EdgeInsets.symmetric(
-                              horizontal: 20.sp, vertical: 10.sp),
                           children: [
+                            // "True" button to select True as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
@@ -165,20 +199,19 @@ class _QuizPageState extends State<QuizPage> {
                                   });
                                 }
                               },
+                              // Update button style based on answer correctness
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 0)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
@@ -186,19 +219,25 @@ class _QuizPageState extends State<QuizPage> {
                               ),
                               child: "True".text.xl.make(),
                             ),
+                            // "False" button to select False as an answer
                             ElevatedButton(
                               onPressed: () {
                                 if (isAdd[index] == false) {
                                   setState(() {
-                                    isAdd[index] = true;
+                                    isAdd[index] =
+                                        true; // Mark question as answered
                                     if (quiz[index].answer == false) {
-                                      isCorrect[index] = 1;
+                                      isCorrect[index] =
+                                          1; // Mark as correct if the answer is false
                                       toMassage(msg: "correct");
-                                      correct++;
+                                      correct++; // Increment correct answer count
                                     } else {
                                       isCorrect[index] = 0;
-                                      toMassage(msg: "incorrect");
+                                      toMassage(
+                                          msg:
+                                              "incorrect"); // Mark as incorrect
                                     }
+                                    // Add question to the previous questions list
                                     PreviousQuestions.questions.add(
                                         PreviousQuestion(
                                             id: index,
@@ -211,18 +250,16 @@ class _QuizPageState extends State<QuizPage> {
                               },
                               style: ButtonStyle(
                                 backgroundColor: (isAdd[index] == false)
-                                    ? MaterialStateProperty.all(MyColors.mint)
+                                    ? WidgetStateProperty.all(MyColors.mint)
                                     : ((isCorrect[index] == 1)
-                                        ? MaterialStateProperty.all(
-                                            Colors.green)
-                                        : MaterialStateProperty.all(
-                                            Colors.red)),
-                                elevation: MaterialStateProperty.all(10),
-                                fixedSize: MaterialStateProperty.all(
-                                    Size(120.w, 40.h)),
-                                side: MaterialStateProperty.all(
+                                        ? WidgetStateProperty.all(Colors.green)
+                                        : WidgetStateProperty.all(Colors.red)),
+                                elevation: WidgetStateProperty.all(10),
+                                fixedSize:
+                                    WidgetStateProperty.all(Size(120.w, 40.h)),
+                                side: WidgetStateProperty.all(
                                     const BorderSide(color: Colors.white)),
-                                shape: MaterialStateProperty.all(
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.sp),
                                   ),
@@ -235,7 +272,8 @@ class _QuizPageState extends State<QuizPage> {
                       ],
                     ),
                   ).py(5.sp);
-                });
+                },
+                itemCount: quiz.length);
           }
         },
       ),
@@ -291,22 +329,25 @@ class _QuizPageState extends State<QuizPage> {
               }
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(MyColors.mint),
+<<<<
+              backgroundColor: MaterialStateProperty.all(Theme.of(context).appBarTheme.backgroundColor,),
               elevation: MaterialStateProperty.all(10),
               side: MaterialStateProperty.all(
-                  const BorderSide(color: MyColors.seashall, width: 2)),
+                   BorderSide(color: Theme.of(context).colorScheme.onPrimary, width: 2)),
               shape: MaterialStateProperty.all(
+===
+              
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.sp),
                 ),
               ),
             ),
-            child: const Center(
+            child:  Center(
               child: Text(
                 "Submit",
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ),
@@ -349,13 +390,19 @@ class _QuizPageState extends State<QuizPage> {
                 onPressed: () {
                   Navigator.of(context).pop(false); // Return false if canceled
                 },
-                child: const Text('Cancel'),
+                child:  Text('Cancel',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true); // Return true if confirmed
                 },
-                child: const Text('Submit'),
+                child:  Text('Submit',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
             ],
           ),
@@ -363,8 +410,8 @@ class _QuizPageState extends State<QuizPage> {
         false; // If dialog is dismissed, return false by default
   }
 
-  Future<void> scoreUpdate(BuildContext context) async {
-    // Add the new score to the list of scores.
+  void scoreListAdd(BuildContext context) {
+    // Add the new score to the list
     Scores.scores.add(
       Score(
         correct: correct, // Number of correct answers
@@ -374,5 +421,72 @@ class _QuizPageState extends State<QuizPage> {
             .format(DateTime.now()), // Add the current date
       ),
     );
+
+    // Ensure we only keep the last 10 scores
+    if (Scores.scores.length > 10) {
+      Scores.scores = Scores.scores.sublist(Scores.scores.length - 10);
+    }
+
+    // Update the scores in Firestore
+    Scores.addScores(
+      context: context,
+      score: Scores.scores,
+      email: CurrentUser.currentUser.email,
+    );
+  }
+
+  Future<void> scoreFetch() async {
+    print("score: ${CurrentUser.currentUser.email}");
+    DocumentReference userDocRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(CurrentUser.currentUser.email)
+        .collection("previousScores")
+        .doc("scores");
+
+    try {
+      DocumentSnapshot data = await userDocRef.get();
+
+      if (data.exists) {
+        // Document with scores exists, fetch scores
+        List temp = data['scores'];
+        print(temp.length);
+
+        for (int i = 0; i < temp.length; i++) {
+          Scores.scores.add(Score(
+            correct: data['scores'][i]['correct'],
+            scoreInPercent: data['scores'][i]['scoreInPercent'],
+            date: data['scores'][i]['date'],
+          ));
+        }
+
+        print(Scores.scores.length);
+      } else {
+        // Document does not exist, create a new one with an empty list
+        await userDocRef.set({'scores': []});
+      }
+    } catch (e) {
+      print("Error fetching scores: $e");
+    }
+  }
+
+  Future<void> scoreUpdate(BuildContext context) async {
+    // Add the new score to the list of scores.
+
+    // Scores.scores.add(
+    //   Score(
+    //     correct: correct, // Number of correct answers
+    //     scoreInPercent:
+    //         (correct * 10), // Calculate percentage or whatever logic you have
+    //     date: DateFormat('yyyy-MM-dd')
+    //         .format(DateTime.now()), // Add the current date
+    //   ),
+    // );
+    Scores.scores.clear();
+
+    // Fetch existing scores
+    await scoreFetch();
+
+    // Add the new score and ensure the list has only the last 10 scores
+    scoreListAdd(context);
   }
 }

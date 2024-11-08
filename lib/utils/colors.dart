@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+/// A utility class to define and store custom colors used throughout the app.
+/// The colors are stored as static constants so they can be easily accessed without 
+/// needing to instantiate the `MyColors` class.
 
 class MyColors {
+  // Custom colors defined using their hexadecimal values.
+  
   static const Color lime = Color(0xFFC4DFDF);
   static const Color seashall = Color(0xFFF8F6F4);
   static const Color lightLime = Color(0xFFE3F4F4);

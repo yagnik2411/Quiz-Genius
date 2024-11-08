@@ -32,7 +32,7 @@ class _QuizPageState extends State<QuizMCQPage> {
   @override
   void initState() {
     super.initState();
-    quizFuture = Questions().getMCQQuestions();
+    quizFuture = Questions().getMCQQuestions(widget.difficulty);
     startTimer();
   }
 
@@ -65,9 +65,9 @@ class _QuizPageState extends State<QuizMCQPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.lightCyan,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, 
       appBar: AppBar(
-        backgroundColor: MyColors.mint,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Center(
           child: Text(
             "MCQ Quiz",
@@ -475,10 +475,10 @@ class _QuizPageState extends State<QuizMCQPage> {
               }
             },
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(MyColors.mint),
+              backgroundColor: WidgetStateProperty.all(Theme.of(context).appBarTheme.backgroundColor,),
               elevation: WidgetStateProperty.all(10),
               side: WidgetStateProperty.all(
-                  const BorderSide(color: MyColors.seashall, width: 2)),
+                   BorderSide(color: Theme.of(context).colorScheme.onPrimary, width: 2)),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
@@ -487,8 +487,16 @@ class _QuizPageState extends State<QuizMCQPage> {
                 ),
               ),
             ),
-            child: "submit".text.xl2.make(),
-          ).p(12.sp),
+              child:  Center(
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+            ),
+          )
         ),
       ),
     );
@@ -527,13 +535,19 @@ class _QuizPageState extends State<QuizMCQPage> {
                 onPressed: () {
                   Navigator.of(context).pop(false); // Return false if canceled
                 },
-                child: const Text('Cancel'),
+                child:  Text('Cancel',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true); // Return true if confirmed
                 },
-                child: const Text('Submit'),
+                child:  Text('Submit',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),),
               ),
             ],
           ),
