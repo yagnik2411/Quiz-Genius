@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+
             // drawer: Drawer(
             //   elevation: 10.0,
             //   backgroundColor: MyColors.elfGreen,
@@ -253,6 +254,7 @@ class _HomePageState extends State<HomePage> {
             //     ],
             //   ),
             // ),
+
             drawer: _buildDrawer(context), // Drawer for navigation
           );
         } else {
@@ -303,7 +305,8 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 50.h),
           _drawerHeader(),
           _drawerItem(CupertinoIcons.profile_circled, "Profile", MyRoutes.profileRoute, context),
-          _drawerItem(Icons.question_answer_outlined, "New Quiz", MyRoutes.quizRoute, context),
+          _drawerItem(Icons.question_answer_outlined, "New Quiz", null, context, 
+              onTap: () => showDiffMenu(context)), // Open difficulty selection dialog
           _drawerItem(CupertinoIcons.question_circle_fill, "Last Quiz", MyRoutes.previousQuizRoute, context),
           _drawerItem(CupertinoIcons.arrow_left_square_fill, "Sign Out", null, context,
               onTap: () => Auth(FirebaseAuth.instance).signOut(context: context)),
