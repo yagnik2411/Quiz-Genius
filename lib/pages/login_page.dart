@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart'; // For responsive U
 import 'package:flutter_svg/flutter_svg.dart'; // To display SVG images
 import 'package:quiz_genius/firebase/auth.dart'; // Custom authentication class
 import 'package:quiz_genius/models/current_user.dart'; // Model to handle current user details
-import 'package:quiz_genius/pages/forgot_password.dart';
 import 'package:quiz_genius/utils/my_route.dart'; // Custom route definitions
 import 'package:velocity_x/velocity_x.dart'; // For faster UI development with Vx
 
@@ -26,9 +25,7 @@ class _LoginState extends State<Login> {
   // Controllers to capture input for email and password fields
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-// Variable to track password visibility
-  bool _isPasswordVisible = false;
+  bool isVisible = true;
 
   // Method to handle navigation to home after successful login
   moveToHome(BuildContext context) async {
@@ -58,7 +55,6 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // AppBar background color
         automaticallyImplyLeading: false,
-
         title: const Center(
           child: Text(
             "Login Page", // AppBar title
@@ -105,24 +101,13 @@ class _LoginState extends State<Login> {
                     topRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
-                 cursorColor: Colors.black, // Set cursor color to black
-                
-
                 // Input decoration for the email field
                 decoration: InputDecoration(
                   hintText: "eg: abcd@gmail.com", // Placeholder text
                   hintStyle: TextStyle(
-                    color: Colors.black.withOpacity(0.5), // Hint text color
-                    fontSize: 15,
+                    color: Colors.deepPurple.withOpacity(0.4), // Hint text color
                   ),
                   labelText: "Email", // Label for the text field
-                  labelStyle: TextStyle(color: Colors.black), // Set label color to black
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black), // Set underline color when not focused
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black), // Set underline color when focused
-    ),
                 ),
                 // Validation logic for the email field
                 validator: (value) {
@@ -148,37 +133,23 @@ class _LoginState extends State<Login> {
                     bottomRight: Radius.circular(20.sp),
                   )),
               child: TextFormField(
-                 cursorColor: Colors.black, // Set cursor color to black
-                 obscureText: !_isPasswordVisible, // Toggle password visibility
-                // Input decoration for the password field
+                obscureText: isVisible,
                 decoration: InputDecoration(
-                  hintText: "eg: 123456", // Placeholder text
-                  hintStyle: TextStyle(
-                    color: Colors.black.withOpacity(0.5), // Hint text color
-                    fontSize: 15,
-                  ),
-                  labelText: "Password", // Label for the password field
-                  labelStyle: TextStyle(color: Colors.black), // Set label color to black
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black), // Set underline color when not focused
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black), // Set underline color when focused
-    ),
-       // Toggle visibility icon
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        });
-                      },
+                    hintText: "eg: 123456",
+                    hintStyle: TextStyle(
+                      color: Colors.deepPurple.withOpacity(0.4),
                     ),
-                ),
-                // Validation logic for the password field
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                          });
+                        },
+                        icon: Icon(isVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility))),
+
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Password cannot be empty"; // Error if empty
@@ -193,17 +164,6 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 10.h, // Space after the password field
             ),
-            TextButton(onPressed: (){
-                Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ForgotPassword()),
-    );
-            }, child: Text("Forgot Password",
-            style: TextStyle(
-              fontSize: 15.sp,
-              color: Colors.black.withOpacity(0.6),
-              fontWeight: FontWeight.w600
-            ),)),
             // Row of buttons (Login and Sign Up)
             OverflowBar(
               children: [
