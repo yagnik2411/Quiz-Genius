@@ -51,9 +51,10 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.lightCyan, // Background color for the scaffold
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Background color for the scaffold
       appBar: AppBar(
-        backgroundColor: MyColors.mint, // AppBar background color
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // AppBar background color
+        automaticallyImplyLeading: false,
         title: const Center(
           child: Text(
             "Login Page", // AppBar title
@@ -82,7 +83,7 @@ class _LoginState extends State<Login> {
             "Welcome to Quiz Genius"
                 .text
                 .xl2 // Set text size
-                .color(MyColors.malachite) // Set text color
+                .color(Theme.of(context).colorScheme.secondary,) // Set text color
                 .bold // Make the text bold
                 .center // Center the text
                 .makeCentered(),
@@ -94,7 +95,7 @@ class _LoginState extends State<Login> {
               padding:
                   EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp), // Padding around the text field
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Semi-transparent green background
+                  color: Theme.of(context).appBarTheme.backgroundColor, // Semi-transparent green background
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.sp),
                     topRight: Radius.circular(20.sp),
@@ -126,7 +127,7 @@ class _LoginState extends State<Login> {
               padding:
                   EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Semi-transparent green background
+                  color: Theme.of(context).appBarTheme.backgroundColor, // Semi-transparent green background
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.sp),
                     bottomRight: Radius.circular(20.sp),
@@ -176,42 +177,42 @@ class _LoginState extends State<Login> {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        WidgetStateProperty.all(MyColors.malachite), // Button color
+                        WidgetStateProperty.all(Theme.of(context).colorScheme.primary,), // Button color
                     elevation: WidgetStateProperty.all(10), // Button elevation (shadow)
                     side: WidgetStateProperty.all(
-                        const BorderSide(color: Colors.white)), // Button border
+                         BorderSide(color:Theme.of(context).colorScheme.onPrimary,)), // Button border
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.sp), // Rounded corners
                       ),
                     ),
                   ),
-                  child: const Text(
+                  child:  Text(
                     "Login", // Button text
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold), // Text styling
+                        color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold), // Text styling
                   ),
                 ),
                 // Sign Up button
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(
+                    Navigator.pushNamed(
                         context, MyRoutes.signUpRoute); // Navigate to SignUp page
                   },
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(MyColors.mint), // Button color
+                    backgroundColor: WidgetStateProperty.all(Theme.of(context).appBarTheme.backgroundColor,), // Button color
                     elevation: WidgetStateProperty.all(10), // Button elevation (shadow)
                     side: WidgetStateProperty.all(
-                        const BorderSide(color: Colors.white)), // Button border
+                         BorderSide(color: Theme.of(context).colorScheme.onPrimary,)), // Button border
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.sp), // Rounded corners
                       ),
                     ),
                   ),
-                  child: const Text("Sign Up",
+                  child:  Text("Sign Up",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)), // Text styling
+                          color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold)), // Text styling
                 ).px(12.sp), // Padding around the Sign Up button
               ],
             ).px(16.sp) // Horizontal padding for button row

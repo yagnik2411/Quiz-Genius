@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart'; // Package for email validation
 import 'package:firebase_auth/firebase_auth.dart'; // Firebase authentication package
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'; // Flutter material package
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // For responsive UI
 import 'package:flutter_svg/flutter_svg.dart'; // For SVG image support
@@ -52,9 +53,16 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.lightCyan, // Set background color
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,  // Set background color
       appBar: AppBar(
-        backgroundColor: MyColors.mint, // Set app bar color
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Set app bar color
+         leading: IconButton(
+                onPressed: () {
+                  // Navigates back to the previous screen
+                  Navigator.pop(context);
+                },
+                icon: const Icon(CupertinoIcons.back),
+              ),
         title: Center(
           child: Text(
             "SignUp Page", // Title of the page
@@ -80,7 +88,7 @@ class _SignUpState extends State<SignUp> {
             "SignUp to Quiz Genius"
                 .text
                 .xl2
-                .color(MyColors.malachite)
+                .color(Theme.of(context).colorScheme.secondary,)
                 .bold
                 .center
                 .makeCentered(),
@@ -89,7 +97,7 @@ class _SignUpState extends State<SignUp> {
             Container(
               padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Input field background color
+                  color: Theme.of(context).appBarTheme.backgroundColor, // Input field background color
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.sp),
                     topRight: Radius.circular(20.sp),
@@ -118,7 +126,7 @@ class _SignUpState extends State<SignUp> {
             Container(
               padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 10.sp),
               decoration: BoxDecoration(
-                  color: MyColors.elfGreen.withOpacity(0.6), // Input field background color
+                  color: Theme.of(context).appBarTheme.backgroundColor, // Input field background color
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.sp),
                     bottomRight: Radius.circular(20.sp),
@@ -164,10 +172,10 @@ class _SignUpState extends State<SignUp> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStateProperty.all(MyColors.malachite), // Button color
+                          WidgetStateProperty.all(Theme.of(context).colorScheme.primary,), // Button color
                       elevation: WidgetStateProperty.all(10), // Button elevation
                       side: WidgetStateProperty.all(
-                          const BorderSide(color: Colors.white)), // Button border
+                           BorderSide(color: Theme.of(context).colorScheme.onPrimary,)), // Button border
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.sp), // Rounded corners
@@ -175,10 +183,10 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     child: Center(
-                        child: const Text(
+                        child:  Text(
                       "Sign Up", // Button text
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold), // Button text style
+                          color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold), // Button text style
                     )),
                   ),
                 ],
