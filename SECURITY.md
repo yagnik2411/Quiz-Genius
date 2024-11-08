@@ -11,6 +11,8 @@ If you discover a security vulnerability in Quiz Genius, we encourage you to rep
 # How to Report
 Please report vulnerabilities by emailing us at quizgenius@gmail.com. Include as much detail as possible to help us identify and fix the issue swiftly.
 Do not share the vulnerability publicly until it has been addressed and a patch is available.
+We can report the issue on the respective github profile  https://github.com/yagnik2411
+
 Security Updates
 We will notify users via GitHub releases for any critical security updates.
 Minor security patches will be included in regular updates as needed.
