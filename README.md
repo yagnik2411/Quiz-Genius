@@ -7,26 +7,11 @@
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
-<table align="center">
-    <thead align="center">
-        <tr border: 2px;>
-            <td><b>🌟 Stars</b></td>
-            <td><b>🍴 Forks</b></td>
-            <td><b>🐛 Issues</b></td>
-            <td><b>🔔 Open PRs</b></td>
-            <td><b>🔕 Closed PRs</b></td>
-        </tr>
-    </thead>
-    <tbody>
-         <tr>
-            <td><img alt="Stars" src="https://img.shields.io/github/stars/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-            <td><img alt="Forks" src="https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-            <td><img alt="Issues" src="https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-            <td><img alt="Open Pull Requests" src="https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?style=flat&logo=github"/></td>
-            <td><img alt="Closed Pull Requests" src="https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat&color=green&logo=github"/></td>
-        </tr>
-    </tbody>
-</table>
+<div align="center">
+| Stars 🌟                                                                                                                                | Forks🍴                                                                                                                                      | Issues 🐛                                                                                                                             | Pull 🔔 Requests                                                                                                                               | Closed PRs 🔕                                                                                                                                                            |
+| --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [![Stars](https://img.shields.io/github/stars/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/stargazers) | [![Forks](https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/network/members) | [![Issues](https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/issues) | [![Pull Requests](https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls) | [![Closed PRs](https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls?q=is%3Apr+is%3Aclosed) |
+</div>
 
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
