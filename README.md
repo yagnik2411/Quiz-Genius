@@ -1,45 +1,31 @@
 <div align="center">
   
 # Quiz Genius - A Flutter Quiz App
-<img  src="https://readme-typing-svg.herokuapp.com?color=2ecc71&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+Quiz+Genius!"/>
+<img src="https://readme-typing-svg.herokuapp.com?color=2ecc71&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+Quiz+Genius!"/>
+
 </div>
 
 **Quiz Genius** is a quiz app built with Flutter and Dart, designed to provide an engaging quiz experience with various features that enhance user interaction and performance tracking.
 
+<div align="center">
 | Stars 🌟                                                                                                                                | Forks🍴                                                                                                                                      | Issues 🐛                                                                                                                             | Pull 🔔 Requests                                                                                                                               | Closed PRs 🔕                                                                                                                                                            |
 | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [![Stars](https://img.shields.io/github/stars/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/stargazers) | [![Forks](https://img.shields.io/github/forks/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/network/members) | [![Issues](https://img.shields.io/github/issues/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/issues) | [![Pull Requests](https://img.shields.io/github/issues-pr/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls) | [![Closed PRs](https://img.shields.io/github/issues-pr-closed/yagnik2411/Quiz-Genius?style=flat)](https://github.com/yagnik2411/Quiz-Genius/pulls?q=is%3Apr+is%3Aclosed) |
+</div>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
-
-<!-- Added Hacktoberfest 2024 and GSSoC Extended 2024 banners -->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
 
 ### This project is now OFFICIALLY accepted for
 
-<table>
-
-   <tr>
-      <th>Event Logo</th>
-      <th>Event Name</th>
-      <th>Event Description</th>
-   </tr>
-   <tr>
-      <td><img src="https://github.com/Annapoornaaradhya/Quiz-Genius/blob/README/assets/images/gssocextd.jpg" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
-      <td>GirlScript Summer of Code 2024</td>
-      <td>GirlScript Summer of Code is a three-month-long Open Source Program conducted every summer by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development.</td>
-   </tr>
-    <tr>
-      <td><img src="https://github.com/Annapoornaaradhya/Quiz-Genius/blob/README/assets/images/hacktoberfest.png" width="200" height="auto" loading="lazy" alt="Hacktoberfest 2024"/></td>
-      <td>Hacktoberfest 2024</td>
-      <td>Hacktoberfest is a month-long celebration of open source software run by DigitalOcean, GitHub, and Twilio. It encourages contributions to open source projects and promotes a global community of developers.</td>
-   </tr>
-
-</table>
-<br/>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
+  <img src="https://hacktoberfest.com/_next/static/media/opengraph.9dc60c9d.png" alt="Hacktoberfest 2024" width="80%">
+</div>
+<br>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
 
 ## Table of Contents
 
@@ -54,18 +40,14 @@
 
 ## UI Preview
 <div align="center">
-  <div align="center">
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_1.png" alt="Screenshot 1" width="300"/>
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_2.png" alt="Screenshot 2" width="300"/>
-  </div>
-  <div align="center">
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_3.png" alt="Screenshot 3" width="300"/>
-    <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_4.png" alt="Screenshot 4" width="300"/>
-  </div>  
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_1.png" alt="Screenshot 1" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_2.png" alt="Screenshot 2" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_3.png" alt="Screenshot 3" width="300"/>
+  <img src="https://github.com/yagnik2411/Quiz-Genius/blob/master/assets/images/Screenshot_4.png" alt="Screenshot 4" width="300"/>
 </div>
 
 <!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900"/>
 
 ## Features
 
